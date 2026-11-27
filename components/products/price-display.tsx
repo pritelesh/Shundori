@@ -36,7 +36,7 @@ export function PriceDisplay({
     <p className={cn("flex flex-wrap items-baseline gap-x-2 gap-y-1", className)}>
       <span
         className={cn(
-          "font-medium tabular-nums text-charcoal",
+          "font-medium tabular-nums text-dark-text",
           priceSizes[size],
         )}
       >
@@ -47,7 +47,7 @@ export function PriceDisplay({
           <span className="sr-only">Original price</span>
           <span
             className={cn(
-              "tabular-nums text-muted line-through decoration-muted/50",
+              "tabular-nums text-taupe line-through decoration-taupe/50",
               compareSizes[size],
             )}
           >

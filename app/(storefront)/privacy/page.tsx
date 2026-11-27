@@ -43,11 +43,11 @@ export default function PrivacyPage() {
 
       <Container className="py-14 sm:py-20">
         <div className="max-w-3xl">
-          <div className="rounded-2xl border border-pink/30 bg-pink-tint p-5">
-            <p className="text-sm font-medium text-charcoal">
+          <div className="rounded-2xl border border-chocolate/30 bg-soft-cream p-5">
+            <p className="text-sm font-medium text-dark-text">
               Placeholder policy
             </p>
-            <p className="mt-1 text-sm leading-6 text-muted">
+            <p className="mt-1 text-sm leading-6 text-taupe">
               This policy is being prepared and will be published before the
               store opens. The sections below outline its final structure.
             </p>
@@ -56,17 +56,17 @@ export default function PrivacyPage() {
           <div className="mt-10 space-y-8">
             {sections.map((section) => (
               <section key={section.title}>
-                <h2 className="font-display text-xl text-charcoal">
+                <h2 className="font-display text-xl text-dark-text">
                   {section.title}
                 </h2>
-                <p className="mt-2 text-sm leading-7 text-muted">
+                <p className="mt-2 text-sm leading-7 text-taupe">
                   {section.body}
                 </p>
               </section>
             ))}
           </div>
 
-          <p className="mt-10 border-t border-line pt-6 text-xs text-muted">
+          <p className="mt-10 border-t border-warm-line pt-6 text-xs text-taupe">
             Last updated: November 2026 · Placeholder content pending legal
             review.
           </p>

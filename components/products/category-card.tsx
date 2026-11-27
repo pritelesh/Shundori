@@ -32,7 +32,7 @@ export function CategoryCard({
 }: CategoryCardProps) {
   const content = (
     <>
-      <div className="relative flex h-40 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-pink-tint via-cream-soft to-cream-deep/60">
+      <div className="relative flex h-40 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-soft-cream via-warm-white to-light-beige/60">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -55,7 +55,7 @@ export function CategoryCard({
             <ProductVisual shape={visual} tone={tone} size="md" className="text-[4rem]" />
           </span>
         ) : !imageUrl ? (
-          <span className="relative flex size-14 items-center justify-center rounded-full bg-white text-emerald shadow-[0_10px_24px_-14px_rgba(31,31,31,0.4)]">
+          <span className="relative flex size-14 items-center justify-center rounded-full bg-warm-white text-olive-deep shadow-soft">
             <Icon className="size-6" aria-hidden="true" />
           </span>
         ) : null}
@@ -63,22 +63,22 @@ export function CategoryCard({
 
       <div className="p-5">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="font-display text-xl text-charcoal">{name}</h3>
+          <h3 className="font-display text-xl text-dark-text">{name}</h3>
           <ArrowUpRight
-            className="size-4 text-muted transition-colors group-hover:text-emerald"
+            className="size-4 text-taupe transition-colors group-hover:text-olive-deep"
             aria-hidden="true"
           />
         </div>
-        <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-muted">
+        <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-taupe">
           {productCount} products
         </p>
-        <p className="mt-3 text-sm leading-6 text-muted">{description}</p>
+        <p className="mt-3 text-sm leading-6 text-taupe">{description}</p>
       </div>
     </>
   );
 
   const cardClass = cn(
-    "group flex flex-col overflow-hidden rounded-2xl border border-line/70 bg-white p-2.5 transition-all duration-300 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_24px_50px_-32px_rgba(31,31,31,0.4)]",
+    "group flex flex-col overflow-hidden rounded-2xl border border-warm-line/70 bg-warm-white p-2.5 transition-all duration-300 hover:-translate-y-1 hover:border-warm-line-strong hover:shadow-soft",
     className,
   );
 

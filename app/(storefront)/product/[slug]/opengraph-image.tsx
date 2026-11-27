@@ -42,9 +42,9 @@ export default async function Image({
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#fff4db",
+          background: "#FFD5AF",
           padding: 80,
-          color: "#1f1f1f",
+          color: "#3A2923",
         }}
       >
         <div
@@ -53,7 +53,7 @@ export default async function Image({
             justifyContent: "space-between",
             fontSize: 28,
             letterSpacing: 6,
-            color: "#046a38",
+            color: "#712E1E",
           }}
         >
           <span>Shundori</span>
@@ -73,7 +73,7 @@ export default async function Image({
           style={{
             display: "flex",
             fontSize: 42,
-            color: "#1f1f1f",
+            color: "#712E1E",
           }}
         >
           {price}

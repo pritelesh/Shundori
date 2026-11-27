@@ -222,12 +222,13 @@ types and never return raw database records to components.
 
 ### Styling and branding
 
-Official palette in `app/globals.css`: Hot Pink `#FF69B4` for primary actions
-and promotions, Vanilla Cream `#FFF4DB` for page backgrounds, and Emerald Green
-`#046A38` for secondary actions, trust marks and text accents. Surfaces are
-white and body text is dark charcoal. Pink is never used for small text on
-cream or emerald because it fails contrast; those accents use charcoal or white
-with pink used decoratively.
+Official palette in `app/globals.css`: Peach Cream `#FFD5AF` for backgrounds,
+Warm Caramel `#E59A59` for secondary actions, Muted Olive `#888870` for accents
+and badges, and Deep Chocolate `#712E1E` for headings and primary actions.
+Neutral tokens are Warm White `#FFFAF5`, Soft Cream `#FFF1E5`, Light Beige
+`#F3E6D8` and Dark Text `#3A2923`. Derived tones stay in the token file so
+components never hardcode colors. Accent text uses the accessible olive-deep
+token instead of the lighter brand olive.
 
 Playfair Display is used for headings and Inter for body and UI text. The
 Shundori wordmark is a text placeholder until final logo artwork is approved.
@@ -338,8 +339,8 @@ The service role key must be a server-only Vercel variable and must never use a
   `inventory_changes` history
 - `/admin/orders` read-only list with controlled status transitions; payment
   fields are never editable
-- Responsive Hot Pink / Vanilla Cream / Emerald Green admin shell with sidebar,
-  top navigation, tables, forms, modals and toasts
+- Responsive Peach Cream / Warm Caramel / Deep Chocolate admin shell with
+  sidebar, top navigation, tables, forms, modals and toasts
 - Admin mutations call `revalidatePath("/", "layout")` so published catalogue
   changes appear on the storefront without a redeploy
 - Typecheck, lint, production build, unauthenticated route redirects and API

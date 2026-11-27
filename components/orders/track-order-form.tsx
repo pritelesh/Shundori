@@ -43,7 +43,7 @@ export function TrackOrderForm() {
 
   return (
     <div className="space-y-8">
-      <form action={trackAction} className="rounded-2xl border border-line bg-white p-6 sm:p-8">
+      <form action={trackAction} className="rounded-2xl border border-warm-line bg-warm-white p-6 sm:p-8">
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="orderNumber" className="mb-2 block text-sm font-medium">
@@ -59,11 +59,11 @@ export function TrackOrderForm() {
               aria-describedby="orderNumber-help"
               required
             />
-            <p id="orderNumber-help" className="mt-1.5 text-xs text-muted">
+            <p id="orderNumber-help" className="mt-1.5 text-xs text-taupe">
               Find it in your order confirmation.
             </p>
             {trackState.fieldErrors.orderNumber ? (
-              <p className="mt-1 text-xs text-pink">
+              <p className="mt-1 text-xs text-chocolate">
                 {trackState.fieldErrors.orderNumber}
               </p>
             ) : null}
@@ -85,11 +85,11 @@ export function TrackOrderForm() {
               aria-describedby="phone-help"
               required
             />
-            <p id="phone-help" className="mt-1.5 text-xs text-muted">
+            <p id="phone-help" className="mt-1.5 text-xs text-taupe">
               Use the number you entered at checkout.
             </p>
             {trackState.fieldErrors.phone ? (
-              <p className="mt-1 text-xs text-pink">
+              <p className="mt-1 text-xs text-chocolate">
                 {trackState.fieldErrors.phone}
               </p>
             ) : null}
@@ -97,7 +97,7 @@ export function TrackOrderForm() {
         </div>
 
         {trackState.status === "error" && trackState.message ? (
-          <p className="mt-4 rounded-lg bg-pink-tint px-4 py-3 text-sm text-charcoal">
+          <p className="mt-4 rounded-lg bg-soft-cream px-4 py-3 text-sm text-dark-text">
             {trackState.message}
           </p>
         ) : null}
@@ -111,7 +111,7 @@ export function TrackOrderForm() {
             )}
             {tracking ? "Searching…" : "Track order"}
           </Button>
-          <p className="flex items-center gap-1.5 text-xs text-muted">
+          <p className="flex items-center gap-1.5 text-xs text-taupe">
             <LockKeyhole className="size-3.5" aria-hidden="true" />
             Both details must match before any order data is shown.
           </p>
@@ -120,23 +120,23 @@ export function TrackOrderForm() {
 
       {order ? (
         <div className="space-y-5">
-          <section className="rounded-2xl border border-line bg-white p-6 sm:p-8">
+          <section className="rounded-2xl border border-warm-line bg-warm-white p-6 sm:p-8">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-pink">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-chocolate">
                   Order found
                 </p>
                 <h2 className="mt-1 font-display text-2xl">{order.orderNumber}</h2>
-                <p className="mt-1 text-sm text-muted">
+                <p className="mt-1 text-sm text-taupe">
                   Placed {formatDate(order.placedAt)}
                 </p>
               </div>
-              <Badge variant="emeraldSoft">{order.status}</Badge>
+              <Badge variant="accentSoft">{order.status}</Badge>
             </div>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-xl bg-cream/60 p-4">
-                <p className="text-[10px] uppercase tracking-[0.14em] text-muted">
+              <div className="rounded-xl bg-peach/60 p-4">
+                <p className="text-[10px] uppercase tracking-[0.14em] text-taupe">
                   Payment method
                 </p>
                 <p className="mt-1 text-sm font-medium">
@@ -145,8 +145,8 @@ export function TrackOrderForm() {
                   )?.label ?? order.paymentMethod}
                 </p>
               </div>
-              <div className="rounded-xl bg-cream/60 p-4">
-                <p className="text-[10px] uppercase tracking-[0.14em] text-muted">
+              <div className="rounded-xl bg-peach/60 p-4">
+                <p className="text-[10px] uppercase tracking-[0.14em] text-taupe">
                   Estimated delivery
                 </p>
                 <p className="mt-1 text-sm font-medium">
@@ -157,8 +157,8 @@ export function TrackOrderForm() {
                       : "Not available — no courier is connected"}
                 </p>
               </div>
-              <div className="rounded-xl bg-cream/60 p-4">
-                <p className="text-[10px] uppercase tracking-[0.14em] text-muted">
+              <div className="rounded-xl bg-peach/60 p-4">
+                <p className="text-[10px] uppercase tracking-[0.14em] text-taupe">
                   Cancellation
                 </p>
                 <p className="mt-1 text-sm font-medium">
@@ -168,11 +168,11 @@ export function TrackOrderForm() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-line bg-white p-6 sm:p-8">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+          <section className="rounded-2xl border border-warm-line bg-warm-white p-6 sm:p-8">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-taupe">
               Items in this order
             </h3>
-            <ul className="mt-4 divide-y divide-line/60">
+            <ul className="mt-4 divide-y divide-warm-line/60">
               {order.items.map((item, index) => (
                 <li
                   key={`${item.productName}-${index}`}
@@ -180,7 +180,7 @@ export function TrackOrderForm() {
                 >
                   <div>
                     <p className="text-sm font-medium">{item.productName}</p>
-                    <p className="text-xs text-muted">
+                    <p className="text-xs text-taupe">
                       {formatPrice(item.unitPrice)} × {item.quantity}
                     </p>
                   </div>
@@ -190,8 +190,8 @@ export function TrackOrderForm() {
             </ul>
           </section>
 
-          <section className="rounded-2xl border border-line bg-white p-6 sm:p-8">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+          <section className="rounded-2xl border border-warm-line bg-warm-white p-6 sm:p-8">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-taupe">
               Cancel this order
             </h3>
 
@@ -210,36 +210,36 @@ export function TrackOrderForm() {
                   name="reason"
                   rows={3}
                   maxLength={500}
-                  className="w-full rounded-lg border border-line bg-white px-4 py-3 text-sm text-charcoal placeholder:text-muted/70 focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/15"
+                  className="w-full rounded-lg border border-warm-line bg-warm-white px-4 py-3 text-sm text-dark-text placeholder:text-taupe/70 focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15"
                   placeholder="Tell us why you no longer need this order"
                   aria-invalid={Boolean(cancelState.fieldErrors.reason)}
                   required
                 />
                 {cancelState.fieldErrors.reason ? (
-                  <p className="mt-1 text-xs text-pink">
+                  <p className="mt-1 text-xs text-chocolate">
                     {cancelState.fieldErrors.reason}
                   </p>
                 ) : null}
                 {cancelState.status === "error" && cancelState.message ? (
-                  <p className="mt-3 rounded-lg bg-pink-tint px-4 py-3 text-sm">
+                  <p className="mt-3 rounded-lg bg-soft-cream px-4 py-3 text-sm">
                     {cancelState.message}
                   </p>
                 ) : null}
                 {cancelState.status === "success" && cancelState.message ? (
-                  <p className="mt-3 rounded-lg bg-emerald-soft px-4 py-3 text-sm text-emerald">
+                  <p className="mt-3 rounded-lg bg-olive-soft px-4 py-3 text-sm text-olive-deep">
                     {cancelState.message}
                   </p>
                 ) : null}
                 <Button type="submit" variant="outline" disabled={cancelling} className="mt-4">
                   {cancelling ? "Submitting…" : "Request cancellation"}
                 </Button>
-                <p className="mt-3 text-xs leading-5 text-muted">
+                <p className="mt-3 text-xs leading-5 text-taupe">
                   Requests are reviewed by our team. Stock is only restored after
                   approval; this request does not cancel the order immediately.
                 </p>
               </form>
             ) : (
-              <p className="mt-3 text-sm leading-6 text-muted">
+              <p className="mt-3 text-sm leading-6 text-taupe">
                 {order.cancellationStatus === "requested"
                   ? "Your cancellation request is waiting for review."
                   : order.cancellationStatus === "approved"
@@ -251,8 +251,8 @@ export function TrackOrderForm() {
             )}
           </section>
 
-          <section className="rounded-2xl border border-line bg-white p-6 sm:p-8">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+          <section className="rounded-2xl border border-warm-line bg-warm-white p-6 sm:p-8">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-taupe">
               Need help with this order?
             </h3>
             <OrderEnquiryForm
@@ -263,8 +263,8 @@ export function TrackOrderForm() {
           </section>
 
           {order.courier.state === "connected" ? (
-            <section className="rounded-2xl border border-line bg-white p-6 sm:p-8">
-              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+            <section className="rounded-2xl border border-warm-line bg-warm-white p-6 sm:p-8">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-taupe">
                 Courier
               </h3>
               <p className="mt-3 text-sm">
@@ -275,7 +275,7 @@ export function TrackOrderForm() {
                   href={order.courier.trackingUrl}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="mt-2 inline-block text-sm underline decoration-pink decoration-2 underline-offset-4"
+                  className="mt-2 inline-block text-sm underline decoration-chocolate decoration-2 underline-offset-4"
                 >
                   Open courier tracking page
                 </Link>

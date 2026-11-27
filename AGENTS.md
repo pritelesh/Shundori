@@ -19,5 +19,6 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
   per-request) and `admin.ts` (service role, trusted server code only).
 - Never expose `SUPABASE_SERVICE_ROLE_KEY` or prefix it with `NEXT_PUBLIC_`.
 - Store money as integer poisha; format with `utils/format.ts`.
-- Branding is undecided. The neutral tokens in `app/globals.css` are temporary.
+- The official Shundori palette and its derived tokens live in `app/globals.css`;
+  do not add hardcoded brand colors in components.
 

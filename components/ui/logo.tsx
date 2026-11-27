@@ -54,7 +54,7 @@ export function Logo({
       ) : (
         <span
           className={cn(
-            "font-display font-medium text-charcoal",
+            "font-display font-medium text-chocolate",
             sizes[size],
           )}
         >
@@ -62,7 +62,7 @@ export function Logo({
         </span>
       )}
       {withTagline ? (
-        <span className="mt-1.5 text-[8px] font-medium uppercase tracking-[0.34em] text-emerald">
+        <span className="mt-1.5 text-[8px] font-medium uppercase tracking-[0.34em] text-olive-deep">
           {tagline}
         </span>
       ) : null}

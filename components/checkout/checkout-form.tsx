@@ -31,12 +31,12 @@ const INITIAL_STATE: CheckoutMutationState = {
 };
 
 const fieldClass =
-  "h-11 w-full rounded-lg border border-line bg-white px-4 text-sm text-charcoal placeholder:text-muted/70 transition-colors focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/15 disabled:opacity-50";
+  "h-11 w-full rounded-lg border border-warm-line bg-warm-white px-4 text-sm text-dark-text placeholder:text-taupe/70 transition-colors focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15 disabled:opacity-50";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p id={id} className="mt-1.5 text-xs text-pink">
+    <p id={id} className="mt-1.5 text-xs text-chocolate">
       {message}
     </p>
   );
@@ -181,8 +181,8 @@ export function CheckoutForm() {
   if (!ready || (cartLines.length > 0 && quoteLoading && !quote)) {
     return (
       <Container className="py-14 sm:py-20">
-        <div className="mx-auto max-w-3xl rounded-2xl border border-line bg-white p-8 text-center">
-          <p className="animate-pulse text-sm text-muted">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-warm-line bg-warm-white p-8 text-center">
+          <p className="animate-pulse text-sm text-taupe">
             Preparing your checkout…
           </p>
         </div>
@@ -193,11 +193,11 @@ export function CheckoutForm() {
   if (cartLines.length === 0 || !quote) {
     return (
       <Container className="py-14 sm:py-20">
-        <div className="mx-auto max-w-3xl rounded-2xl border border-line bg-white p-8 text-center">
-          <h2 className="font-display text-2xl text-charcoal">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-warm-line bg-warm-white p-8 text-center">
+          <h2 className="font-display text-2xl text-dark-text">
             {quoteError ? "Checkout is unavailable" : "Your bag is empty"}
           </h2>
-          <p className="mt-3 text-sm leading-6 text-muted">
+          <p className="mt-3 text-sm leading-6 text-taupe">
             {cartLines.length === 0
               ? "Add a product to your bag before continuing to checkout."
               : (quoteError ?? "Your bag could not be priced.")}
@@ -239,11 +239,11 @@ export function CheckoutForm() {
         />
 
         <div className="min-w-0 space-y-6">
-          <section aria-labelledby="delivery-title" className="rounded-2xl border border-line bg-white p-6 sm:p-8">
-            <h2 id="delivery-title" className="font-display text-2xl text-charcoal">
+          <section aria-labelledby="delivery-title" className="rounded-2xl border border-warm-line bg-warm-white p-6 sm:p-8">
+            <h2 id="delivery-title" className="font-display text-2xl text-dark-text">
               Delivery details
             </h2>
-            <p className="mt-2 text-sm text-muted">
+            <p className="mt-2 text-sm text-taupe">
               We use these details only to fulfil this order.
             </p>
 
@@ -284,7 +284,7 @@ export function CheckoutForm() {
 
               <div>
                 <label htmlFor="email" className="mb-2 block text-sm font-medium">
-                  Email <span className="font-normal text-muted">(optional)</span>
+                  Email <span className="font-normal text-taupe">(optional)</span>
                 </label>
                 <Input
                   id="email"
@@ -356,7 +356,7 @@ export function CheckoutForm() {
 
               <div>
                 <label htmlFor="postalCode" className="mb-2 block text-sm font-medium">
-                  Postal code <span className="font-normal text-muted">(optional)</span>
+                  Postal code <span className="font-normal text-taupe">(optional)</span>
                 </label>
                 <Input
                   id="postalCode"
@@ -388,7 +388,7 @@ export function CheckoutForm() {
 
               <div className="sm:col-span-2">
                 <label htmlFor="addressLine2" className="mb-2 block text-sm font-medium">
-                  Additional address details <span className="font-normal text-muted">(optional)</span>
+                  Additional address details <span className="font-normal text-taupe">(optional)</span>
                 </label>
                 <Input
                   id="addressLine2"
@@ -402,7 +402,7 @@ export function CheckoutForm() {
 
               <div className="sm:col-span-2">
                 <label htmlFor="notes" className="mb-2 block text-sm font-medium">
-                  Delivery notes <span className="font-normal text-muted">(optional)</span>
+                  Delivery notes <span className="font-normal text-taupe">(optional)</span>
                 </label>
                 <textarea
                   id="notes"
@@ -418,8 +418,8 @@ export function CheckoutForm() {
             </div>
           </section>
 
-          <section aria-labelledby="payment-title" className="rounded-2xl border border-line bg-white p-6 sm:p-8">
-            <h2 id="payment-title" className="font-display text-2xl text-charcoal">
+          <section aria-labelledby="payment-title" className="rounded-2xl border border-warm-line bg-warm-white p-6 sm:p-8">
+            <h2 id="payment-title" className="font-display text-2xl text-dark-text">
               Payment method
             </h2>
             <div className="mt-6 space-y-3">
@@ -429,8 +429,8 @@ export function CheckoutForm() {
                   className={cn(
                     "flex items-start gap-3 rounded-xl border p-4 transition-colors",
                     option.enabled
-                      ? "cursor-pointer border-emerald/40 bg-emerald/5"
-                      : "cursor-not-allowed border-line bg-cream-soft/60 opacity-70",
+                      ? "cursor-pointer border-olive-deep/40 bg-olive/5"
+                      : "cursor-not-allowed border-warm-line bg-warm-white/60 opacity-70",
                   )}
                 >
                   <input
@@ -439,25 +439,25 @@ export function CheckoutForm() {
                     value={option.id}
                     defaultChecked={option.id === "cash_on_delivery"}
                     disabled={!option.enabled}
-                    className="mt-0.5 size-4 accent-emerald"
+                    className="mt-0.5 size-4 accent-olive-deep"
                   />
                   <span className="min-w-0 flex-1">
                     <span className="flex flex-wrap items-center gap-2">
-                      <span className="text-sm font-medium text-charcoal">
+                      <span className="text-sm font-medium text-dark-text">
                         {option.label}
                       </span>
                       <span
                         className={cn(
                           "rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.1em]",
                           option.enabled
-                            ? "bg-emerald/10 text-emerald"
-                            : "bg-line/60 text-muted",
+                            ? "bg-olive/10 text-olive-deep"
+                            : "bg-warm-line/60 text-taupe",
                         )}
                       >
                         {option.availability}
                       </span>
                     </span>
-                    <span className="mt-1 block text-xs leading-5 text-muted">
+                    <span className="mt-1 block text-xs leading-5 text-taupe">
                       {option.description}
                     </span>
                   </span>
@@ -465,20 +465,20 @@ export function CheckoutForm() {
               ))}
             </div>
             <FieldError id="payment-error" message={state.fieldErrors.payment} />
-            <p className="mt-4 text-xs leading-5 text-muted">
+            <p className="mt-4 text-xs leading-5 text-taupe">
               Cash on Delivery orders stay unpaid until the admin records payment.
               No online payment is simulated.
             </p>
           </section>
 
-          <section aria-labelledby="bag-review-title" className="rounded-2xl border border-line bg-white p-6 sm:p-8">
-            <h2 id="bag-review-title" className="font-display text-2xl text-charcoal">
+          <section aria-labelledby="bag-review-title" className="rounded-2xl border border-warm-line bg-warm-white p-6 sm:p-8">
+            <h2 id="bag-review-title" className="font-display text-2xl text-dark-text">
               Your items
             </h2>
-            <ul className="mt-5 divide-y divide-line">
+            <ul className="mt-5 divide-y divide-warm-line">
               {quote.items.map((item) => (
                 <li key={item.productId} className="flex items-center gap-4 py-4">
-                  <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-line bg-cream-soft">
+                  <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-warm-line bg-warm-white">
                     {item.imageUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={item.imageUrl} alt="" className="size-full object-contain p-1" />
@@ -487,12 +487,12 @@ export function CheckoutForm() {
                     )}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-charcoal">{item.name}</p>
-                    <p className="mt-1 text-xs text-muted">
+                    <p className="truncate text-sm font-medium text-dark-text">{item.name}</p>
+                    <p className="mt-1 text-xs text-taupe">
                       {formatPrice(item.unitPrice)} × {item.quantity}
                     </p>
                   </div>
-                  <p className="text-sm font-medium tabular-nums text-charcoal">
+                  <p className="text-sm font-medium tabular-nums text-dark-text">
                     {formatPrice(item.lineTotal)}
                   </p>
                 </li>
@@ -500,8 +500,8 @@ export function CheckoutForm() {
             </ul>
 
             {quote.adjustments.length > 0 ? (
-              <div className="mt-4 flex gap-2 rounded-xl border border-line bg-cream-soft px-4 py-3 text-xs leading-5 text-muted">
-                <AlertCircle className="mt-0.5 size-4 shrink-0 text-emerald" aria-hidden="true" />
+              <div className="mt-4 flex gap-2 rounded-xl border border-warm-line bg-warm-white px-4 py-3 text-xs leading-5 text-taupe">
+                <AlertCircle className="mt-0.5 size-4 shrink-0 text-olive-deep" aria-hidden="true" />
                 <ul className="space-y-1">
                   {quote.adjustments.map((note) => (
                     <li key={note}>{note}</li>
@@ -511,8 +511,8 @@ export function CheckoutForm() {
             ) : null}
 
             {quote.unavailable.length > 0 ? (
-              <div className="mt-4 flex gap-2 rounded-xl border border-pink/40 bg-pink-tint px-4 py-3 text-xs leading-5 text-charcoal">
-                <AlertCircle className="mt-0.5 size-4 shrink-0 text-pink" aria-hidden="true" />
+              <div className="mt-4 flex gap-2 rounded-xl border border-chocolate/40 bg-soft-cream px-4 py-3 text-xs leading-5 text-dark-text">
+                <AlertCircle className="mt-0.5 size-4 shrink-0 text-chocolate" aria-hidden="true" />
                 <ul className="space-y-1">
                   {quote.unavailable.map((note) => (
                     <li key={note}>{note} Remove it from your bag to continue.</li>
@@ -524,10 +524,10 @@ export function CheckoutForm() {
         </div>
 
         <aside className="min-w-0 space-y-4 lg:sticky lg:top-24">
-          <div className="rounded-2xl border border-line bg-white p-6">
-            <h2 className="font-display text-2xl text-charcoal">Order total</h2>
-            <div className="mt-5 rounded-xl border border-line bg-cream/40 p-4">
-              <label htmlFor="couponCode" className="mb-2 block text-xs font-medium text-charcoal">
+          <div className="rounded-2xl border border-warm-line bg-warm-white p-6">
+            <h2 className="font-display text-2xl text-dark-text">Order total</h2>
+            <div className="mt-5 rounded-xl border border-warm-line bg-peach/40 p-4">
+              <label htmlFor="couponCode" className="mb-2 block text-xs font-medium text-dark-text">
                 Coupon code
               </label>
               <div className="flex gap-2">
@@ -556,44 +556,44 @@ export function CheckoutForm() {
               {quote.couponMessage ? (
                 <p
                   className={`mt-2 text-xs leading-5 ${
-                    quote.couponCode ? "text-emerald" : "text-pink"
+                    quote.couponCode ? "text-olive-deep" : "text-chocolate"
                   }`}
                 >
                   {quote.couponMessage}
                 </p>
               ) : (
-                <p className="mt-2 text-[11px] leading-5 text-muted">
+                <p className="mt-2 text-[11px] leading-5 text-taupe">
                   Coupons are validated against the live order subtotal.
                 </p>
               )}
             </div>
             <dl className="mt-6 space-y-3 text-sm">
               <div className="flex justify-between gap-4">
-                <dt className="text-muted">Total quantity</dt>
-                <dd className="font-medium tabular-nums text-charcoal">{quote.totalQuantity}</dd>
+                <dt className="text-taupe">Total quantity</dt>
+                <dd className="font-medium tabular-nums text-dark-text">{quote.totalQuantity}</dd>
               </div>
               <div className="flex justify-between gap-4">
-                <dt className="text-muted">Product subtotal</dt>
-                <dd className="font-medium text-charcoal">{formatPrice(quote.subtotal)}</dd>
+                <dt className="text-taupe">Product subtotal</dt>
+                <dd className="font-medium text-dark-text">{formatPrice(quote.subtotal)}</dd>
               </div>
               <div className="flex justify-between gap-4">
-                <dt className="flex items-center gap-1.5 text-muted">
+                <dt className="flex items-center gap-1.5 text-taupe">
                   <Truck className="size-3.5" aria-hidden="true" />
                   Delivery charge
                 </dt>
-                <dd className="font-medium text-charcoal">
+                <dd className="font-medium text-dark-text">
                   {formatPrice(quote.deliveryCharge)}
                 </dd>
               </div>
               <div className="flex justify-between gap-4">
-                <dt className="text-muted">Discount</dt>
-                <dd className="font-medium text-charcoal">
+                <dt className="text-taupe">Discount</dt>
+                <dd className="font-medium text-dark-text">
                   {quote.discount > 0 ? `−${formatPrice(quote.discount)}` : formatPrice(0)}
                 </dd>
               </div>
-              <div className="flex justify-between gap-4 border-t border-line pt-4">
-                <dt className="font-medium text-charcoal">Final total</dt>
-                <dd className="font-display text-2xl text-charcoal">
+              <div className="flex justify-between gap-4 border-t border-warm-line pt-4">
+                <dt className="font-medium text-dark-text">Final total</dt>
+                <dd className="font-display text-2xl text-dark-text">
                   {formatPrice(quote.total)}
                 </dd>
               </div>
@@ -602,7 +602,7 @@ export function CheckoutForm() {
             {state.status === "error" && state.message ? (
               <p
                 role="alert"
-                className="mt-5 rounded-lg border border-pink/40 bg-pink-tint px-4 py-3 text-xs leading-5 text-charcoal"
+                className="mt-5 rounded-lg border border-chocolate/40 bg-soft-cream px-4 py-3 text-xs leading-5 text-dark-text"
               >
                 {state.message}
               </p>
@@ -613,10 +613,10 @@ export function CheckoutForm() {
               <CreditCard className="size-4" aria-hidden="true" />
             </Button>
             {quoteError ? (
-              <p className="mt-3 text-xs leading-5 text-pink">{quoteError}</p>
+              <p className="mt-3 text-xs leading-5 text-chocolate">{quoteError}</p>
             ) : null}
-            <p className="mt-4 flex items-start gap-2 text-[11px] leading-5 text-muted">
-              <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-emerald" aria-hidden="true" />
+            <p className="mt-4 flex items-start gap-2 text-[11px] leading-5 text-taupe">
+              <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-olive-deep" aria-hidden="true" />
               Prices, stock and totals are recalculated on the server before an order is created.
             </p>
           </div>

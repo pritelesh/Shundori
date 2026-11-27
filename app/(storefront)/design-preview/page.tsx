@@ -41,44 +41,60 @@ const categoryIcons = {
 
 const swatches = [
   {
-    name: "Hot Pink",
-    hex: "#FF69B4",
-    usage: "Primary actions, promotions, highlights",
-    className: "bg-pink",
-    textClassName: "text-charcoal",
-    bordered: false,
-  },
-  {
-    name: "Vanilla Cream",
-    hex: "#FFF4DB",
-    usage: "Page background",
-    className: "bg-cream",
-    textClassName: "text-charcoal",
+    name: "Peach Cream",
+    hex: "#FFD5AF",
+    usage: "Primary background",
+    className: "bg-peach",
     bordered: true,
   },
   {
-    name: "Emerald Green",
-    hex: "#046A38",
-    usage: "Secondary actions, trust marks, accents",
-    className: "bg-emerald",
-    textClassName: "text-white",
+    name: "Warm Caramel",
+    hex: "#E59A59",
+    usage: "Secondary actions",
+    className: "bg-caramel",
     bordered: false,
   },
   {
-    name: "Dark Charcoal",
-    hex: "#1F1F1F",
-    usage: "Primary text",
-    className: "bg-charcoal",
-    textClassName: "text-white",
+    name: "Muted Olive",
+    hex: "#888870",
+    usage: "Accent and badges",
+    className: "bg-olive",
     bordered: false,
   },
   {
-    name: "White",
-    hex: "#FFFFFF",
-    usage: "Product cards and content surfaces",
-    className: "bg-white",
-    textClassName: "text-charcoal",
+    name: "Deep Chocolate",
+    hex: "#712E1E",
+    usage: "Headings and primary actions",
+    className: "bg-chocolate",
+    bordered: false,
+  },
+  {
+    name: "Warm White",
+    hex: "#FFFAF5",
+    usage: "Cards and content surfaces",
+    className: "bg-warm-white",
     bordered: true,
+  },
+  {
+    name: "Soft Cream",
+    hex: "#FFF1E5",
+    usage: "Soft surfaces and hovers",
+    className: "bg-soft-cream",
+    bordered: true,
+  },
+  {
+    name: "Light Beige",
+    hex: "#F3E6D8",
+    usage: "Warm borders and placeholders",
+    className: "bg-light-beige",
+    bordered: true,
+  },
+  {
+    name: "Dark Text",
+    hex: "#3A2923",
+    usage: "Body copy",
+    className: "bg-dark-text",
+    bordered: false,
   },
 ] as const;
 
@@ -92,11 +108,11 @@ function PreviewSection({
   children: ReactNode;
 }) {
   return (
-    <section className="border-t border-line py-12 first:border-t-0 first:pt-0">
+    <section className="border-t border-warm-line py-12 first:border-t-0 first:pt-0">
       <div className="grid gap-6 lg:grid-cols-[240px_1fr] lg:gap-12">
         <div>
-          <h2 className="font-display text-2xl text-charcoal">{title}</h2>
-          <p className="mt-2 text-sm leading-6 text-muted">{description}</p>
+          <h2 className="font-display text-2xl text-dark-text">{title}</h2>
+          <p className="mt-2 text-sm leading-6 text-taupe">{description}</p>
         </div>
         <div>{children}</div>
       </div>
@@ -115,7 +131,7 @@ export default function DesignPreviewPage() {
         title="The Shundori interface kit."
         description="Every reusable component, colour and type style in one place. This page is noindex and is not part of the storefront navigation."
       >
-        <Badge variant="emeraldSoft">
+        <Badge variant="accentSoft">
           <Sparkles className="size-3" aria-hidden="true" />
           Internal preview
         </Badge>
@@ -124,30 +140,29 @@ export default function DesignPreviewPage() {
       <Container className="py-12 sm:py-16">
         <PreviewSection
           title="Colour"
-          description="Three official brand colours, supported by white surfaces and charcoal text. Pink and emerald tints are derived shades for soft backgrounds and hover states."
+          description="The eight official Shundori colours. Derived tokens provide accessible accents, warm borders and subtle surfaces without inline color values."
         >
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {swatches.map((swatch) => (
               <div
                 key={swatch.name}
-                className="overflow-hidden rounded-2xl border border-line/70 bg-white"
+                className="overflow-hidden rounded-2xl border border-warm-line/70 bg-warm-white"
               >
                 <div
-                  className={`flex h-24 items-end justify-end p-3 ${swatch.className} ${
-                    swatch.bordered ? "border-b border-line" : ""
+                  className={`h-24 ${swatch.className} ${
+                    swatch.bordered ? "border-b border-warm-line" : ""
                   }`}
-                >
-                  <span
-                    className={`font-mono text-[10px] uppercase ${swatch.textClassName}`}
-                  >
-                    {swatch.hex}
-                  </span>
-                </div>
+                />
                 <div className="p-4">
-                  <p className="font-display text-lg text-charcoal">
-                    {swatch.name}
-                  </p>
-                  <p className="mt-1 text-xs leading-5 text-muted">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                    <p className="font-display text-lg text-dark-text">
+                      {swatch.name}
+                    </p>
+                    <span className="font-mono text-[10px] uppercase text-taupe">
+                      {swatch.hex}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs leading-5 text-taupe">
                     {swatch.usage}
                   </p>
                 </div>
@@ -162,30 +177,30 @@ export default function DesignPreviewPage() {
         >
           <div className="space-y-8">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-muted">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-taupe">
                 Display — Playfair Display
               </p>
-              <p className="mt-2 font-display text-4xl leading-[1.05] text-charcoal sm:text-5xl">
+              <p className="mt-2 font-display text-4xl leading-[1.05] text-dark-text sm:text-5xl">
                 Beauty, thoughtfully curated.
               </p>
-              <p className="mt-2 font-display text-2xl italic text-emerald">
+              <p className="mt-2 font-display text-2xl italic text-olive-deep">
                 The Shundori edit
               </p>
             </div>
 
             <div className="max-w-xl">
-              <p className="text-[10px] uppercase tracking-[0.2em] text-muted">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-taupe">
                 Body — Inter
               </p>
-              <p className="mt-2 text-base leading-7 text-charcoal">
+              <p className="mt-2 text-base leading-7 text-dark-text">
                 Skincare, makeup and fragrance — a considered edit for
                 Bangladesh, chosen for quality and made for everyday rituals.
               </p>
-              <p className="mt-2 text-sm leading-7 text-muted">
+              <p className="mt-2 text-sm leading-7 text-taupe">
                 Secondary copy uses a warm grey for calm hierarchy. Labels use
                 uppercase Inter with generous letter spacing.
               </p>
-              <p className="mt-4 text-[10px] font-medium uppercase tracking-[0.2em] text-emerald">
+              <p className="mt-4 text-[10px] font-medium uppercase tracking-[0.2em] text-olive-deep">
                 Eyebrow label style
               </p>
             </div>
@@ -194,7 +209,7 @@ export default function DesignPreviewPage() {
 
         <PreviewSection
           title="Buttons"
-          description="Hot Pink primary, Emerald Green secondary, plus outline, ghost and link styles. All meet AA contrast."
+          description="Deep Chocolate primary, Warm Caramel secondary, plus outline, ghost and link styles. All meet AA contrast."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Button>
@@ -219,10 +234,10 @@ export default function DesignPreviewPage() {
           description="Compact labels for trust marks, promotions and stock states."
         >
           <div className="flex flex-wrap items-center gap-3">
-            <Badge variant="emerald">Curated</Badge>
-            <Badge variant="emeraldSoft">In stock</Badge>
-            <Badge variant="pink">New in</Badge>
-            <Badge variant="pinkSoft">Limited</Badge>
+            <Badge variant="accent">Curated</Badge>
+            <Badge variant="accentSoft">In stock</Badge>
+            <Badge variant="brand">New in</Badge>
+            <Badge variant="brandSoft">Limited</Badge>
             <Badge variant="neutral">Neutral</Badge>
             <Badge variant="outline">Outline</Badge>
             <DiscountBadge price={245000} compareAtPrice={320000} />
@@ -231,13 +246,13 @@ export default function DesignPreviewPage() {
 
         <PreviewSection
           title="Form fields"
-          description="Inputs use white surfaces, warm borders and an emerald focus ring."
+          description="Inputs use warm white surfaces, subtle beige borders and an olive focus ring."
         >
           <div className="grid max-w-2xl gap-4 sm:grid-cols-2">
             <div>
               <label
                 htmlFor="preview-email"
-                className="text-xs font-medium text-charcoal"
+                className="text-xs font-medium text-dark-text"
               >
                 Email address
               </label>
@@ -251,7 +266,7 @@ export default function DesignPreviewPage() {
             <div>
               <label
                 htmlFor="preview-phone"
-                className="text-xs font-medium text-charcoal"
+                className="text-xs font-medium text-dark-text"
               >
                 Phone number
               </label>
@@ -272,9 +287,9 @@ export default function DesignPreviewPage() {
           title="Price & rating"
           description="Prices are stored in poisha and formatted as BDT. Ratings combine decorative stars with accessible numeric values."
         >
-          <div className="space-y-6 rounded-2xl border border-line/70 bg-white p-6">
+          <div className="space-y-6 rounded-2xl border border-warm-line/70 bg-warm-white p-6">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-muted">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-taupe">
                 Price display
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-6">
@@ -289,7 +304,7 @@ export default function DesignPreviewPage() {
             </div>
 
             <div>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-muted">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-taupe">
                 Discount badge
               </p>
               <div className="mt-3 flex items-center gap-3">
@@ -299,7 +314,7 @@ export default function DesignPreviewPage() {
             </div>
 
             <div>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-muted">
+              <p className="text-[10px] uppercase tracking-[0.2em] text-taupe">
                 Product rating
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-6">
@@ -366,7 +381,7 @@ export default function DesignPreviewPage() {
           title="Navigation menu"
           description="Desktop primary navigation. On mobile it becomes a slide-in panel."
         >
-          <div className="rounded-2xl border border-line/70 bg-white p-6">
+          <div className="rounded-2xl border border-warm-line/70 bg-warm-white p-6">
             <NavigationMenu className="flex flex-wrap gap-x-7 gap-y-2" />
           </div>
         </PreviewSection>
@@ -446,7 +461,7 @@ export default function DesignPreviewPage() {
             title="A considered modal"
             description="Built on the native dialog element, with a soft backdrop and a single clear action."
           >
-            <p className="text-sm leading-7 text-muted">
+            <p className="text-sm leading-7 text-taupe">
               Modals are reserved for focused tasks — size guides, delivery
               details or a confirmation. They close on Escape, on backdrop
               click, and return focus to the trigger.
@@ -472,7 +487,7 @@ export default function DesignPreviewPage() {
           </Modal>
         </PreviewSection>
 
-        <p className="mt-4 rounded-2xl border border-line bg-cream-soft p-5 text-xs leading-6 text-muted">
+        <p className="mt-4 rounded-2xl border border-warm-line bg-warm-white p-5 text-xs leading-6 text-taupe">
           The footer and newsletter section appear on every storefront page.
           Mock products live in <code>lib/mock/</code> and are never imported by
           services or database code.

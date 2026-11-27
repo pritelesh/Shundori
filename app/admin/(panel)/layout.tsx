@@ -12,15 +12,15 @@ export const instant = false;
 
 function AdminLoading() {
   return (
-    <div className="min-h-screen bg-cream">
-      <div className="h-16 border-b border-line bg-cream-soft" />
+    <div className="min-h-screen bg-peach">
+      <div className="h-16 border-b border-warm-line bg-warm-white" />
       <div className="mx-auto max-w-[1400px] animate-pulse px-8 py-10">
-        <div className="h-9 w-56 rounded bg-cream-deep" />
+        <div className="h-9 w-56 rounded bg-light-beige" />
         <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {Array.from({ length: 4 }).map((_, index) => (
             <div
               key={index}
-              className="h-28 rounded-2xl border border-line bg-white"
+              className="h-28 rounded-2xl border border-warm-line bg-warm-white"
             />
           ))}
         </div>
@@ -44,12 +44,12 @@ async function AdminGate({ children }: { children: ReactNode }) {
   }
   if (access.state === "unconfigured") {
     return (
-      <main className="flex min-h-dvh items-center justify-center bg-cream px-5 py-16">
-        <div className="w-full max-w-xl rounded-3xl border border-line bg-white p-9">
-          <h1 className="font-display text-3xl text-charcoal">
+      <main className="flex min-h-dvh items-center justify-center bg-peach px-5 py-16">
+        <div className="w-full max-w-xl rounded-3xl border border-warm-line bg-warm-white p-9">
+          <h1 className="font-display text-3xl text-dark-text">
             Admin dashboard is not configured
           </h1>
-          <p className="mt-4 text-sm leading-7 text-muted">
+          <p className="mt-4 text-sm leading-7 text-taupe">
             Add <code>NEXT_PUBLIC_SUPABASE_URL</code> and{" "}
             <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code> to{" "}
             <code>.env.local</code>, apply the SQL migrations, then restart the

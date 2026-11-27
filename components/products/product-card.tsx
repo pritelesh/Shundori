@@ -37,10 +37,10 @@ export function ProductCard({
       : "In stock";
 
   const stockDot = !product.inStock
-    ? "bg-charcoal/35"
+    ? "bg-dark-text/35"
     : lowStock
-      ? "bg-pink"
-      : "bg-emerald";
+      ? "bg-chocolate"
+      : "bg-olive";
 
   const media = (
     <div className="relative flex h-full w-full items-center justify-center p-4 transition-transform duration-500 ease-out group-hover:scale-[1.04] sm:p-6">
@@ -67,11 +67,11 @@ export function ProductCard({
   return (
     <article
       className={cn(
-        "group flex flex-col overflow-hidden rounded-2xl border border-line/70 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_26px_50px_-32px_rgba(31,31,31,0.4)]",
+        "group flex flex-col overflow-hidden rounded-2xl border border-warm-line/70 bg-warm-white transition-all duration-300 hover:-translate-y-1 hover:border-warm-line-strong hover:shadow-soft",
         className,
       )}
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-pink-tint via-cream-soft to-cream-deep/50">
+      <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-soft-cream via-warm-white to-light-beige/50">
         {href ? (
           <Link
             href={href}
@@ -93,7 +93,7 @@ export function ProductCard({
                 compareAtPrice={product.compareAtPrice}
               />
             ) : (
-              <span className="rounded-full bg-white/95 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.16em] text-charcoal shadow-sm ring-1 ring-line/70">
+              <span className="rounded-full bg-warm-white/95 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.16em] text-dark-text shadow-sm ring-1 ring-warm-line/70">
                 Sold out
               </span>
             )}
@@ -107,15 +107,15 @@ export function ProductCard({
       </div>
 
       <div className="flex flex-1 flex-col p-4 sm:p-5">
-        <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-emerald">
+        <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-olive-deep">
           {product.brandName ?? "Shundori"}
         </p>
 
-        <h3 className="mt-1.5 font-display text-lg leading-snug text-charcoal">
+        <h3 className="mt-1.5 font-display text-lg leading-snug text-dark-text">
           {href ? (
             <Link
               href={href}
-              className="underline-offset-4 transition-colors hover:text-emerald hover:underline"
+              className="underline-offset-4 transition-colors hover:text-olive-deep hover:underline"
             >
               {product.name}
             </Link>
@@ -138,7 +138,7 @@ export function ProductCard({
           className="mt-3"
         />
 
-        <p className="mt-2 flex items-center gap-1.5 text-[11px] text-muted">
+        <p className="mt-2 flex items-center gap-1.5 text-[11px] text-taupe">
           <span
             aria-hidden="true"
             className={cn("size-1.5 rounded-full", stockDot)}

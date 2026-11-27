@@ -2,20 +2,20 @@ import { Badge, type BadgeVariant } from "@/components/ui/badge";
 import type { CancellationStatus, OrderStatus } from "@/types/order";
 
 const statusVariants: Record<OrderStatus, BadgeVariant> = {
-  pending: "pinkSoft",
-  confirmed: "emeraldSoft",
+  pending: "brandSoft",
+  confirmed: "accentSoft",
   processing: "outline",
   shipped: "neutral",
-  delivered: "emerald",
-  cancelled: "pink",
+  delivered: "accent",
+  cancelled: "brand",
   returned: "neutral",
 };
 
 const cancellationVariants: Record<CancellationStatus, BadgeVariant> = {
   none: "neutral",
-  requested: "pinkSoft",
-  approved: "pink",
-  rejected: "emeraldSoft",
+  requested: "brandSoft",
+  approved: "brand",
+  rejected: "accentSoft",
 };
 
 export function OrderStatusBadge({ status }: { status: OrderStatus }) {

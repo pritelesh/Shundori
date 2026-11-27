@@ -53,8 +53,8 @@ export function AdminNav({ mobile = false }: { mobile?: boolean }) {
             className={cn(
               "flex shrink-0 items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
               active
-                ? "bg-emerald text-white"
-                : "text-muted hover:bg-pink-tint hover:text-charcoal",
+                ? "bg-chocolate text-warm-white"
+                : "text-taupe hover:bg-soft-cream hover:text-dark-text",
             )}
           >
             <Icon className="size-4 shrink-0" aria-hidden="true" />

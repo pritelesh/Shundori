@@ -34,7 +34,7 @@ export function ProductMedia({
     return (
       <div
         className={cn(
-          "flex items-center justify-center overflow-hidden bg-cream-deep",
+          "flex items-center justify-center overflow-hidden bg-light-beige",
           className,
         )}
       >
@@ -44,7 +44,7 @@ export function ProductMedia({
   }
 
   return (
-    <div className={cn("relative overflow-hidden bg-cream-deep", className)}>
+    <div className={cn("relative overflow-hidden bg-light-beige", className)}>
       <Image
         src={imageUrl}
         alt={alt}

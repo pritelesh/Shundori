@@ -47,16 +47,16 @@ export default async function AboutPage() {
       <Container className="py-14 sm:py-20">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
-            <h2 className="font-display text-3xl leading-tight text-charcoal sm:text-4xl">
+            <h2 className="font-display text-3xl leading-tight text-dark-text sm:text-4xl">
               Considered, not complicated.
             </h2>
-            <p className="mt-5 text-sm leading-7 text-muted">
+            <p className="mt-5 text-sm leading-7 text-taupe">
               Beauty shopping should feel clear. Shundori brings skincare,
               makeup, haircare and accessories into one calm space with simple
               navigation, transparent prices and room to browse at your own
               pace.
             </p>
-            <p className="mt-4 text-sm leading-7 text-muted">
+            <p className="mt-4 text-sm leading-7 text-taupe">
               {demo
                 ? "The current catalogue is demonstration data. Brand names appear accurately as text, while product details and artwork are illustrative until verified supplier information is available."
                 : "The catalogue is read from Supabase. Product details and photography are only as accurate as the records supplied by the Shundori team."}
@@ -71,19 +71,19 @@ export default async function AboutPage() {
             {values.map(({ icon: Icon, title, description }) => (
               <div
                 key={title}
-                className="rounded-2xl border border-line bg-white p-6 shadow-[0_18px_40px_-34px_rgba(31,31,31,0.5)]"
+                className="rounded-2xl border border-warm-line bg-warm-white p-6 shadow-soft"
               >
-                <span className="flex size-11 items-center justify-center rounded-full bg-emerald-soft text-emerald">
+                <span className="flex size-11 items-center justify-center rounded-full bg-olive-soft text-olive-deep">
                   <Icon className="size-5" aria-hidden="true" />
                 </span>
-                <h3 className="mt-5 font-display text-xl text-charcoal">{title}</h3>
-                <p className="mt-2 text-sm leading-6 text-muted">{description}</p>
+                <h3 className="mt-5 font-display text-xl text-dark-text">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-taupe">{description}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-16 rounded-[2rem] bg-emerald px-6 py-12 text-white sm:px-12">
+        <div className="mt-16 rounded-[2rem] bg-chocolate px-6 py-12 text-warm-white sm:px-12">
           <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/80">
             Looking for help?
           </p>

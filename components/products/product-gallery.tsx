@@ -21,9 +21,9 @@ export function ProductGallery({ images, name, className }: ProductGalleryProps)
 
   return (
     <div className={cn("flex flex-col gap-3", className)}>
-      <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-3xl border border-line bg-gradient-to-br from-pink-tint via-cream-soft to-cream-deep/50 sm:aspect-[5/5]">
+      <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-3xl border border-warm-line bg-gradient-to-br from-soft-cream via-warm-white to-light-beige/50 sm:aspect-[5/5]">
         {!active?.url ? (
-          <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 text-[9px] font-medium uppercase tracking-[0.16em] text-muted">
+          <span className="absolute left-5 top-5 rounded-full bg-warm-white/90 px-3 py-1 text-[9px] font-medium uppercase tracking-[0.16em] text-taupe">
             Placeholder artwork
           </span>
         ) : null}
@@ -43,7 +43,7 @@ export function ProductGallery({ images, name, className }: ProductGalleryProps)
             className="text-[11rem] sm:text-[15rem]"
           />
         ) : (
-          <p className="text-sm text-muted">No image available for {name}.</p>
+          <p className="text-sm text-taupe">No image available for {name}.</p>
         )}
       </div>
 
@@ -61,10 +61,10 @@ export function ProductGallery({ images, name, className }: ProductGalleryProps)
               aria-label={`View ${image.alt}`}
               aria-pressed={activeIndex === index}
               className={cn(
-                "relative flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border bg-cream-soft transition-colors sm:size-24",
+                "relative flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border bg-warm-white transition-colors sm:size-24",
                 activeIndex === index
-                  ? "border-emerald ring-2 ring-emerald/20"
-                  : "border-line hover:border-line-strong",
+                  ? "border-olive-deep ring-2 ring-olive-deep/20"
+                  : "border-warm-line hover:border-warm-line-strong",
               )}
             >
               {image.url ? (

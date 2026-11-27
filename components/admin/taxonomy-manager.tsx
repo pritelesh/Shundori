@@ -66,7 +66,7 @@ function TaxonomyFormFields({
           placeholder={kind === "brands" ? "e.g. Garnier" : "e.g. Skincare"}
         />
         {fieldErrors.name ? (
-          <p className="mt-1.5 text-xs text-pink">{fieldErrors.name}</p>
+          <p className="mt-1.5 text-xs text-chocolate">{fieldErrors.name}</p>
         ) : null}
       </div>
 
@@ -79,7 +79,7 @@ function TaxonomyFormFields({
             id="parentId"
             name="parentId"
             defaultValue={item?.parentId ?? ""}
-            className="h-11 w-full rounded-lg border border-line bg-white px-4 text-sm"
+            className="h-11 w-full rounded-lg border border-warm-line bg-warm-white px-4 text-sm"
           >
             <option value="">None (top level)</option>
             {items
@@ -103,7 +103,7 @@ function TaxonomyFormFields({
           rows={4}
           maxLength={2000}
           defaultValue={item?.description ?? ""}
-          className="w-full rounded-lg border border-line bg-white px-4 py-3 text-sm"
+          className="w-full rounded-lg border border-warm-line bg-warm-white px-4 py-3 text-sm"
         />
       </div>
 
@@ -112,7 +112,7 @@ function TaxonomyFormFields({
           type="checkbox"
           name="isActive"
           defaultChecked={item?.isActive ?? true}
-          className="size-4 accent-[#046A38]"
+          className="size-4 accent-olive-deep"
         />
         Active and visible on the storefront
       </label>
@@ -290,10 +290,10 @@ export function TaxonomyManager({
         </Button>
       </div>
 
-      <div className="mt-6 overflow-hidden rounded-2xl border border-line bg-white">
+      <div className="mt-6 overflow-hidden rounded-2xl border border-warm-line bg-warm-white">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[680px] text-left text-sm">
-            <thead className="bg-cream-soft text-[10px] uppercase tracking-[0.16em] text-muted">
+            <thead className="bg-warm-white text-[10px] uppercase tracking-[0.16em] text-taupe">
               <tr>
                 <th className="px-5 py-3 font-medium">
                   {kind === "brands" ? "Logo" : "Image"}
@@ -304,10 +304,10 @@ export function TaxonomyManager({
                 <th className="px-5 py-3 text-right font-medium">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line/70">
+            <tbody className="divide-y divide-warm-line/70">
               {items.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-5 py-10 text-center text-muted">
+                  <td colSpan={5} className="px-5 py-10 text-center text-taupe">
                     No {kind} yet. Add the first one to get started.
                   </td>
                 </tr>
@@ -316,7 +316,7 @@ export function TaxonomyManager({
                   <tr key={item.id}>
                     <td className="px-5 py-3">
                       <div className="flex items-center gap-2">
-                        <span className="flex size-11 items-center justify-center overflow-hidden rounded-lg border border-line bg-cream-soft">
+                        <span className="flex size-11 items-center justify-center overflow-hidden rounded-lg border border-warm-line bg-warm-white">
                           {item.imageUrl ? (
                             <img
                               src={item.imageUrl}
@@ -324,7 +324,7 @@ export function TaxonomyManager({
                               className="size-full object-contain"
                             />
                           ) : (
-                            <span className="font-display text-lg text-emerald">
+                            <span className="font-display text-lg text-olive-deep">
                               {item.name.charAt(0).toUpperCase()}
                             </span>
                           )}
@@ -345,7 +345,7 @@ export function TaxonomyManager({
                           onClick={() => assetInputs.current.get(item.id)?.click()}
                           disabled={busyAsset === item.id}
                           aria-label={`Upload image for ${item.name}`}
-                          className="inline-flex size-8 items-center justify-center rounded-lg text-muted hover:bg-emerald-soft hover:text-emerald disabled:opacity-50"
+                          className="inline-flex size-8 items-center justify-center rounded-lg text-taupe hover:bg-olive-soft hover:text-olive-deep disabled:opacity-50"
                         >
                           <ImagePlus className="size-4" aria-hidden="true" />
                         </button>
@@ -355,7 +355,7 @@ export function TaxonomyManager({
                             onClick={() => removeAsset(item)}
                             disabled={busyAsset === item.id}
                             aria-label={`Remove image for ${item.name}`}
-                            className="inline-flex size-8 items-center justify-center rounded-lg text-muted hover:bg-pink-tint hover:text-charcoal disabled:opacity-50"
+                            className="inline-flex size-8 items-center justify-center rounded-lg text-taupe hover:bg-soft-cream hover:text-dark-text disabled:opacity-50"
                           >
                             <Trash2 className="size-4" aria-hidden="true" />
                           </button>
@@ -364,11 +364,11 @@ export function TaxonomyManager({
                     </td>
                     <td className="px-5 py-3">
                       <p className="font-medium">{item.name}</p>
-                      <p className="mt-0.5 max-w-xs truncate text-xs text-muted">
+                      <p className="mt-0.5 max-w-xs truncate text-xs text-taupe">
                         {item.description || "—"}
                       </p>
                     </td>
-                    <td className="px-5 py-3 text-muted">{item.productCount}</td>
+                    <td className="px-5 py-3 text-taupe">{item.productCount}</td>
                     <td className="px-5 py-3">
                       <button
                         type="button"
@@ -376,8 +376,8 @@ export function TaxonomyManager({
                         disabled={pending}
                         className={
                           item.isActive
-                            ? "rounded-full bg-emerald-soft px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald"
-                            : "rounded-full bg-cream-deep px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted"
+                            ? "rounded-full bg-olive-soft px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-olive-deep"
+                            : "rounded-full bg-light-beige px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-taupe"
                         }
                       >
                         {item.isActive ? "Active" : "Inactive"}
@@ -392,7 +392,7 @@ export function TaxonomyManager({
                             setEditing(item);
                           }}
                           aria-label={`Edit ${item.name}`}
-                          className="inline-flex size-8 items-center justify-center rounded-lg text-muted hover:bg-pink-tint hover:text-charcoal"
+                          className="inline-flex size-8 items-center justify-center rounded-lg text-taupe hover:bg-soft-cream hover:text-dark-text"
                         >
                           <Pencil className="size-4" aria-hidden="true" />
                         </button>
@@ -400,7 +400,7 @@ export function TaxonomyManager({
                           type="button"
                           onClick={() => setDeleting(item)}
                           aria-label={`Delete ${item.name}`}
-                          className="inline-flex size-8 items-center justify-center rounded-lg text-muted hover:bg-pink-tint hover:text-charcoal"
+                          className="inline-flex size-8 items-center justify-center rounded-lg text-taupe hover:bg-soft-cream hover:text-dark-text"
                         >
                           <Trash2 className="size-4" aria-hidden="true" />
                         </button>
@@ -475,7 +475,7 @@ export function TaxonomyManager({
         title={`Delete ${singular}?`}
         description="This cannot be undone."
       >
-        <p className="text-sm text-muted">
+        <p className="text-sm text-taupe">
           {deleting?.productCount
             ? `Move or delete the ${deleting.productCount} product(s) using this ${singular} first.`
             : `The ${singular} and its image will be permanently removed.`}

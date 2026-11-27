@@ -3,23 +3,23 @@ import type { ComponentProps } from "react";
 import { cn } from "@/utils/cn";
 
 const buttonBase =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald/40 focus-visible:ring-offset-2 focus-visible:ring-offset-cream disabled:pointer-events-none disabled:opacity-45";
+  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive-deep/40 focus-visible:ring-offset-2 focus-visible:ring-offset-peach disabled:pointer-events-none disabled:opacity-45";
 
 /**
  * Brand button styles.
  *
- * Hot Pink carries the primary action, Emerald Green the secondary action.
- * Both combinations meet WCAG AA contrast for normal text.
+ * Deep Chocolate carries the primary action and Warm Caramel the secondary
+ * action. Both combinations meet WCAG AA contrast for normal text.
  */
 const buttonVariants = {
   primary:
-    "bg-pink text-charcoal shadow-[0_14px_30px_-18px_rgba(255,105,180,0.95)] hover:bg-pink/90 active:bg-pink/85",
+    "bg-chocolate text-warm-white shadow-primary hover:bg-caramel active:bg-chocolate/90",
   secondary:
-    "bg-emerald text-white shadow-[0_14px_30px_-20px_rgba(4,106,56,0.8)] hover:bg-emerald/90 active:bg-emerald/85",
+    "bg-caramel text-dark-text shadow-secondary hover:bg-chocolate hover:text-warm-white active:bg-caramel/90",
   outline:
-    "border border-charcoal/15 bg-transparent text-charcoal hover:border-charcoal/35 hover:bg-white",
-  ghost: "text-charcoal hover:bg-pink-tint",
-  link: "h-auto rounded-none px-0 text-charcoal underline decoration-pink decoration-2 underline-offset-[6px] hover:decoration-emerald",
+    "border border-dark-text/15 bg-transparent text-dark-text hover:border-chocolate hover:bg-soft-cream",
+  ghost: "text-chocolate hover:bg-soft-cream",
+  link: "h-auto rounded-none px-0 text-chocolate underline decoration-caramel decoration-2 underline-offset-[6px] hover:decoration-chocolate",
 } as const;
 
 const buttonSizes = {

@@ -31,22 +31,22 @@ export function SectionHeading({
     >
       <div className={cn("max-w-2xl", align === "center" && "mx-auto")}>
         {eyebrow ? (
-          <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-emerald">
+          <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-olive-deep">
             <span
               aria-hidden="true"
-              className="inline-block size-1.5 rounded-full bg-pink"
+              className="inline-block size-1.5 rounded-full bg-chocolate"
             />
             {eyebrow}
           </p>
         ) : null}
         <h2
           id={id}
-          className="mt-3 font-display text-3xl leading-[1.12] tracking-[-0.01em] text-charcoal sm:text-4xl lg:text-[2.75rem]"
+          className="mt-3 font-display text-3xl leading-[1.12] tracking-[-0.01em] text-dark-text sm:text-4xl lg:text-[2.75rem]"
         >
           {title}
         </h2>
         {description ? (
-          <p className="mt-4 max-w-xl text-sm leading-7 text-muted sm:text-base">
+          <p className="mt-4 max-w-xl text-sm leading-7 text-taupe sm:text-base">
             {description}
           </p>
         ) : null}

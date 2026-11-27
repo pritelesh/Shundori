@@ -55,35 +55,35 @@ export function NewsletterSection({
       id={id}
       aria-labelledby={titleId}
       className={cn(
-        "relative overflow-hidden border-b border-line bg-pink-tint",
+        "relative overflow-hidden border-b border-warm-line bg-soft-cream",
         className,
       )}
     >
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -left-24 -top-28 size-72 rounded-full bg-pink/15 blur-3xl"
+        className="pointer-events-none absolute -left-24 -top-28 size-72 rounded-full bg-chocolate/15 blur-3xl"
       />
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-32 right-0 size-64 rounded-full bg-emerald/10 blur-3xl"
+        className="pointer-events-none absolute -bottom-32 right-0 size-64 rounded-full bg-olive/10 blur-3xl"
       />
 
       <Container className="relative grid gap-8 py-14 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
         <div>
-          <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-emerald">
+          <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-olive-deep">
             <span
               aria-hidden="true"
-              className="inline-block size-1.5 rounded-full bg-pink"
+              className="inline-block size-1.5 rounded-full bg-chocolate"
             />
             The Shundori list
           </p>
           <h2
             id={titleId}
-            className="mt-3 font-display text-3xl leading-tight text-charcoal sm:text-4xl"
+            className="mt-3 font-display text-3xl leading-tight text-chocolate sm:text-4xl"
           >
             Beauty notes, first.
           </h2>
-          <p className="mt-3 max-w-md text-sm leading-7 text-muted">
+          <p className="mt-3 max-w-md text-sm leading-7 text-taupe">
             New arrivals, quiet rituals and launch news — a considered letter,
             never a crowded inbox.
           </p>
@@ -91,16 +91,16 @@ export function NewsletterSection({
 
         <div>
           {submitted ? (
-            <div className="flex items-start gap-3 rounded-2xl border border-emerald/15 bg-white p-5">
+            <div className="flex items-start gap-3 rounded-2xl border border-olive-deep/15 bg-warm-white p-5">
               <CircleCheck
-                className="mt-0.5 size-5 shrink-0 text-emerald"
+                className="mt-0.5 size-5 shrink-0 text-olive-deep"
                 aria-hidden="true"
               />
               <div>
-                <p className="text-sm font-medium text-charcoal">
+                <p className="text-sm font-medium text-dark-text">
                   Thank you — you&apos;re on the list.
                 </p>
-                <p className="mt-1 text-xs leading-5 text-muted">
+                <p className="mt-1 text-xs leading-5 text-taupe">
                   We&apos;ll write when the store opens.
                 </p>
                 <button
@@ -109,7 +109,7 @@ export function NewsletterSection({
                     setSubmitted(false);
                     setEmail("");
                   }}
-                  className="mt-3 text-xs font-medium text-emerald underline underline-offset-4 hover:text-charcoal"
+                  className="mt-3 text-xs font-medium text-olive-deep underline underline-offset-4 hover:text-dark-text"
                 >
                   Use a different email
                 </button>
@@ -129,13 +129,13 @@ export function NewsletterSection({
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   placeholder="Your email address"
-                  className="h-12 w-full rounded-full border border-line bg-white px-5 text-sm text-charcoal placeholder:text-muted/70 transition-colors focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/15"
+                  className="h-12 w-full rounded-full border border-warm-line bg-warm-white px-5 text-sm text-dark-text placeholder:text-taupe/70 transition-colors focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15"
                 />
                 <Button type="submit" size="lg" className="shrink-0">
                   Subscribe
                 </Button>
               </div>
-              <p className="mt-3 text-[11px] leading-5 text-muted">
+              <p className="mt-3 text-[11px] leading-5 text-taupe">
                 Preview only — newsletter delivery starts at launch.
               </p>
             </form>

@@ -40,19 +40,19 @@ const variantStyles: Record<
   { border: string; icon: typeof CircleCheck; iconClass: string }
 > = {
   success: {
-    border: "border-l-emerald",
+    border: "border-l-olive-deep",
     icon: CircleCheck,
-    iconClass: "text-emerald",
+    iconClass: "text-olive-deep",
   },
   promo: {
-    border: "border-l-pink",
+    border: "border-l-chocolate",
     icon: Sparkles,
-    iconClass: "text-pink",
+    iconClass: "text-chocolate",
   },
   info: {
-    border: "border-l-charcoal",
+    border: "border-l-dark-text",
     icon: Info,
-    iconClass: "text-charcoal",
+    iconClass: "text-dark-text",
   },
 };
 
@@ -119,7 +119,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               key={item.id}
               role="status"
               className={cn(
-                "pointer-events-auto flex w-full animate-[shundori-toast-in_220ms_ease-out] items-start gap-3 rounded-xl border border-line/80 border-l-4 bg-white p-4 shadow-[0_20px_50px_-24px_rgba(31,31,31,0.45)] sm:w-80",
+                "pointer-events-auto flex w-full animate-[shundori-toast-in_220ms_ease-out] items-start gap-3 rounded-xl border border-warm-line/80 border-l-4 bg-warm-white p-4 shadow-soft sm:w-80",
                 style.border,
               )}
             >
@@ -128,11 +128,11 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 aria-hidden="true"
               />
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium leading-5 text-charcoal">
+                <p className="text-sm font-medium leading-5 text-dark-text">
                   {item.title}
                 </p>
                 {item.description ? (
-                  <p className="mt-1 text-xs leading-5 text-muted">
+                  <p className="mt-1 text-xs leading-5 text-taupe">
                     {item.description}
                   </p>
                 ) : null}
@@ -141,7 +141,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 type="button"
                 onClick={() => dismiss(item.id)}
                 aria-label="Dismiss notification"
-                className="-mr-1 -mt-1 inline-flex size-7 shrink-0 items-center justify-center rounded-full text-muted transition-colors hover:bg-cream hover:text-charcoal"
+                className="-mr-1 -mt-1 inline-flex size-7 shrink-0 items-center justify-center rounded-full text-taupe transition-colors hover:bg-peach hover:text-dark-text"
               >
                 <X className="size-3.5" aria-hidden="true" />
               </button>

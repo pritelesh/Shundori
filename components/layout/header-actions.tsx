@@ -68,7 +68,7 @@ export function HeaderActions({ searchIndex }: { searchIndex: readonly SearchSug
         type="button"
         onClick={() => setSearchOpen(true)}
         aria-label="Search products"
-        className="hidden size-10 items-center justify-center rounded-full text-charcoal transition-colors hover:bg-white sm:inline-flex"
+        className="hidden size-10 items-center justify-center rounded-full text-dark-text transition-colors hover:bg-warm-white sm:inline-flex"
       >
         <Search className="size-5" aria-hidden="true" />
       </button>
@@ -77,7 +77,7 @@ export function HeaderActions({ searchIndex }: { searchIndex: readonly SearchSug
         type="button"
         onClick={showAccountNotice}
         aria-label="Account"
-        className="hidden size-10 items-center justify-center rounded-full text-charcoal transition-colors hover:bg-white lg:inline-flex"
+        className="hidden size-10 items-center justify-center rounded-full text-dark-text transition-colors hover:bg-warm-white lg:inline-flex"
       >
         <User className="size-5" aria-hidden="true" />
       </button>
@@ -85,12 +85,12 @@ export function HeaderActions({ searchIndex }: { searchIndex: readonly SearchSug
       <Link
         href="/cart"
         aria-label={`Shopping bag, ${visibleCartCount} ${visibleCartCount === 1 ? "item" : "items"}`}
-        className="relative inline-flex size-10 items-center justify-center rounded-full text-charcoal transition-colors hover:bg-white"
+        className="relative inline-flex size-10 items-center justify-center rounded-full text-dark-text transition-colors hover:bg-warm-white"
       >
         <ShoppingBag className="size-5" aria-hidden="true" />
         <span
           aria-hidden="true"
-          className="absolute right-0 top-0 flex min-w-4 items-center justify-center rounded-full bg-emerald px-1 text-[10px] font-semibold leading-4 text-white"
+          className="absolute right-0 top-0 flex min-w-4 items-center justify-center rounded-full bg-chocolate px-1 text-[10px] font-semibold leading-4 text-warm-white"
         >
           {visibleCartCount}
         </span>
@@ -99,13 +99,13 @@ export function HeaderActions({ searchIndex }: { searchIndex: readonly SearchSug
       <Link
         href="/wishlist"
         aria-label={`Wishlist, ${visibleWishlistCount} ${visibleWishlistCount === 1 ? "item" : "items"}`}
-        className="relative hidden size-10 items-center justify-center rounded-full text-charcoal transition-colors hover:bg-white sm:inline-flex"
+        className="relative hidden size-10 items-center justify-center rounded-full text-dark-text transition-colors hover:bg-warm-white sm:inline-flex"
       >
         <Heart className="size-5" aria-hidden="true" />
         {visibleWishlistCount > 0 ? (
           <span
             aria-hidden="true"
-            className="absolute right-0.5 top-0.5 flex min-w-4 items-center justify-center rounded-full bg-pink px-1 text-[10px] font-semibold leading-4 text-charcoal"
+            className="absolute right-0.5 top-0.5 flex min-w-4 items-center justify-center rounded-full bg-caramel px-1 text-[10px] font-semibold leading-4 text-dark-text"
           >
             {visibleWishlistCount}
           </span>
@@ -118,7 +118,7 @@ export function HeaderActions({ searchIndex }: { searchIndex: readonly SearchSug
         aria-label="Open menu"
         aria-expanded={menuOpen}
         aria-controls="mobile-menu"
-        className="inline-flex size-10 items-center justify-center rounded-full text-charcoal transition-colors hover:bg-white lg:hidden"
+        className="inline-flex size-10 items-center justify-center rounded-full text-dark-text transition-colors hover:bg-warm-white lg:hidden"
       >
         <Menu className="size-5" aria-hidden="true" />
       </button>

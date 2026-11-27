@@ -22,12 +22,12 @@ export function NavigationMenu({ className }: NavigationMenuProps) {
         <Link
           key={item.label}
           href={item.href}
-          className="group relative py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-charcoal/75 transition-colors hover:text-charcoal"
+          className="group relative py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-dark-text/75 transition-colors hover:text-dark-text"
         >
           {item.label}
           <span
             aria-hidden="true"
-            className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-pink transition-transform duration-300 group-hover:scale-x-100"
+            className="absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0 bg-caramel transition-transform duration-300 group-hover:scale-x-100"
           />
         </Link>
       ))}

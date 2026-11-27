@@ -24,7 +24,7 @@ export function AdminLoginForm({ next }: { next: string }) {
         </label>
         <div className="relative">
           <Mail
-            className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted"
+            className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-taupe"
             aria-hidden="true"
           />
           <Input
@@ -39,7 +39,7 @@ export function AdminLoginForm({ next }: { next: string }) {
           />
         </div>
         {state.fieldErrors.email ? (
-          <p className="mt-1.5 text-xs text-pink">{state.fieldErrors.email}</p>
+          <p className="mt-1.5 text-xs text-chocolate">{state.fieldErrors.email}</p>
         ) : null}
       </div>
 
@@ -49,7 +49,7 @@ export function AdminLoginForm({ next }: { next: string }) {
         </label>
         <div className="relative">
           <LockKeyhole
-            className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted"
+            className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-taupe"
             aria-hidden="true"
           />
           <Input
@@ -67,7 +67,7 @@ export function AdminLoginForm({ next }: { next: string }) {
       {state.status === "error" && state.message ? (
         <p
           role="alert"
-          className="rounded-lg border border-pink/40 bg-pink-tint px-4 py-3 text-sm text-charcoal"
+          className="rounded-lg border border-chocolate/40 bg-soft-cream px-4 py-3 text-sm text-dark-text"
         >
           {state.message}
         </p>
@@ -77,7 +77,7 @@ export function AdminLoginForm({ next }: { next: string }) {
         {pending ? "Signing in…" : "Sign in to dashboard"}
       </Button>
 
-      <p className="text-center text-xs leading-5 text-muted">
+      <p className="text-center text-xs leading-5 text-taupe">
         Only accounts assigned the admin or staff role can sign in. There is no
         public administrator registration.
       </p>

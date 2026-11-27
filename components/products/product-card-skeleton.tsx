@@ -9,7 +9,7 @@ export function ProductCardSkeleton({ className }: ProductCardSkeletonProps) {
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-2xl border border-line/70 bg-white",
+        "overflow-hidden rounded-2xl border border-warm-line/70 bg-warm-white",
         className,
       )}
     >

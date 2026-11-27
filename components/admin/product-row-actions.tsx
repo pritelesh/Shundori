@@ -61,14 +61,14 @@ export function ProductRowActions({
           type="button"
           onClick={toggle}
           disabled={pending}
-          className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-emerald transition-colors hover:bg-emerald-soft disabled:opacity-50"
+          className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-olive-deep transition-colors hover:bg-olive-soft disabled:opacity-50"
         >
           {isActive ? "Unpublish" : "Publish"}
         </button>
         <Link
           href={`/admin/products/${id}/edit`}
           aria-label={`Edit ${name}`}
-          className="inline-flex size-8 items-center justify-center rounded-lg text-muted transition-colors hover:bg-pink-tint hover:text-charcoal"
+          className="inline-flex size-8 items-center justify-center rounded-lg text-taupe transition-colors hover:bg-soft-cream hover:text-dark-text"
         >
           <Pencil className="size-4" aria-hidden="true" />
         </Link>
@@ -76,7 +76,7 @@ export function ProductRowActions({
           type="button"
           onClick={() => setConfirming(true)}
           aria-label={`Delete ${name}`}
-          className="inline-flex size-8 items-center justify-center rounded-lg text-muted transition-colors hover:bg-pink-tint hover:text-charcoal"
+          className="inline-flex size-8 items-center justify-center rounded-lg text-taupe transition-colors hover:bg-soft-cream hover:text-dark-text"
         >
           <Trash2 className="size-4" aria-hidden="true" />
         </button>
@@ -88,15 +88,15 @@ export function ProductRowActions({
         title="Delete this product?"
         description="The product and its uploaded images will be permanently removed."
       >
-        <p className="text-sm text-muted">
-          <span className="font-medium text-charcoal">{name}</span> will no
+        <p className="text-sm text-taupe">
+          <span className="font-medium text-dark-text">{name}</span> will no
           longer appear in the store.
         </p>
         <div className="mt-6 flex justify-end gap-3">
           <button
             type="button"
             onClick={() => setConfirming(false)}
-            className="rounded-full border border-line px-5 py-2.5 text-sm font-medium hover:bg-cream"
+            className="rounded-full border border-warm-line px-5 py-2.5 text-sm font-medium hover:bg-peach"
           >
             Cancel
           </button>
@@ -104,7 +104,7 @@ export function ProductRowActions({
             type="button"
             onClick={remove}
             disabled={pending}
-            className="rounded-full bg-emerald px-5 py-2.5 text-sm font-medium text-white disabled:opacity-50"
+            className="rounded-full bg-chocolate px-5 py-2.5 text-sm font-medium text-warm-white disabled:opacity-50"
           >
             {pending ? "Deleting…" : "Delete product"}
           </button>

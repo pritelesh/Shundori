@@ -150,9 +150,9 @@ export function CatalogBrowser({
 
   return (
     <div>
-      <div className="flex flex-col gap-3 border-b border-line pb-5 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-muted" aria-live="polite">
-          <span className="font-semibold text-charcoal">{results.length}</span>{" "}
+      <div className="flex flex-col gap-3 border-b border-warm-line pb-5 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-taupe" aria-live="polite">
+          <span className="font-semibold text-dark-text">{results.length}</span>{" "}
           {results.length === 1 ? "product" : "products"}
           {query ? ` for “${query}”` : ""}
         </p>
@@ -163,7 +163,7 @@ export function CatalogBrowser({
             onClick={() => setFiltersOpen((open) => !open)}
             aria-expanded={filtersOpen}
             aria-controls={`${idPrefix}-filters`}
-            className="inline-flex h-11 items-center gap-2 rounded-lg border border-line bg-white px-4 text-sm font-medium text-charcoal transition-colors hover:border-line-strong lg:hidden"
+            className="inline-flex h-11 items-center gap-2 rounded-lg border border-warm-line bg-warm-white px-4 text-sm font-medium text-dark-text transition-colors hover:border-warm-line-strong lg:hidden"
           >
             <SlidersHorizontal className="size-4" aria-hidden="true" />
             Filters
@@ -176,7 +176,7 @@ export function CatalogBrowser({
             id={fieldId("sort")}
             value={sort}
             onChange={(event) => updateSort(event.target.value as CatalogSort)}
-            className="h-11 rounded-lg border border-line bg-white px-4 text-sm text-charcoal focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/15"
+            className="h-11 rounded-lg border border-warm-line bg-warm-white px-4 text-sm text-dark-text focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15"
           >
             {Object.entries(sortLabels).map(([value, label]) => (
               <option key={value} value={value}>
@@ -196,13 +196,13 @@ export function CatalogBrowser({
             <div className="sm:col-span-2 lg:col-span-1">
               <label
                 htmlFor={fieldId("search")}
-                className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-muted"
+                className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-taupe"
               >
                 Search
               </label>
               <div className="relative">
                 <Search
-                  className="pointer-events-none absolute left-3 top-3.5 size-4 text-muted"
+                  className="pointer-events-none absolute left-3 top-3.5 size-4 text-taupe"
                   aria-hidden="true"
                 />
                 <Input
@@ -220,7 +220,7 @@ export function CatalogBrowser({
           <div>
             <label
               htmlFor={fieldId("category")}
-              className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-muted"
+              className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-taupe"
             >
               Category
             </label>
@@ -229,7 +229,7 @@ export function CatalogBrowser({
               value={lockedCategory ?? category}
               onChange={(event) => updateCategory(event.target.value)}
               disabled={Boolean(lockedCategory)}
-              className="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm text-charcoal focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/15 disabled:opacity-60"
+              className="h-11 w-full rounded-lg border border-warm-line bg-warm-white px-3 text-sm text-dark-text focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15 disabled:opacity-60"
             >
               <option value="">All categories</option>
               {categories.map((item) => (
@@ -243,7 +243,7 @@ export function CatalogBrowser({
           <div>
             <label
               htmlFor={fieldId("brand")}
-              className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-muted"
+              className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-taupe"
             >
               Brand
             </label>
@@ -252,7 +252,7 @@ export function CatalogBrowser({
               value={lockedBrand ?? brand}
               onChange={(event) => updateBrand(event.target.value)}
               disabled={Boolean(lockedBrand)}
-              className="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm text-charcoal focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/15 disabled:opacity-60"
+              className="h-11 w-full rounded-lg border border-warm-line bg-warm-white px-3 text-sm text-dark-text focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15 disabled:opacity-60"
             >
               <option value="">All brands</option>
               {brands.map((item) => (
@@ -267,7 +267,7 @@ export function CatalogBrowser({
             <div>
               <label
                 htmlFor={fieldId("min")}
-                className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-muted"
+                className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-taupe"
               >
                 Min ৳
               </label>
@@ -284,7 +284,7 @@ export function CatalogBrowser({
             <div>
               <label
                 htmlFor={fieldId("max")}
-                className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-muted"
+                className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-taupe"
               >
                 Max ৳
               </label>
@@ -301,12 +301,12 @@ export function CatalogBrowser({
           </div>
 
           <div className="flex flex-col justify-end gap-3">
-            <label className="inline-flex cursor-pointer items-center gap-2 text-sm text-charcoal">
+            <label className="inline-flex cursor-pointer items-center gap-2 text-sm text-dark-text">
               <input
                 type="checkbox"
                 checked={inStockOnly}
                 onChange={(event) => updateAvailability(event.target.checked)}
-                className="size-4 accent-[#046A38]"
+                className="size-4 accent-olive-deep"
               />
               In stock only
             </label>
@@ -314,7 +314,7 @@ export function CatalogBrowser({
               <button
                 type="button"
                 onClick={clearAll}
-                className="inline-flex items-center gap-1.5 self-start text-xs font-medium text-emerald underline-offset-4 hover:underline"
+                className="inline-flex items-center gap-1.5 self-start text-xs font-medium text-olive-deep underline-offset-4 hover:underline"
               >
                 <RotateCcw className="size-3.5" aria-hidden="true" />
                 Clear all filters
@@ -340,7 +340,7 @@ export function CatalogBrowser({
               </button>
             </div>
           ) : (
-            <p className="mt-10 text-center text-xs text-muted">
+            <p className="mt-10 text-center text-xs text-taupe">
               Showing all {results.length} products
             </p>
           )}
@@ -363,7 +363,7 @@ export function CatalogBrowser({
       )}
 
       {results.length > 0 ? (
-        <p className="mt-6 text-center text-[11px] text-muted">
+        <p className="mt-6 text-center text-[11px] text-taupe">
           Prices shown in Bangladeshi Taka. Lowest displayed price:{" "}
           {formatPrice(
             Math.min(...results.map((product) => product.salePrice ?? product.regularPrice)),

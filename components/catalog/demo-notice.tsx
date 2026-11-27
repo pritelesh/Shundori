@@ -18,13 +18,13 @@ export function DemoNotice({
   return (
     <div
       className={cn(
-        "flex items-start gap-3 rounded-xl border border-line bg-cream-soft px-4 py-3 text-xs leading-5 text-muted",
+        "flex items-start gap-3 rounded-xl border border-warm-line bg-warm-white px-4 py-3 text-xs leading-5 text-taupe",
         className,
       )}
     >
-      <Info className="mt-0.5 size-4 shrink-0 text-emerald" aria-hidden="true" />
+      <Info className="mt-0.5 size-4 shrink-0 text-olive-deep" aria-hidden="true" />
       <p>
-        <span className="font-semibold text-charcoal">Demonstration catalogue.</span>{" "}
+        <span className="font-semibold text-dark-text">Demonstration catalogue.</span>{" "}
         Product names, details and placeholder artwork are illustrative and not
         verified supplier information. Brand names are shown as text only — no
         official logos are reproduced.

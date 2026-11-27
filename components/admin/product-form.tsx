@@ -21,11 +21,11 @@ interface Option {
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
-  return <p className="mt-1.5 text-xs text-pink">{message}</p>;
+  return <p className="mt-1.5 text-xs text-chocolate">{message}</p>;
 }
 
 const textareaClass =
-  "w-full rounded-lg border border-line bg-white px-4 py-3 text-sm text-charcoal placeholder:text-muted/70 transition-colors focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/15";
+  "w-full rounded-lg border border-warm-line bg-warm-white px-4 py-3 text-sm text-dark-text placeholder:text-taupe/70 transition-colors focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15";
 
 export function ProductForm({
   product,
@@ -76,7 +76,7 @@ export function ProductForm({
 
   return (
     <form action={formAction} className="space-y-7">
-      <section className="rounded-2xl border border-line bg-white p-6">
+      <section className="rounded-2xl border border-warm-line bg-warm-white p-6">
         <h2 className="font-display text-xl">Product details</h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-2">
           <div className="sm:col-span-2">
@@ -198,7 +198,7 @@ export function ProductForm({
             </label>
             <div
               id="discountPercentage"
-              className="rounded-lg border border-line bg-cream/40 px-4 py-3 text-sm text-charcoal"
+              className="rounded-lg border border-warm-line bg-peach/40 px-4 py-3 text-sm text-dark-text"
             >
               {product?.discountPercentage ?? 0}% (
               {product?.salePrice
@@ -206,7 +206,7 @@ export function ProductForm({
                 : "0.00"}{" "}
               BDT off)
             </div>
-            <p className="mt-1.5 text-xs text-muted">
+            <p className="mt-1.5 text-xs text-taupe">
               Derived from regular and sale price by the database.
             </p>
           </div>
@@ -237,7 +237,7 @@ export function ProductForm({
               aria-invalid={Boolean(state.fieldErrors.saleEndsAt)}
             />
             <FieldError message={state.fieldErrors.saleEndsAt} />
-            <p className="mt-1.5 text-xs text-muted">
+            <p className="mt-1.5 text-xs text-taupe">
               Leave both blank for a sale with no expiry.
             </p>
           </div>
@@ -332,9 +332,9 @@ export function ProductForm({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-line bg-white p-6">
+      <section className="rounded-2xl border border-warm-line bg-warm-white p-6">
         <h2 className="font-display text-xl">Product information</h2>
-        <p className="mt-1 text-xs text-muted">
+        <p className="mt-1 text-xs text-taupe">
           Enter one item per line. Commas are also accepted.
         </p>
         <div className="mt-5 grid gap-5 lg:grid-cols-3">
@@ -384,14 +384,14 @@ export function ProductForm({
         <FieldError message={state.fieldErrors.lists} />
       </section>
 
-      <section className="flex flex-col gap-4 rounded-2xl border border-line bg-white p-6 sm:flex-row sm:items-center sm:justify-between">
+      <section className="flex flex-col gap-4 rounded-2xl border border-warm-line bg-warm-white p-6 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-3">
           <label className="flex items-center gap-3 text-sm">
             <input
               type="checkbox"
               name="isActive"
               defaultChecked={product?.isActive ?? true}
-              className="size-4 accent-[#046A38]"
+              className="size-4 accent-olive-deep"
             />
             Published on the storefront
           </label>
@@ -400,7 +400,7 @@ export function ProductForm({
               type="checkbox"
               name="isFeatured"
               defaultChecked={product?.isFeatured ?? false}
-              className="size-4 accent-[#FF69B4]"
+              className="size-4 accent-chocolate"
             />
             Feature this product
           </label>

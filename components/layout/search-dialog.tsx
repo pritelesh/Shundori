@@ -87,7 +87,7 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
               type="button"
               onClick={clear}
               aria-label="Clear search"
-              className="absolute right-3 top-1/2 inline-flex size-8 -translate-y-1/2 items-center justify-center rounded-full text-muted transition-colors hover:bg-cream-soft hover:text-charcoal"
+              className="absolute right-3 top-1/2 inline-flex size-8 -translate-y-1/2 items-center justify-center rounded-full text-taupe transition-colors hover:bg-warm-white hover:text-dark-text"
             >
               <X className="size-4" aria-hidden="true" />
             </button>
@@ -99,7 +99,7 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
       </form>
 
       <div className="mt-6">
-        <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted">
+        <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-taupe">
           {query ? "Suggestions" : "Popular searches"}
         </p>
 
@@ -113,12 +113,12 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
                     <Link
                       href={item.href}
                       onClick={onClose}
-                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-charcoal transition-colors hover:bg-cream-soft"
+                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-dark-text transition-colors hover:bg-warm-white"
                     >
-                      <Icon className="size-4 shrink-0 text-emerald" aria-hidden="true" />
+                      <Icon className="size-4 shrink-0 text-olive-deep" aria-hidden="true" />
                       <span className="font-medium">{item.label}</span>
                       {item.detail ? (
-                        <span className="ml-auto truncate text-xs text-muted">
+                        <span className="ml-auto truncate text-xs text-taupe">
                           {item.detail}
                         </span>
                       ) : null}
@@ -127,7 +127,7 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
                 );
               })
             ) : (
-              <li className="px-3 py-3 text-sm text-muted">
+              <li className="px-3 py-3 text-sm text-taupe">
                 No instant matches. Press Enter to search the full catalogue.
               </li>
             )}
@@ -139,7 +139,7 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
                 key={term}
                 type="button"
                 onClick={() => setQuery(term)}
-                className="rounded-full border border-line bg-cream-soft px-3.5 py-1.5 text-xs text-charcoal transition-colors hover:border-emerald/40 hover:bg-emerald-soft"
+                className="rounded-full border border-warm-line bg-warm-white px-3.5 py-1.5 text-xs text-dark-text transition-colors hover:border-olive-deep/40 hover:bg-olive-soft"
               >
                 {term}
               </button>
@@ -148,12 +148,12 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
         )}
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-line/70 pt-4">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-warm-line/70 pt-4">
         <Link
           href="/shop"
           onClick={onClose}
           className={cn(
-            "inline-flex items-center gap-1.5 text-sm font-medium text-emerald underline-offset-4 hover:underline",
+            "inline-flex items-center gap-1.5 text-sm font-medium text-olive-deep underline-offset-4 hover:underline",
           )}
         >
           Browse all products
@@ -165,7 +165,7 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
             onClose();
             router.push("/search");
           }}
-          className="text-sm text-muted underline-offset-4 hover:text-charcoal hover:underline"
+          className="text-sm text-taupe underline-offset-4 hover:text-dark-text hover:underline"
         >
           Advanced search
         </button>

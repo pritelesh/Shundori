@@ -82,7 +82,7 @@ async function BrandContent({ params }: PageProps) {
     <>
       <PageHeader eyebrow="Brand collection" title={brand.name} description={brand.introduction}>
         <div className="flex flex-wrap items-center gap-4">
-          <span className="relative flex size-16 items-center justify-center overflow-hidden rounded-2xl border border-line bg-white font-display text-2xl text-emerald">
+          <span className="relative flex size-16 items-center justify-center overflow-hidden rounded-2xl border border-warm-line bg-warm-white font-display text-2xl text-olive-deep">
             {brand.logoUrl ? (
               <Image
                 src={brand.logoUrl}
@@ -96,11 +96,11 @@ async function BrandContent({ params }: PageProps) {
             )}
           </span>
           <div>
-            <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-emerald">
+            <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-olive-deep">
               {count} {count === 1 ? "product" : "products"}
               {demo ? " · demonstration" : ""}
             </p>
-            <p className="mt-1 text-sm text-muted">
+            <p className="mt-1 text-sm text-taupe">
               {brand.logoUrl
                 ? "Official logo supplied by the administrator."
                 : "Brand name shown as text unless official logo artwork is supplied."}
@@ -118,10 +118,10 @@ async function BrandContent({ params }: PageProps) {
           lockedBrand={slug}
         />
 
-        <div className="mt-14 border-t border-line pt-8">
+        <div className="mt-14 border-t border-warm-line pt-8">
           <Link
             href="/#brands"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald underline-offset-4 hover:underline"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-olive-deep underline-offset-4 hover:underline"
           >
             See all featured brands
             <ArrowRight className="size-4" aria-hidden="true" />

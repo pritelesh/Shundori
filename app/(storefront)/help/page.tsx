@@ -60,7 +60,7 @@ export default function HelpPage() {
       <Container className="py-14 sm:py-20">
         <div className="grid gap-10 lg:grid-cols-[220px_1fr] lg:gap-16">
           <nav aria-label="Help topics" className="lg:sticky lg:top-28 lg:self-start">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-charcoal">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-dark-text">
               On this page
             </p>
             <ul className="mt-4 space-y-2.5">
@@ -68,7 +68,7 @@ export default function HelpPage() {
                 <li key={section.id}>
                   <Link
                     href={`#${section.id}`}
-                    className="text-sm text-muted underline-offset-4 transition-colors hover:text-charcoal hover:underline"
+                    className="text-sm text-taupe underline-offset-4 transition-colors hover:text-dark-text hover:underline"
                   >
                     {section.title}
                   </Link>
@@ -82,22 +82,22 @@ export default function HelpPage() {
               <section
                 key={section.id}
                 id={section.id}
-                className="scroll-mt-28 border-b border-line pb-10 last:border-b-0 last:pb-0"
+                className="scroll-mt-28 border-b border-warm-line pb-10 last:border-b-0 last:pb-0"
               >
-                <h2 className="font-display text-2xl text-charcoal">
+                <h2 className="font-display text-2xl text-dark-text">
                   {section.title}
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-muted">
+                <p className="mt-3 text-sm leading-7 text-taupe">
                   {section.body}
                 </p>
               </section>
             ))}
 
-            <div className="rounded-2xl border border-emerald/20 bg-emerald-soft p-6">
-              <p className="font-display text-lg text-charcoal">
+            <div className="rounded-2xl border border-olive-deep/20 bg-olive-soft p-6">
+              <p className="font-display text-lg text-dark-text">
                 Still have a question?
               </p>
-              <p className="mt-2 text-sm leading-6 text-muted">
+              <p className="mt-2 text-sm leading-6 text-taupe">
                 Contact details will be published at launch. Until then, this
                 page is a design preview of the customer care experience.
               </p>

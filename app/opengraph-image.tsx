@@ -14,9 +14,9 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#fff4db",
+          background: "#FFD5AF",
           padding: 80,
-          color: "#1f1f1f",
+          color: "#3A2923",
         }}
       >
         <div style={{ display: "flex", fontSize: 30, letterSpacing: 8 }}>
@@ -38,7 +38,7 @@ export default function OpengraphImage() {
             display: "flex",
             justifyContent: "space-between",
             fontSize: 26,
-            color: "#046a38",
+            color: "#712E1E",
           }}
         >
           <span>Cosmetics &amp; skincare</span>

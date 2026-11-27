@@ -39,12 +39,12 @@ async function LoginGate({
   if (access.state === "authorized") redirect(next);
 
   return (
-    <div className="min-h-dvh bg-cream px-5 py-12 sm:px-8">
-      <div className="mx-auto grid w-full max-w-5xl overflow-hidden rounded-3xl border border-line bg-white shadow-[0_40px_120px_-60px_rgba(31,31,31,0.45)] lg:grid-cols-2">
-        <div className="relative hidden overflow-hidden bg-emerald p-10 text-white lg:flex lg:flex-col lg:justify-between">
+    <main className="min-h-dvh bg-peach px-5 py-12 sm:px-8">
+      <div className="mx-auto grid w-full max-w-5xl overflow-hidden rounded-3xl border border-warm-line bg-warm-white shadow-soft lg:grid-cols-2">
+        <div className="relative hidden overflow-hidden bg-chocolate p-10 text-warm-white lg:flex lg:flex-col lg:justify-between">
           <div
             aria-hidden="true"
-            className="absolute -right-24 -top-24 size-80 rounded-full bg-pink/25 blur-3xl"
+            className="absolute -right-24 -top-24 size-80 rounded-full bg-chocolate/25 blur-3xl"
           />
           <div className="relative">
             <Link
@@ -72,13 +72,13 @@ async function LoginGate({
         </div>
 
         <div className="p-7 sm:p-10 lg:p-12">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-pink">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-chocolate">
             Restricted area
           </p>
-          <h2 className="mt-2 font-display text-3xl text-charcoal">
+          <h2 className="mt-2 font-display text-3xl text-dark-text">
             Admin sign in
           </h2>
-          <p className="mt-2 text-sm leading-6 text-muted">
+          <p className="mt-2 text-sm leading-6 text-taupe">
             Use the administrator or staff account created in Supabase Auth.
             Customers cannot register here.
           </p>
@@ -86,7 +86,7 @@ async function LoginGate({
           {access.state === "unconfigured" ? (
             <p
               role="status"
-              className="mt-6 rounded-lg border border-line bg-cream-soft px-4 py-3 text-xs leading-5 text-muted"
+              className="mt-6 rounded-lg border border-warm-line bg-warm-white px-4 py-3 text-xs leading-5 text-taupe"
             >
               Supabase is not configured. Add the public Supabase URL and anon
               key to <code>.env.local</code> before signing in.
@@ -96,7 +96,7 @@ async function LoginGate({
           <AdminLoginForm next={next} />
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
@@ -106,7 +106,7 @@ export default function AdminLoginPage({
   searchParams: Promise<{ next?: string | string[] }>;
 }) {
   return (
-    <Suspense fallback={<div className="min-h-dvh bg-cream" />}>
+    <Suspense fallback={<main className="min-h-dvh bg-peach" />}>
       <LoginGate searchParams={searchParams} />
     </Suspense>
   );

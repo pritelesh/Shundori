@@ -78,22 +78,22 @@ export function InventoryManager({
   return (
     <>
       <div className="grid gap-4 lg:grid-cols-3">
-        <div className="rounded-2xl border border-line bg-white p-5">
-          <span className="flex size-10 items-center justify-center rounded-full bg-pink-tint">
-            <TriangleAlert className="size-5 text-charcoal" aria-hidden="true" />
+        <div className="rounded-2xl border border-warm-line bg-warm-white p-5">
+          <span className="flex size-10 items-center justify-center rounded-full bg-soft-cream">
+            <TriangleAlert className="size-5 text-dark-text" aria-hidden="true" />
           </span>
-          <p className="mt-4 text-xs uppercase tracking-[0.16em] text-muted">
+          <p className="mt-4 text-xs uppercase tracking-[0.16em] text-taupe">
             Out of stock
           </p>
           <p className="mt-1 font-display text-3xl">
             {products.filter((item) => item.stock === 0).length}
           </p>
         </div>
-        <div className="rounded-2xl border border-line bg-white p-5">
-          <span className="flex size-10 items-center justify-center rounded-full bg-cream-deep">
-            <Boxes className="size-5 text-charcoal" aria-hidden="true" />
+        <div className="rounded-2xl border border-warm-line bg-warm-white p-5">
+          <span className="flex size-10 items-center justify-center rounded-full bg-light-beige">
+            <Boxes className="size-5 text-dark-text" aria-hidden="true" />
           </span>
-          <p className="mt-4 text-xs uppercase tracking-[0.16em] text-muted">
+          <p className="mt-4 text-xs uppercase tracking-[0.16em] text-taupe">
             At or below threshold
           </p>
           <p className="mt-1 font-display text-3xl">
@@ -104,11 +104,11 @@ export function InventoryManager({
             }
           </p>
         </div>
-        <div className="rounded-2xl border border-line bg-white p-5">
-          <span className="flex size-10 items-center justify-center rounded-full bg-emerald-soft">
-            <PackageCheck className="size-5 text-emerald" aria-hidden="true" />
+        <div className="rounded-2xl border border-warm-line bg-warm-white p-5">
+          <span className="flex size-10 items-center justify-center rounded-full bg-olive-soft">
+            <PackageCheck className="size-5 text-olive-deep" aria-hidden="true" />
           </span>
-          <p className="mt-4 text-xs uppercase tracking-[0.16em] text-muted">
+          <p className="mt-4 text-xs uppercase tracking-[0.16em] text-taupe">
             Well stocked
           </p>
           <p className="mt-1 font-display text-3xl">
@@ -117,10 +117,10 @@ export function InventoryManager({
         </div>
       </div>
 
-      <div className="mt-7 overflow-hidden rounded-2xl border border-line bg-white">
+      <div className="mt-7 overflow-hidden rounded-2xl border border-warm-line bg-warm-white">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[620px] text-left text-sm">
-            <thead className="bg-cream-soft text-[10px] uppercase tracking-[0.16em] text-muted">
+            <thead className="bg-warm-white text-[10px] uppercase tracking-[0.16em] text-taupe">
               <tr>
                 <th className="px-5 py-3 font-medium">Product</th>
                 <th className="px-5 py-3 font-medium">Stock</th>
@@ -129,13 +129,13 @@ export function InventoryManager({
                 <th className="px-5 py-3 text-right font-medium">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line/70">
+            <tbody className="divide-y divide-warm-line/70">
               {products.map((item) => (
                 <tr key={item.id}>
                   <td className="px-5 py-3">
                     <Link
                       href={`/admin/products/${item.id}/edit`}
-                      className="font-medium hover:text-emerald"
+                      className="font-medium hover:text-olive-deep"
                     >
                       {item.name}
                     </Link>
@@ -144,24 +144,24 @@ export function InventoryManager({
                     <span
                       className={
                         item.stock === 0
-                          ? "font-semibold text-pink"
+                          ? "font-semibold text-chocolate"
                           : item.stock <= item.threshold
-                            ? "font-semibold text-[#a85b00]"
+                            ? "font-semibold text-chocolate"
                             : "font-medium"
                       }
                     >
                       {item.stock}
                     </span>
                   </td>
-                  <td className="px-5 py-3 text-muted">{item.threshold}</td>
-                  <td className="px-5 py-3 text-muted">
+                  <td className="px-5 py-3 text-taupe">{item.threshold}</td>
+                  <td className="px-5 py-3 text-taupe">
                     {item.stock === 0 ? "Unavailable" : item.isActive ? "Available" : "Unpublished"}
                   </td>
                   <td className="px-5 py-3 text-right">
                     <button
                       type="button"
                       onClick={() => open(item)}
-                      className="rounded-lg px-3 py-1.5 text-xs font-medium text-emerald hover:bg-emerald-soft"
+                      className="rounded-lg px-3 py-1.5 text-xs font-medium text-olive-deep hover:bg-olive-soft"
                     >
                       Update stock
                     </button>
@@ -173,11 +173,11 @@ export function InventoryManager({
         </div>
       </div>
 
-      <section className="mt-8 rounded-2xl border border-line bg-white p-6">
+      <section className="mt-8 rounded-2xl border border-warm-line bg-warm-white p-6">
         <h2 className="font-display text-xl">Recent stock changes</h2>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[620px] text-left text-sm">
-            <thead className="bg-cream-soft text-[10px] uppercase tracking-[0.16em] text-muted">
+            <thead className="bg-warm-white text-[10px] uppercase tracking-[0.16em] text-taupe">
               <tr>
                 <th className="px-4 py-2.5 font-medium">Product</th>
                 <th className="px-4 py-2.5 font-medium">Change</th>
@@ -185,10 +185,10 @@ export function InventoryManager({
                 <th className="px-4 py-2.5 font-medium">When</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-line/70">
+            <tbody className="divide-y divide-warm-line/70">
               {changes.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-4 py-8 text-center text-muted">
+                  <td colSpan={4} className="px-4 py-8 text-center text-taupe">
                     No stock changes recorded yet.
                   </td>
                 </tr>
@@ -200,15 +200,15 @@ export function InventoryManager({
                       {change.previousQuantity} → {change.newQuantity}{" "}
                       <span
                         className={
-                          change.delta > 0 ? "text-emerald" : "text-pink"
+                          change.delta > 0 ? "text-olive-deep" : "text-chocolate"
                         }
                       >
                         ({change.delta > 0 ? "+" : ""}
                         {change.delta})
                       </span>
                     </td>
-                    <td className="px-4 py-2.5 text-muted">{change.reason}</td>
-                    <td className="px-4 py-2.5 text-muted">
+                    <td className="px-4 py-2.5 text-taupe">{change.reason}</td>
+                    <td className="px-4 py-2.5 text-taupe">
                       {new Date(change.createdAt).toLocaleString("en-BD", {
                         timeZone: "Asia/Dhaka",
                         dateStyle: "medium",

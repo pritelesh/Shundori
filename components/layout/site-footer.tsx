@@ -52,7 +52,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h2 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-charcoal">
+      <h2 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-warm-white">
         {title}
       </h2>
       <ul className="mt-4 space-y-2.5">
@@ -60,7 +60,7 @@ function FooterColumn({
           <li key={link.label}>
             <Link
               href={link.href}
-              className="text-sm leading-6 text-muted underline-offset-4 transition-colors hover:text-charcoal hover:underline"
+              className="text-sm leading-6 text-warm-white/75 underline-offset-4 transition-colors hover:text-warm-white hover:underline"
             >
               {link.label}
             </Link>
@@ -87,7 +87,7 @@ function SocialLink({
       rel="noopener noreferrer"
       aria-label={`${label} (${monogram})`}
       title={label}
-      className="inline-flex size-9 items-center justify-center rounded-full border border-line text-[10px] font-semibold uppercase tracking-[0.08em] text-muted transition-colors hover:border-emerald/30 hover:text-emerald"
+      className="inline-flex size-9 items-center justify-center rounded-full border border-warm-white/25 text-[10px] font-semibold uppercase tracking-[0.08em] text-warm-white/80 transition-colors hover:border-peach hover:text-peach"
     >
       <span aria-hidden="true">{monogram}</span>
     </a>
@@ -124,7 +124,7 @@ export async function SiteFooter() {
   );
 
   return (
-    <footer id="contact" className="scroll-mt-24 bg-cream">
+    <footer id="contact" className="scroll-mt-24 bg-chocolate">
       <NewsletterSection />
 
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr] lg:gap-12 lg:py-16">
@@ -133,8 +133,9 @@ export async function SiteFooter() {
             name={settings.storeName}
             imageUrl={logoUrl}
             tagline={settings.storeDescription.slice(0, 42) || undefined}
+            className="[&>span]:text-warm-white [&>span+span]:text-peach"
           />
-          <p className="mt-5 max-w-xs text-sm leading-7 text-muted">
+          <p className="mt-5 max-w-xs text-sm leading-7 text-warm-white/75">
             {settings.storeDescription ||
               "Premium skincare, makeup and body care — a considered beauty edit for Bangladesh."}
           </p>
@@ -152,10 +153,10 @@ export async function SiteFooter() {
             </div>
           ) : null}
 
-          <div className="mt-6 space-y-2 text-sm text-muted">
+          <div className="mt-6 space-y-2 text-sm text-warm-white/75">
             <p className="flex items-start gap-2">
               <MapPin
-                className="mt-0.5 size-4 shrink-0 text-emerald"
+                className="mt-0.5 size-4 shrink-0 text-peach"
                 aria-hidden="true"
               />
               Dhaka, Bangladesh
@@ -163,12 +164,12 @@ export async function SiteFooter() {
             {settings.contactNumber ? (
               <p className="flex items-start gap-2 break-words">
                 <Phone
-                  className="mt-0.5 size-4 shrink-0 text-emerald"
+                  className="mt-0.5 size-4 shrink-0 text-peach"
                   aria-hidden="true"
                 />
                 <a
                   href={contactHref("tel", settings.contactNumber)}
-                  className="underline-offset-4 hover:text-charcoal hover:underline"
+                  className="underline-offset-4 hover:text-warm-white hover:underline"
                 >
                   {settings.contactNumber}
                 </a>
@@ -177,12 +178,12 @@ export async function SiteFooter() {
             {settings.contactEmail ? (
               <p className="flex items-start gap-2 break-words">
                 <Mail
-                  className="mt-0.5 size-4 shrink-0 text-emerald"
+                  className="mt-0.5 size-4 shrink-0 text-peach"
                   aria-hidden="true"
                 />
                 <a
                   href={contactHref("mailto", settings.contactEmail)}
-                  className="underline-offset-4 hover:text-charcoal hover:underline"
+                  className="underline-offset-4 hover:text-warm-white hover:underline"
                 >
                   {settings.contactEmail}
                 </a>
@@ -196,26 +197,26 @@ export async function SiteFooter() {
         <FooterColumn title="Shopping information" links={informationLinks} />
       </Container>
 
-      <div className="border-t border-line">
-        <Container className="flex flex-col gap-4 py-6 text-xs text-muted lg:flex-row lg:items-center lg:justify-between">
+      <div className="border-t border-warm-white/15">
+        <Container className="flex flex-col gap-4 py-6 text-xs text-warm-white/70 lg:flex-row lg:items-center lg:justify-between">
           <p>© {settings.storeName}. All rights reserved.</p>
 
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <Link
               href="/privacy-policy"
-              className="underline-offset-4 transition-colors hover:text-charcoal hover:underline"
+              className="underline-offset-4 transition-colors hover:text-warm-white hover:underline"
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="underline-offset-4 transition-colors hover:text-charcoal hover:underline"
+              className="underline-offset-4 transition-colors hover:text-warm-white hover:underline"
             >
               Terms &amp; Conditions
             </Link>
             <Link
               href="/help"
-              className="underline-offset-4 transition-colors hover:text-charcoal hover:underline"
+              className="underline-offset-4 transition-colors hover:text-warm-white hover:underline"
             >
               Help
             </Link>
@@ -224,7 +225,7 @@ export async function SiteFooter() {
           <p className="flex items-center gap-2">
             <span
               aria-hidden="true"
-              className="inline-block size-1.5 rounded-full bg-emerald"
+              className="inline-block size-1.5 rounded-full bg-caramel"
             />
             Made for Bangladesh
           </p>

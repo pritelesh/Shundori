@@ -14,11 +14,11 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/toast";
 
 const textareaClass =
-  "w-full rounded-lg border border-line bg-white px-4 py-3 text-sm text-charcoal placeholder:text-muted/70 transition-colors focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/15";
+  "w-full rounded-lg border border-warm-line bg-warm-white px-4 py-3 text-sm text-dark-text placeholder:text-taupe/70 transition-colors focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15";
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
-  return <p className="mt-1.5 text-xs text-pink">{message}</p>;
+  return <p className="mt-1.5 text-xs text-chocolate">{message}</p>;
 }
 
 export function ProductEnquiry({ productId }: { productId: string }) {
@@ -42,10 +42,10 @@ export function ProductEnquiry({ productId }: { productId: string }) {
   }, [state, toast]);
 
   return (
-    <details className="group mt-6 rounded-2xl border border-line bg-cream/50 p-5">
-      <summary className="cursor-pointer list-none text-sm font-medium text-charcoal marker:hidden">
+    <details className="group mt-6 rounded-2xl border border-warm-line bg-peach/50 p-5">
+      <summary className="cursor-pointer list-none text-sm font-medium text-dark-text marker:hidden">
         Ask us about this product
-        <span className="ml-2 text-xs font-normal text-muted">
+        <span className="ml-2 text-xs font-normal text-taupe">
           (opens a short form)
         </span>
       </summary>

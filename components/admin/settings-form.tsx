@@ -67,11 +67,11 @@ export function DeliveryChargeForm({ poisha }: { poisha: number }) {
           {pending ? "Saving…" : "Save charge"}
         </Button>
       </div>
-      <p id="deliveryCharge-help" className="mt-2 text-xs leading-5 text-muted">
+      <p id="deliveryCharge-help" className="mt-2 text-xs leading-5 text-taupe">
         Applies to every new checkout order. Stored internally as integer poisha.
       </p>
       {state.fieldErrors.deliveryCharge ? (
-        <p className="mt-1.5 text-xs text-pink">
+        <p className="mt-1.5 text-xs text-chocolate">
           {state.fieldErrors.deliveryCharge}
         </p>
       ) : null}

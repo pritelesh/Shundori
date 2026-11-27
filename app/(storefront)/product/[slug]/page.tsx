@@ -61,7 +61,7 @@ export async function generateStaticParams() {
 
 export default function ProductPage(props: PageProps) {
   return (
-    <Suspense fallback={<Container className="py-16"><p className="text-sm text-muted">Loading product…</p></Container>}>
+    <Suspense fallback={<Container className="py-16"><p className="text-sm text-taupe">Loading product…</p></Container>}>
       <ProductContent {...props} />
     </Suspense>
   );
@@ -109,19 +109,19 @@ async function ProductContent({ params }: PageProps) {
         />
       ) : null}
       <Container>
-        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1 text-xs text-muted">
-          <Link href="/" className="hover:text-charcoal hover:underline">Home</Link>
+        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1 text-xs text-taupe">
+          <Link href="/" className="hover:text-dark-text hover:underline">Home</Link>
           <ChevronRight className="size-3" aria-hidden="true" />
-          <Link href="/shop" className="hover:text-charcoal hover:underline">Shop</Link>
+          <Link href="/shop" className="hover:text-dark-text hover:underline">Shop</Link>
           <ChevronRight className="size-3" aria-hidden="true" />
           <Link
             href={`/category/${product.categorySlug}`}
-            className="hover:text-charcoal hover:underline"
+            className="hover:text-dark-text hover:underline"
           >
             {product.category}
           </Link>
           <ChevronRight className="size-3" aria-hidden="true" />
-          <span className="text-charcoal">{product.name}</span>
+          <span className="text-dark-text">{product.name}</span>
         </nav>
 
         <DemoNotice demo={demo} className="mt-6" />
@@ -133,15 +133,15 @@ async function ProductContent({ params }: PageProps) {
             <div className="flex flex-wrap items-center gap-2">
               <Link
                 href={`/brand/${product.brandSlug}`}
-                className="text-[11px] font-medium uppercase tracking-[0.18em] text-emerald underline-offset-4 hover:underline"
+                className="text-[11px] font-medium uppercase tracking-[0.18em] text-olive-deep underline-offset-4 hover:underline"
               >
                 {product.brand}
               </Link>
               <Badge variant="neutral">{product.category}</Badge>
-              {product.isFeatured ? <Badge variant="pinkSoft">Featured</Badge> : null}
+              {product.isFeatured ? <Badge variant="brandSoft">Featured</Badge> : null}
             </div>
 
-            <h1 className="mt-4 font-display text-3xl leading-tight text-charcoal sm:text-4xl">
+            <h1 className="mt-4 font-display text-3xl leading-tight text-dark-text sm:text-4xl">
               {product.name}
             </h1>
 
@@ -161,15 +161,15 @@ async function ProductContent({ params }: PageProps) {
               />
             </div>
 
-            <p className="mt-4 flex items-center gap-2 text-sm text-muted">
+            <p className="mt-4 flex items-center gap-2 text-sm text-taupe">
               <span
                 aria-hidden="true"
-                className={`size-2 rounded-full ${product.stockQuantity > 0 ? "bg-emerald" : "bg-charcoal/35"}`}
+                className={`size-2 rounded-full ${product.stockQuantity > 0 ? "bg-olive" : "bg-dark-text/35"}`}
               />
               {stockLabel}
             </p>
 
-            <p className="mt-5 max-w-xl text-sm leading-7 text-muted">
+            <p className="mt-5 max-w-xl text-sm leading-7 text-taupe">
               {product.description}
             </p>
 
@@ -184,13 +184,13 @@ async function ProductContent({ params }: PageProps) {
               </div>
             ) : null}
 
-            <div className="mt-8 grid gap-3 border-t border-line pt-6 text-xs text-muted sm:grid-cols-2">
+            <div className="mt-8 grid gap-3 border-t border-warm-line pt-6 text-xs text-taupe sm:grid-cols-2">
               <p className="flex items-center gap-2">
-                <Package className="size-4 shrink-0 text-emerald" aria-hidden="true" />
+                <Package className="size-4 shrink-0 text-olive-deep" aria-hidden="true" />
                 Bag state lasts for this visit only.
               </p>
               <p className="flex items-center gap-2">
-                <Clock3 className="size-4 shrink-0 text-emerald" aria-hidden="true" />
+                <Clock3 className="size-4 shrink-0 text-olive-deep" aria-hidden="true" />
                 Added {formatDate(product.createdAt)}
                 {demo ? " to the demo catalogue" : " to the collection"}.
               </p>
@@ -198,15 +198,15 @@ async function ProductContent({ params }: PageProps) {
           </div>
         </div>
 
-        <div className="mt-16 grid gap-8 border-t border-line pt-12 lg:grid-cols-2">
+        <div className="mt-16 grid gap-8 border-t border-warm-line pt-12 lg:grid-cols-2">
           <section aria-labelledby="benefits-title">
-            <h2 id="benefits-title" className="font-display text-2xl text-charcoal">
+            <h2 id="benefits-title" className="font-display text-2xl text-dark-text">
               Benefits
             </h2>
             <ul className="mt-4 space-y-3">
               {product.benefits.map((benefit) => (
-                <li key={benefit} className="flex gap-3 text-sm leading-6 text-muted">
-                  <Check className="mt-1 size-4 shrink-0 text-emerald" aria-hidden="true" />
+                <li key={benefit} className="flex gap-3 text-sm leading-6 text-taupe">
+                  <Check className="mt-1 size-4 shrink-0 text-olive-deep" aria-hidden="true" />
                   {benefit}
                 </li>
               ))}
@@ -214,12 +214,12 @@ async function ProductContent({ params }: PageProps) {
           </section>
 
           <section aria-labelledby="ingredients-title">
-            <h2 id="ingredients-title" className="font-display text-2xl text-charcoal">
+            <h2 id="ingredients-title" className="font-display text-2xl text-dark-text">
               Ingredients
             </h2>
             <ul className="mt-4 space-y-2">
               {product.ingredients.map((ingredient) => (
-                <li key={ingredient} className="text-sm leading-6 text-muted">
+                <li key={ingredient} className="text-sm leading-6 text-taupe">
                   {ingredient}
                 </li>
               ))}
@@ -227,13 +227,13 @@ async function ProductContent({ params }: PageProps) {
           </section>
 
           <section aria-labelledby="usage-title">
-            <h2 id="usage-title" className="font-display text-2xl text-charcoal">
+            <h2 id="usage-title" className="font-display text-2xl text-dark-text">
               Usage instructions
             </h2>
             <ol className="mt-4 space-y-2">
               {product.usageInstructions.map((step, index) => (
-                <li key={step} className="flex gap-3 text-sm leading-6 text-muted">
-                  <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-emerald-soft text-[10px] font-semibold text-emerald">
+                <li key={step} className="flex gap-3 text-sm leading-6 text-taupe">
+                  <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-olive-soft text-[10px] font-semibold text-olive-deep">
                     {index + 1}
                   </span>
                   {step}
@@ -243,35 +243,35 @@ async function ProductContent({ params }: PageProps) {
           </section>
 
           <section aria-labelledby="details-title">
-            <h2 id="details-title" className="font-display text-2xl text-charcoal">
+            <h2 id="details-title" className="font-display text-2xl text-dark-text">
               Catalogue details
             </h2>
-            <dl className="mt-4 divide-y divide-line text-sm">
+            <dl className="mt-4 divide-y divide-warm-line text-sm">
               <div className="flex justify-between gap-4 py-2">
-                <dt className="text-muted">Brand</dt>
-                <dd className="text-charcoal">{product.brand}</dd>
+                <dt className="text-taupe">Brand</dt>
+                <dd className="text-dark-text">{product.brand}</dd>
               </div>
               <div className="flex justify-between gap-4 py-2">
-                <dt className="text-muted">Category</dt>
-                <dd className="text-charcoal">{product.category}</dd>
+                <dt className="text-taupe">Category</dt>
+                <dd className="text-dark-text">{product.category}</dd>
               </div>
               <div className="flex justify-between gap-4 py-2">
-                <dt className="text-muted">Regular price</dt>
-                <dd className="text-charcoal">{formatPrice(product.regularPrice)}</dd>
+                <dt className="text-taupe">Regular price</dt>
+                <dd className="text-dark-text">{formatPrice(product.regularPrice)}</dd>
               </div>
               <div className="flex justify-between gap-4 py-2">
-                <dt className="text-muted">Product ID</dt>
-                <dd className="text-charcoal">{product.id}</dd>
+                <dt className="text-taupe">Product ID</dt>
+                <dd className="text-dark-text">{product.id}</dd>
               </div>
             </dl>
           </section>
         </div>
 
-        <section className="mt-16 border-t border-line pt-12" aria-labelledby="reviews-title">
-          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-emerald">
+        <section className="mt-16 border-t border-warm-line pt-12" aria-labelledby="reviews-title">
+          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-olive-deep">
             Customer feedback
           </p>
-          <h2 id="reviews-title" className="mt-2 font-display text-3xl text-charcoal">
+          <h2 id="reviews-title" className="mt-2 font-display text-3xl text-dark-text">
             Reviews
           </h2>
           {!demo ? (
@@ -282,19 +282,19 @@ async function ProductContent({ params }: PageProps) {
           </div>
         </section>
 
-        <section className="mt-16 border-t border-line pt-12" aria-labelledby="related-title">
+        <section className="mt-16 border-t border-warm-line pt-12" aria-labelledby="related-title">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-emerald">
+              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-olive-deep">
                 You may also like
               </p>
-              <h2 id="related-title" className="mt-2 font-display text-3xl text-charcoal">
+              <h2 id="related-title" className="mt-2 font-display text-3xl text-dark-text">
                 Related products
               </h2>
             </div>
             <Link
               href={`/category/${product.categorySlug}`}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald underline-offset-4 hover:underline"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-olive-deep underline-offset-4 hover:underline"
             >
               More in {product.category}
               <ArrowRight className="size-4" aria-hidden="true" />

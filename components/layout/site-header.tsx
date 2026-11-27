@@ -25,10 +25,10 @@ export async function SiteHeader() {
 
   return (
     <>
-      <div className="bg-emerald text-white">
+      <div className="bg-chocolate text-warm-white">
         <Container className="flex h-9 items-center justify-center gap-2 text-center">
           <Sparkles
-            className="size-3 shrink-0 text-pink"
+            className="size-3 shrink-0 text-caramel"
             aria-hidden="true"
           />
           <p className="text-[9px] font-medium uppercase tracking-[0.2em] sm:text-[10px]">
@@ -37,7 +37,7 @@ export async function SiteHeader() {
         </Container>
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-line/80 bg-cream/95 backdrop-blur-sm">
+      <header className="sticky top-0 z-40 border-b border-warm-line/80 bg-peach/95 backdrop-blur-sm">
         <Container className="flex h-16 items-center justify-between gap-4 lg:h-20">
           <Link href="/" className="shrink-0 rounded-sm">
             <Logo name={settings.storeName} imageUrl={logoUrl} />

@@ -3,12 +3,12 @@ import type { ComponentProps } from "react";
 import { cn } from "@/utils/cn";
 
 const badgeVariants = {
-  emerald: "bg-emerald text-white",
-  emeraldSoft: "bg-emerald-soft text-emerald",
-  pink: "bg-pink text-charcoal",
-  pinkSoft: "bg-pink-soft text-charcoal",
-  neutral: "border border-line bg-white text-muted",
-  outline: "border border-charcoal/15 text-charcoal",
+  accent: "bg-olive-deep text-warm-white",
+  accentSoft: "bg-olive-soft text-olive-deep",
+  brand: "bg-chocolate text-warm-white",
+  brandSoft: "bg-peach-tint text-dark-text",
+  neutral: "border border-warm-line bg-warm-white text-taupe",
+  outline: "border border-dark-text/15 text-chocolate",
 } as const;
 
 export type BadgeVariant = keyof typeof badgeVariants;

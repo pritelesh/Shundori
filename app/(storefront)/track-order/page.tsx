@@ -25,11 +25,11 @@ export default function TrackOrderPage() {
         <div className="mx-auto max-w-3xl">
           <TrackOrderForm />
 
-          <div className="mt-8 flex items-start gap-3 rounded-2xl border border-line bg-cream/50 p-5">
-            <ShieldCheck className="mt-0.5 size-5 shrink-0 text-emerald" aria-hidden="true" />
+          <div className="mt-8 flex items-start gap-3 rounded-2xl border border-warm-line bg-peach/50 p-5">
+            <ShieldCheck className="mt-0.5 size-5 shrink-0 text-olive-deep" aria-hidden="true" />
             <div>
               <p className="text-sm font-medium">Your details stay private</p>
-              <p className="mt-1 text-sm leading-6 text-muted">
+              <p className="mt-1 text-sm leading-6 text-taupe">
                 Both the order number and checkout phone number must match. The
                 result never includes another customer&apos;s name, address, phone
                 number or order total.

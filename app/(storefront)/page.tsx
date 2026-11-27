@@ -94,11 +94,11 @@ export default function HomePage() {
 function HomeFallback() {
   return (
     <Container className="py-20">
-      <div className="h-3 w-28 animate-pulse rounded bg-line" />
-      <div className="mt-5 h-10 w-80 max-w-full animate-pulse rounded bg-line" />
+      <div className="h-3 w-28 animate-pulse rounded bg-warm-line" />
+      <div className="mt-5 h-10 w-80 max-w-full animate-pulse rounded bg-warm-line" />
       <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: 8 }, (_, index) => (
-          <div key={index} className="aspect-[4/5] animate-pulse rounded-2xl bg-line" />
+          <div key={index} className="aspect-[4/5] animate-pulse rounded-2xl bg-warm-line" />
         ))}
       </div>
     </Container>
@@ -131,33 +131,33 @@ async function HomeContent() {
       <section className="relative overflow-hidden">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-32 -top-40 size-[32rem] rounded-full bg-pink/15 blur-3xl"
+          className="pointer-events-none absolute -right-32 -top-40 size-[32rem] rounded-full bg-chocolate/15 blur-3xl"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -left-44 top-1/2 size-[26rem] rounded-full bg-emerald/10 blur-3xl"
+          className="pointer-events-none absolute -left-44 top-1/2 size-[26rem] rounded-full bg-olive/10 blur-3xl"
         />
 
         <Container className="relative grid gap-12 py-12 sm:py-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-16 lg:py-20">
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-line bg-white/80 px-4 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-emerald">
-              <Sparkles className="size-3 text-pink" aria-hidden="true" />
+            <p className="inline-flex items-center gap-2 rounded-full border border-warm-line bg-warm-white/80 px-4 py-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-olive-deep">
+              <Sparkles className="size-3 text-chocolate" aria-hidden="true" />
               The Shundori edit · Bangladesh
             </p>
 
-            <h1 className="mt-6 max-w-xl font-display text-[2.75rem] leading-[1.03] tracking-[-0.02em] text-charcoal sm:text-6xl lg:text-[4.1rem]">
+            <h1 className="mt-6 max-w-xl font-display text-[2.75rem] leading-[1.03] tracking-[-0.02em] text-chocolate sm:text-6xl lg:text-[4.1rem]">
               Beauty that feels like{" "}
-              <span className="relative inline-block italic text-emerald">
+              <span className="relative inline-block italic text-olive-deep">
                 you
                 <span
                   aria-hidden="true"
-                  className="absolute inset-x-0 -bottom-1 h-[0.12em] rounded-full bg-pink/50"
+                  className="absolute inset-x-0 -bottom-1 h-[0.12em] rounded-full bg-chocolate/50"
                 />
               </span>
               .
             </h1>
 
-            <p className="mt-6 max-w-lg text-base leading-7 text-muted sm:text-lg sm:leading-8">
+            <p className="mt-6 max-w-lg text-base leading-7 text-taupe sm:text-lg sm:leading-8">
               Skincare, makeup and everyday essentials in one calm, considered
               space. Discover a beauty ritual that fits your routine.
             </p>
@@ -175,38 +175,38 @@ async function HomeContent() {
               </Link>
             </div>
 
-            <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-line pt-6 text-[10px] font-medium uppercase tracking-[0.14em] text-muted">
+            <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-warm-line pt-6 text-[10px] font-medium uppercase tracking-[0.14em] text-taupe">
               <span className="inline-flex items-center gap-2">
-                <Sparkles className="size-4 text-pink" aria-hidden="true" />
+                <Sparkles className="size-4 text-chocolate" aria-hidden="true" />
                 Curated edit
               </span>
               <span className="inline-flex items-center gap-2">
-                <Truck className="size-4 text-emerald" aria-hidden="true" />
+                <Truck className="size-4 text-olive-deep" aria-hidden="true" />
                 Easy browsing
               </span>
               <span className="inline-flex items-center gap-2">
-                <HeartHandshake className="size-4 text-emerald" aria-hidden="true" />
+                <HeartHandshake className="size-4 text-olive-deep" aria-hidden="true" />
                 Here to help
               </span>
             </div>
           </div>
 
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-gradient-to-b from-pink-soft/70 via-pink-tint to-cream-soft">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] bg-gradient-to-b from-peach-tint/70 via-soft-cream to-warm-white">
               <div
                 aria-hidden="true"
-                className="absolute inset-x-8 bottom-0 top-10 rounded-t-[999px] border border-white/80 bg-white/25"
+                className="absolute inset-x-8 bottom-0 top-10 rounded-t-[999px] border border-white/80 bg-warm-white/25"
               />
               <div
                 aria-hidden="true"
-                className="absolute inset-x-16 bottom-0 top-20 rounded-t-[999px] border border-white/60 bg-white/20"
+                className="absolute inset-x-16 bottom-0 top-20 rounded-t-[999px] border border-white/60 bg-warm-white/20"
               />
 
               <div className="absolute left-6 top-6 z-10">
-                <p className="text-[9px] font-medium uppercase tracking-[0.22em] text-emerald">
+                <p className="text-[9px] font-medium uppercase tracking-[0.22em] text-olive-deep">
                   The Shundori edit
                 </p>
-                <p className="mt-1 font-display text-lg text-charcoal">N°01</p>
+                <p className="mt-1 font-display text-lg text-dark-text">N°01</p>
               </div>
 
               <ProductVisual
@@ -216,20 +216,20 @@ async function HomeContent() {
                 className="absolute inset-0 pb-8 pt-6"
               />
 
-              <div className="absolute bottom-5 left-5 right-5 z-10 flex items-center justify-between gap-4 rounded-2xl border border-white/80 bg-white/95 p-4 shadow-[0_20px_44px_-26px_rgba(31,31,31,0.45)] sm:left-6 sm:right-6">
+              <div className="absolute bottom-5 left-5 right-5 z-10 flex items-center justify-between gap-4 rounded-2xl border border-white/80 bg-warm-white/95 p-4 shadow-soft sm:left-6 sm:right-6">
                 <div>
-                  <p className="text-[9px] uppercase tracking-[0.16em] text-muted">
+                  <p className="text-[9px] uppercase tracking-[0.16em] text-taupe">
                     {heroProduct?.name ?? "Featured edit"}
                   </p>
-                  <p className="mt-1 font-display text-lg text-charcoal">
+                  <p className="mt-1 font-display text-lg text-dark-text">
                     {heroProduct?.brand ?? "Shundori"}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-medium text-charcoal">
+                  <p className="text-sm font-medium text-dark-text">
                     {heroProduct ? formatPrice(heroProduct.salePrice ?? heroProduct.regularPrice) : "—"}
                   </p>
-                  <p className="mt-0.5 text-[10px] uppercase tracking-[0.12em] text-emerald">
+                  <p className="mt-0.5 text-[10px] uppercase tracking-[0.12em] text-olive-deep">
                     {demo ? "Demo listing" : "Featured product"}
                   </p>
                 </div>
@@ -239,16 +239,16 @@ async function HomeContent() {
         </Container>
       </section>
 
-      <section className="border-y border-line bg-white">
+      <section className="border-y border-warm-line bg-warm-white">
         <Container className="grid gap-6 py-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {whyChooseUs.map(({ icon: Icon, title, description }) => (
             <div key={title} className="flex items-start gap-3">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-emerald-soft text-emerald">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-olive-soft text-olive-deep">
                 <Icon className="size-4" aria-hidden="true" />
               </span>
               <div>
-                <p className="text-sm font-medium text-charcoal">{title}</p>
-                <p className="mt-0.5 text-xs leading-5 text-muted">{description}</p>
+                <p className="text-sm font-medium text-dark-text">{title}</p>
+                <p className="mt-0.5 text-xs leading-5 text-taupe">{description}</p>
               </div>
             </div>
           ))}
@@ -269,7 +269,7 @@ async function HomeContent() {
             action={
               <Link
                 href="/shop"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald underline-offset-4 hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-olive-deep underline-offset-4 hover:underline"
               >
                 View all products
                 <ArrowRight className="size-4" aria-hidden="true" />
@@ -297,7 +297,7 @@ async function HomeContent() {
 
       <section
         id="brands"
-        className="scroll-mt-24 border-y border-line bg-white py-16 sm:py-20"
+        className="scroll-mt-24 border-y border-warm-line bg-warm-white py-16 sm:py-20"
         aria-labelledby="brands-title"
       >
         <Container>
@@ -317,9 +317,9 @@ async function HomeContent() {
               <Link
                 key={brand.slug}
                 href={`/brand/${brand.slug}`}
-                className="group flex min-h-40 flex-col items-center justify-center rounded-2xl border border-line/70 bg-cream-soft p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-line-strong hover:bg-white hover:shadow-[0_22px_44px_-32px_rgba(31,31,31,0.45)]"
+                className="group flex min-h-40 flex-col items-center justify-center rounded-2xl border border-warm-line/70 bg-warm-white p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-caramel hover:bg-soft-cream hover:shadow-soft"
               >
-                <span className="relative flex size-14 items-center justify-center overflow-hidden rounded-full border border-line bg-white font-display text-xl text-emerald">
+                <span className="relative flex size-14 items-center justify-center overflow-hidden rounded-full border border-warm-line bg-warm-white font-display text-xl text-olive-deep">
                   {brand.logoUrl ? (
                     <Image
                       src={brand.logoUrl}
@@ -332,10 +332,10 @@ async function HomeContent() {
                     brand.monogram
                   )}
                 </span>
-                <span className="mt-4 font-display text-lg leading-tight text-charcoal">
+                <span className="mt-4 font-display text-lg leading-tight text-dark-text">
                   {brand.name}
                 </span>
-                <span className="mt-1.5 text-[10px] uppercase tracking-[0.16em] text-muted">
+                <span className="mt-1.5 text-[10px] uppercase tracking-[0.16em] text-taupe">
                   {brandCounts[index] ?? 0}
                   {demo ? " demo products" : " products"}
                 </span>
@@ -359,7 +359,7 @@ async function HomeContent() {
             action={
               <Link
                 href="/shop"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald underline-offset-4 hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-olive-deep underline-offset-4 hover:underline"
               >
                 Shop all products
                 <ArrowRight className="size-4" aria-hidden="true" />
@@ -374,7 +374,7 @@ async function HomeContent() {
         </Container>
       </section>
 
-      <section className="border-y border-line bg-cream-soft/70 py-16 sm:py-20" aria-labelledby="new-arrivals-title">
+      <section className="border-y border-warm-line bg-warm-white/70 py-16 sm:py-20" aria-labelledby="new-arrivals-title">
         <Container>
           <SectionHeading
             id="new-arrivals-title"
@@ -384,7 +384,7 @@ async function HomeContent() {
             action={
               <Link
                 href="/shop?sort=newest"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald underline-offset-4 hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-olive-deep underline-offset-4 hover:underline"
               >
                 See all new arrivals
                 <ArrowRight className="size-4" aria-hidden="true" />
@@ -400,21 +400,21 @@ async function HomeContent() {
 
       <section className="py-16 sm:py-20" aria-labelledby="offers-title">
         <Container>
-          <div className="relative overflow-hidden rounded-[2rem] bg-emerald px-6 py-12 text-white sm:px-12 sm:py-16">
+          <div className="relative overflow-hidden rounded-[2rem] bg-caramel px-6 py-12 text-dark-text sm:px-12 sm:py-16">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute -right-20 -top-24 size-80 rounded-full bg-pink/25 blur-3xl"
+              className="pointer-events-none absolute -right-20 -top-24 size-80 rounded-full bg-peach/60 blur-3xl"
             />
             <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
               <div>
-                <p className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.2em] text-white/80">
-                  <span aria-hidden="true" className="inline-block size-1.5 rounded-full bg-pink" />
+                <p className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.2em] text-dark-text">
+                  <span aria-hidden="true" className="inline-block size-1.5 rounded-full bg-chocolate" />
                   Special offers
                 </p>
                 <h2 id="offers-title" className="mt-4 max-w-2xl font-display text-3xl leading-tight sm:text-4xl">
                   Small changes, beautiful difference.
                 </h2>
-                <p className="mt-4 max-w-xl text-sm leading-7 text-white/85">
+                <p className="mt-4 max-w-xl text-sm leading-7 text-dark-text/85">
                   {demo
                     ? "Explore the current demonstration offers across cleansers, moisturisers and colour. Prices are illustrative and shown in Bangladeshi Taka."
                     : "Explore the current offers across cleansers, moisturisers and colour. Prices are shown in Bangladeshi Taka."}
@@ -438,7 +438,7 @@ async function HomeContent() {
 
       <section
         id="about"
-        className="scroll-mt-24 border-y border-line bg-white py-16 sm:py-20"
+        className="scroll-mt-24 border-y border-warm-line bg-warm-white py-16 sm:py-20"
         aria-labelledby="about-title"
       >
         <Container>
@@ -451,12 +451,12 @@ async function HomeContent() {
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {whyChooseUs.map(({ icon: Icon, title, description }) => (
-              <div key={title} className="rounded-2xl border border-line/70 bg-cream-soft/50 p-6">
-                <span className="flex size-11 items-center justify-center rounded-full bg-white text-emerald">
+              <div key={title} className="rounded-2xl border border-warm-line/70 bg-soft-cream/60 p-6">
+                <span className="flex size-11 items-center justify-center rounded-full bg-warm-white text-olive-deep">
                   <Icon className="size-5" aria-hidden="true" />
                 </span>
-                <h3 className="mt-5 font-display text-xl text-charcoal">{title}</h3>
-                <p className="mt-2 text-sm leading-6 text-muted">{description}</p>
+                <h3 className="mt-5 font-display text-xl text-dark-text">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-taupe">{description}</p>
               </div>
             ))}
           </div>
@@ -464,7 +464,7 @@ async function HomeContent() {
           <div className="mt-10">
             <Link
               href="/about"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-emerald underline-offset-4 hover:underline"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-olive-deep underline-offset-4 hover:underline"
             >
               More about Shundori
               <ArrowRight className="size-4" aria-hidden="true" />

@@ -55,22 +55,22 @@ export function ReviewManager({ reviews }: { reviews: PendingReview[] }) {
       </div>
 
       {visible.length === 0 ? (
-        <p className="rounded-xl border border-line bg-cream/40 p-6 text-sm text-muted">
+        <p className="rounded-xl border border-warm-line bg-peach/40 p-6 text-sm text-taupe">
           No {filter} reviews.
         </p>
       ) : (
         <div className="space-y-4">
           {visible.map((review) => (
-            <article key={review.id} className="rounded-2xl border border-line bg-white p-6">
+            <article key={review.id} className="rounded-2xl border border-warm-line bg-warm-white p-6">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm font-medium text-charcoal">
+                  <p className="text-sm font-medium text-dark-text">
                     {review.productName}
-                    <span className="ml-2 text-xs font-normal text-muted">
+                    <span className="ml-2 text-xs font-normal text-taupe">
                       {review.orderNumber ?? "Order unavailable"}
                     </span>
                   </p>
-                  <p className="mt-1 text-xs text-muted">
+                  <p className="mt-1 text-xs text-taupe">
                     {review.customerName} · {formatDate(review.createdAt)} · Verified purchase
                   </p>
                 </div>
@@ -80,14 +80,14 @@ export function ReviewManager({ reviews }: { reviews: PendingReview[] }) {
                       key={value}
                       className={cn(
                         "size-4",
-                        value <= review.rating ? "fill-pink text-pink" : "text-charcoal/20",
+                        value <= review.rating ? "fill-chocolate text-chocolate" : "text-dark-text/20",
                       )}
                       aria-hidden="true"
                     />
                   ))}
                 </div>
               </div>
-              <p className="mt-4 whitespace-pre-wrap text-sm leading-6 text-charcoal">
+              <p className="mt-4 whitespace-pre-wrap text-sm leading-6 text-dark-text">
                 {review.body}
               </p>
               <div className="mt-5 flex gap-2">

@@ -1,34 +1,54 @@
 @import "tailwindcss";
 
 /*
- * Shundori design tokens — Phase 2.
+ * Shundori official brand palette.
  *
- * Official brand colors:
- *   Hot Pink       #FF69B4  primary actions, promotions, highlights
- *   Vanilla Cream  #FFF4DB  page background
- *   Emerald Green  #046A38  secondary actions, trust marks, accents
+ * Core identity:
+ *   Peach Cream     #FFD5AF  primary background
+ *   Warm Caramel    #E59A59  secondary actions
+ *   Muted Olive     #888870  accent and badges
+ *   Deep Chocolate  #712E1E  headings and primary actions
  *
- * Supporting neutrals: white surfaces and dark charcoal text. The lighter
- * pink and emerald values below are tints of the official colors, used for
- * soft surfaces and hover states — not new brand colors.
+ * Neutrals:
+ *   Warm White  #FFFAF5  Soft Cream  #FFF1E5
+ *   Light Beige #F3E6D8  Dark Text   #3A2923
+ *
+ * The tonal extensions below are derived from the official colors for soft
+ * surfaces, accessible accent text and subtle borders. They are defined here
+ * only so components never need hardcoded color values.
  */
 @theme {
-  --color-cream: #fff4db;
-  --color-cream-soft: #fff9ec;
-  --color-cream-deep: #f9e9c6;
+  --color-peach: #ffd5af;
+  --color-warm-white: #fffaf5;
+  --color-soft-cream: #fff1e5;
+  --color-light-beige: #f3e6d8;
+  --color-caramel: #e59a59;
+  --color-olive: #888870;
+  --color-chocolate: #712e1e;
+  --color-dark-text: #3a2923;
 
-  --color-pink: #ff69b4;
-  --color-pink-soft: #ffd9ea;
-  --color-pink-tint: #fff1f7;
+  /* Derived tones — centralized here, never inline in components. */
+  --color-peach-tint: #ffe6cc;
+  --color-caramel-soft: #f7e0c6;
+  --color-olive-soft: #ecebe2;
+  --color-olive-deep: #5f604c;
+  --color-taupe: #65564c;
+  --color-warm-line: #e6d5c3;
+  --color-warm-line-strong: #cdb49b;
 
-  --color-emerald: #046a38;
-  --color-emerald-soft: #e4f0e8;
-
-  --color-charcoal: #1f1f1f;
-  --color-muted: #5f574c;
-
-  --color-line: #e8dcc4;
-  --color-line-strong: #d6c7a8;
+  /* Reusable elevation tokens, all derived from the brand palette. */
+  --shadow-soft: 0 18px 44px -30px
+    color-mix(in srgb, var(--color-dark-text) 42%, transparent);
+  --shadow-card: 0 26px 50px -32px
+    color-mix(in srgb, var(--color-dark-text) 40%, transparent);
+  --shadow-panel: 0 40px 120px -40px
+    color-mix(in srgb, var(--color-dark-text) 55%, transparent);
+  --shadow-primary: 0 12px 28px -14px
+    color-mix(in srgb, var(--color-chocolate) 72%, transparent);
+  --shadow-secondary: 0 12px 28px -14px
+    color-mix(in srgb, var(--color-caramel) 78%, transparent);
+  --shadow-glow: 0 16px 36px -14px
+    color-mix(in srgb, var(--color-olive) 70%, transparent);
 }
 
 @theme inline {
@@ -47,8 +67,8 @@
   }
 
   body {
-    background-color: var(--color-cream);
-    color: var(--color-charcoal);
+    background-color: var(--color-peach);
+    color: var(--color-dark-text);
     font-family: var(--font-sans);
     font-feature-settings: "cv11", "ss01";
   }
@@ -57,23 +77,24 @@
   h2,
   h3,
   h4 {
+    color: var(--color-chocolate);
     font-family: var(--font-display);
     font-weight: 500;
   }
 
   ::selection {
-    background-color: var(--color-pink-soft);
-    color: var(--color-charcoal);
+    background-color: var(--color-peach-tint);
+    color: var(--color-dark-text);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-emerald);
+    outline: 2px solid var(--color-olive-deep);
     outline-offset: 3px;
   }
 
   /* Native dialog backdrop, shared by every modal in the system. */
   dialog::backdrop {
-    background-color: rgb(31 31 31 / 0.45);
+    background-color: color-mix(in srgb, var(--color-dark-text) 55%, transparent);
   }
 }
 

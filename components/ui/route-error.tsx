@@ -23,13 +23,13 @@ export function RouteError({
 
   return (
     <Container className="flex min-h-[55vh] flex-col items-center justify-center py-20 text-center">
-      <span className="flex size-14 items-center justify-center rounded-full bg-pink-soft text-charcoal">
+      <span className="flex size-14 items-center justify-center rounded-full bg-peach-tint text-dark-text">
         <AlertCircle className="size-6" aria-hidden="true" />
       </span>
-      <h1 className="mt-6 font-display text-3xl text-charcoal sm:text-4xl">
+      <h1 className="mt-6 font-display text-3xl text-dark-text sm:text-4xl">
         We couldn’t load this page.
       </h1>
-      <p className="mt-3 max-w-md text-sm leading-6 text-muted">{message}</p>
+      <p className="mt-3 max-w-md text-sm leading-6 text-taupe">{message}</p>
       <button
         type="button"
         onClick={retry}

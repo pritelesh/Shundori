@@ -53,19 +53,19 @@ export function MobileMenu({
       ref={dialogRef}
       aria-label="Site menu"
       data-panel="true"
-      className="m-0 ml-auto h-dvh max-h-none w-[min(88vw,22rem)] max-w-none border-0 bg-cream p-0 text-charcoal"
+      className="m-0 ml-auto h-dvh max-h-none w-[min(88vw,22rem)] max-w-none border-0 bg-peach p-0 text-dark-text"
       onClick={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
     >
       <div className="flex h-full flex-col">
-        <div className="flex items-center justify-between border-b border-line px-5 py-5">
+        <div className="flex items-center justify-between border-b border-warm-line px-5 py-5">
           <Logo size="sm" withTagline={false} />
           <button
             type="button"
             onClick={onClose}
             aria-label="Close menu"
-            className="inline-flex size-9 items-center justify-center rounded-full text-muted transition-colors hover:bg-white hover:text-charcoal"
+            className="inline-flex size-9 items-center justify-center rounded-full text-taupe transition-colors hover:bg-warm-white hover:text-dark-text"
           >
             <X className="size-5" aria-hidden="true" />
           </button>
@@ -78,11 +78,11 @@ export function MobileMenu({
                 <Link
                   href={item.href}
                   onClick={onClose}
-                  className="flex items-center justify-between rounded-xl px-3 py-3 font-display text-2xl text-charcoal transition-colors hover:bg-white"
+                  className="flex items-center justify-between rounded-xl px-3 py-3 font-display text-2xl text-dark-text transition-colors hover:bg-warm-white"
                 >
                   {item.label}
                   <ArrowRight
-                    className="size-4 text-muted"
+                    className="size-4 text-taupe"
                     aria-hidden="true"
                   />
                 </Link>
@@ -90,16 +90,16 @@ export function MobileMenu({
             ))}
           </ul>
 
-          <div className="mt-6 space-y-1 border-t border-line pt-6">
+          <div className="mt-6 space-y-1 border-t border-warm-line pt-6">
             <button
               type="button"
               onClick={() => {
                 onClose();
                 onSearch();
               }}
-              className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm text-charcoal transition-colors hover:bg-white"
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm text-dark-text transition-colors hover:bg-warm-white"
             >
-              <Search className="size-4 text-muted" aria-hidden="true" />
+              <Search className="size-4 text-taupe" aria-hidden="true" />
               Search
             </button>
             <button
@@ -108,37 +108,37 @@ export function MobileMenu({
                 onClose();
                 onAccount();
               }}
-              className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm text-charcoal transition-colors hover:bg-white"
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm text-dark-text transition-colors hover:bg-warm-white"
             >
-              <User className="size-4 text-muted" aria-hidden="true" />
+              <User className="size-4 text-taupe" aria-hidden="true" />
               Account
             </button>
             <Link
               href="/wishlist"
               onClick={onClose}
-              className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-charcoal transition-colors hover:bg-white"
+              className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-dark-text transition-colors hover:bg-warm-white"
             >
-              <Heart className="size-4 text-muted" aria-hidden="true" />
+              <Heart className="size-4 text-taupe" aria-hidden="true" />
               Wishlist
-              <span className="ml-auto rounded-full bg-pink-tint px-2 py-0.5 text-[10px] font-semibold text-charcoal">
+              <span className="ml-auto rounded-full bg-soft-cream px-2 py-0.5 text-[10px] font-semibold text-dark-text">
                 {wishlistCount}
               </span>
             </Link>
             <Link
               href="/cart"
               onClick={onClose}
-              className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-charcoal transition-colors hover:bg-white"
+              className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm text-dark-text transition-colors hover:bg-warm-white"
             >
-              <ShoppingBag className="size-4 text-muted" aria-hidden="true" />
+              <ShoppingBag className="size-4 text-taupe" aria-hidden="true" />
               Bag
-              <span className="ml-auto rounded-full bg-emerald px-2 py-0.5 text-[10px] font-semibold text-white">
+              <span className="ml-auto rounded-full bg-chocolate px-2 py-0.5 text-[10px] font-semibold text-warm-white">
                 {cartCount}
               </span>
             </Link>
           </div>
         </nav>
 
-        <div className="border-t border-line px-5 py-5 text-xs leading-5 text-muted">
+        <div className="border-t border-warm-line px-5 py-5 text-xs leading-5 text-taupe">
           <p>Beauty · Dhaka, Bangladesh</p>
           <p className="mt-1">A considered edit of everyday beauty.</p>
         </div>

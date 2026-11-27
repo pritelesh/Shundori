@@ -11,7 +11,7 @@ export function Skeleton({ className, ...props }: ComponentProps<"div">) {
     <div
       aria-hidden="true"
       className={cn(
-        "relative overflow-hidden rounded-md bg-cream-deep/60",
+        "relative overflow-hidden rounded-md bg-light-beige/60",
         className,
       )}
       {...props}

@@ -15,16 +15,16 @@ export function PurchaseControls({ product }: { product: CartProduct }) {
   return (
     <div className="mt-8 space-y-4">
       <div>
-        <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.16em] text-muted">
+        <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.16em] text-taupe">
           Quantity
         </p>
-        <div className="inline-flex items-center rounded-full border border-line bg-white">
+        <div className="inline-flex items-center rounded-full border border-warm-line bg-warm-white">
           <button
             type="button"
             onClick={() => setQuantity((value) => Math.max(1, value - 1))}
             disabled={quantity <= 1 || soldOut}
             aria-label="Decrease quantity"
-            className="inline-flex size-11 items-center justify-center rounded-full text-charcoal transition-colors hover:bg-cream-soft disabled:opacity-40"
+            className="inline-flex size-11 items-center justify-center rounded-full text-dark-text transition-colors hover:bg-warm-white disabled:opacity-40"
           >
             <Minus className="size-4" aria-hidden="true" />
           </button>
@@ -39,13 +39,13 @@ export function PurchaseControls({ product }: { product: CartProduct }) {
             onClick={() => setQuantity((value) => Math.min(limit, value + 1))}
             disabled={quantity >= limit || soldOut}
             aria-label="Increase quantity"
-            className="inline-flex size-11 items-center justify-center rounded-full text-charcoal transition-colors hover:bg-cream-soft disabled:opacity-40"
+            className="inline-flex size-11 items-center justify-center rounded-full text-dark-text transition-colors hover:bg-warm-white disabled:opacity-40"
           >
             <Plus className="size-4" aria-hidden="true" />
           </button>
         </div>
         {limit > 0 && limit <= 6 ? (
-          <p className="mt-2 text-xs text-muted">Only {limit} left in this demo listing.</p>
+          <p className="mt-2 text-xs text-taupe">Only {limit} left in this demo listing.</p>
         ) : null}
       </div>
 
@@ -59,7 +59,7 @@ export function PurchaseControls({ product }: { product: CartProduct }) {
         <WishlistButton
           productId={product.id}
           productName={product.name}
-          className="size-12 border border-line bg-white"
+          className="size-12 border border-warm-line bg-warm-white"
         />
       </div>
     </div>

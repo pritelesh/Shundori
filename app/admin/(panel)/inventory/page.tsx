@@ -34,8 +34,8 @@ export default async function AdminInventoryPage() {
         description="Adjust stock quantities, spot low inventory and review every change."
       />
       <section className="mt-8">
-        <h2 className="font-display text-xl text-charcoal">Open stock alerts</h2>
-        <p className="mt-1 text-sm text-muted">
+        <h2 className="font-display text-xl text-dark-text">Open stock alerts</h2>
+        <p className="mt-1 text-sm text-taupe">
           Alerts are created automatically when stock reaches a product&apos;s threshold.
         </p>
         <div className="mt-4">

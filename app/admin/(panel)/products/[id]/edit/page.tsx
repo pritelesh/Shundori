@@ -41,7 +41,7 @@ export default async function EditProductPage({
     <>
       <Link
         href="/admin/products"
-        className="mb-5 inline-flex items-center gap-2 text-sm text-muted hover:text-emerald"
+        className="mb-5 inline-flex items-center gap-2 text-sm text-taupe hover:text-olive-deep"
       >
         <ArrowLeft className="size-4" aria-hidden="true" />
         Back to products
@@ -56,7 +56,7 @@ export default async function EditProductPage({
               href={`/product/${product.slug}`}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm font-medium hover:bg-white"
+              className="inline-flex items-center gap-2 rounded-full border border-warm-line px-5 py-2.5 text-sm font-medium hover:bg-warm-white"
             >
               View live
               <ExternalLink className="size-4" aria-hidden="true" />

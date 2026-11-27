@@ -46,11 +46,11 @@ export default function TermsPage() {
 
       <Container className="py-14 sm:py-20">
         <div className="max-w-3xl">
-          <div className="rounded-2xl border border-emerald/20 bg-emerald-soft p-5">
-            <p className="text-sm font-medium text-charcoal">
+          <div className="rounded-2xl border border-olive-deep/20 bg-olive-soft p-5">
+            <p className="text-sm font-medium text-dark-text">
               Placeholder terms
             </p>
-            <p className="mt-1 text-sm leading-6 text-muted">
+            <p className="mt-1 text-sm leading-6 text-taupe">
               These terms are being prepared and will be published before the
               store opens. The sections below outline their final structure.
             </p>
@@ -59,17 +59,17 @@ export default function TermsPage() {
           <div className="mt-10 space-y-8">
             {sections.map((section) => (
               <section key={section.title}>
-                <h2 className="font-display text-xl text-charcoal">
+                <h2 className="font-display text-xl text-dark-text">
                   {section.title}
                 </h2>
-                <p className="mt-2 text-sm leading-7 text-muted">
+                <p className="mt-2 text-sm leading-7 text-taupe">
                   {section.body}
                 </p>
               </section>
             ))}
           </div>
 
-          <p className="mt-10 border-t border-line pt-6 text-xs text-muted">
+          <p className="mt-10 border-t border-warm-line pt-6 text-xs text-taupe">
             Last updated: November 2026 · Placeholder content pending legal
             review.
           </p>
