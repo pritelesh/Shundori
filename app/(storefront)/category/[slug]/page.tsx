@@ -85,7 +85,7 @@ async function CategoryContent({ params }: PageProps) {
         title={category.name}
         description={category.description}
       >
-        <div className="relative mt-8 h-32 overflow-hidden rounded-2xl border border-warm-line bg-gradient-to-r from-soft-cream via-warm-white to-olive-soft sm:h-40">
+        <div className="relative mt-8 h-32 overflow-hidden rounded-2xl border border-sage-light bg-gradient-to-r from-sage-light via-cream to-sage-light sm:h-40">
           {category.imageUrl ? (
             <Image
               src={category.imageUrl}
@@ -98,7 +98,7 @@ async function CategoryContent({ params }: PageProps) {
           {category.imageUrl ? (
             <div
               aria-hidden="true"
-              className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/60 to-transparent"
+              className="absolute inset-0 bg-gradient-to-r from-cream/95 via-cream/60 to-transparent"
             />
           ) : (
             <div
@@ -114,7 +114,7 @@ async function CategoryContent({ params }: PageProps) {
             </div>
           )}
           <div className="absolute bottom-4 left-5 sm:bottom-6 sm:left-8">
-            <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-olive-deep">
+            <p className="text-xs font-medium uppercase tracking-[0.08em] text-leaf">
               {count} {count === 1 ? "product" : "products"}
               {demo ? " · demonstration" : ""}
             </p>
@@ -132,10 +132,10 @@ async function CategoryContent({ params }: PageProps) {
           showSearch={false}
         />
 
-        <div className="mt-14 border-t border-warm-line pt-8">
+        <div className="mt-14 border-t border-sage-light pt-8">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-olive-deep underline-offset-4 hover:underline"
+            className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-leaf underline-offset-4 hover:underline"
           >
             Browse every category
             <ArrowRight className="size-4" aria-hidden="true" />

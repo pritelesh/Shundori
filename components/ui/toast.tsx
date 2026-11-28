@@ -40,19 +40,19 @@ const variantStyles: Record<
   { border: string; icon: typeof CircleCheck; iconClass: string }
 > = {
   success: {
-    border: "border-l-olive-deep",
+    border: "border-l-leaf",
     icon: CircleCheck,
-    iconClass: "text-olive-deep",
+    iconClass: "text-leaf",
   },
   promo: {
-    border: "border-l-chocolate",
+    border: "border-l-forest",
     icon: Sparkles,
-    iconClass: "text-chocolate",
+    iconClass: "text-forest",
   },
   info: {
-    border: "border-l-dark-text",
+    border: "border-l-ink-soft",
     icon: Info,
-    iconClass: "text-dark-text",
+    iconClass: "text-ink-soft",
   },
 };
 
@@ -119,7 +119,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               key={item.id}
               role="status"
               className={cn(
-                "pointer-events-auto flex w-full animate-[shundori-toast-in_220ms_ease-out] items-start gap-3 rounded-xl border border-warm-line/80 border-l-4 bg-warm-white p-4 shadow-soft sm:w-80",
+                "pointer-events-auto flex w-full animate-[shundori-toast-in_220ms_ease-out] items-start gap-3 rounded-xl border border-sage-light/80 border-l-4 bg-cream p-4 shadow-soft sm:w-80",
                 style.border,
               )}
             >
@@ -128,11 +128,11 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 aria-hidden="true"
               />
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium leading-5 text-dark-text">
+                <p className="text-sm font-medium leading-5 text-ink-soft">
                   {item.title}
                 </p>
                 {item.description ? (
-                  <p className="mt-1 text-xs leading-5 text-taupe">
+                  <p className="mt-1 text-xs leading-5 text-ink-soft">
                     {item.description}
                   </p>
                 ) : null}
@@ -141,7 +141,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 type="button"
                 onClick={() => dismiss(item.id)}
                 aria-label="Dismiss notification"
-                className="-mr-1 -mt-1 inline-flex size-7 shrink-0 items-center justify-center rounded-full text-taupe transition-colors hover:bg-peach hover:text-dark-text"
+                className="-mr-1 -mt-1 inline-flex size-7 shrink-0 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-mist hover:text-ink-soft"
               >
                 <X className="size-3.5" aria-hidden="true" />
               </button>

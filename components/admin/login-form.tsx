@@ -24,7 +24,7 @@ export function AdminLoginForm({ next }: { next: string }) {
         </label>
         <div className="relative">
           <Mail
-            className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-taupe"
+            className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-ink-soft"
             aria-hidden="true"
           />
           <Input
@@ -39,7 +39,7 @@ export function AdminLoginForm({ next }: { next: string }) {
           />
         </div>
         {state.fieldErrors.email ? (
-          <p className="mt-1.5 text-xs text-chocolate">{state.fieldErrors.email}</p>
+          <p className="mt-1.5 text-xs text-forest">{state.fieldErrors.email}</p>
         ) : null}
       </div>
 
@@ -49,7 +49,7 @@ export function AdminLoginForm({ next }: { next: string }) {
         </label>
         <div className="relative">
           <LockKeyhole
-            className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-taupe"
+            className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-ink-soft"
             aria-hidden="true"
           />
           <Input
@@ -67,7 +67,7 @@ export function AdminLoginForm({ next }: { next: string }) {
       {state.status === "error" && state.message ? (
         <p
           role="alert"
-          className="rounded-lg border border-chocolate/40 bg-soft-cream px-4 py-3 text-sm text-dark-text"
+          className="rounded-lg border border-forest/40 bg-sage-light px-4 py-3 text-sm text-ink-soft"
         >
           {state.message}
         </p>
@@ -77,7 +77,7 @@ export function AdminLoginForm({ next }: { next: string }) {
         {pending ? "Signing in…" : "Sign in to dashboard"}
       </Button>
 
-      <p className="text-center text-xs leading-5 text-taupe">
+      <p className="text-center text-xs leading-5 text-ink-soft">
         Only accounts assigned the admin or staff role can sign in. There is no
         public administrator registration.
       </p>

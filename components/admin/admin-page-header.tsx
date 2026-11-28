@@ -15,15 +15,15 @@ export function AdminPageHeader({
     <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
         {eyebrow ? (
-          <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-dark-text">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-ink-soft">
             {eyebrow}
           </p>
         ) : null}
-        <h1 className="mt-1 font-display text-3xl text-dark-text sm:text-4xl">
+        <h1 className="mt-1 font-display text-3xl text-forest sm:text-4xl">
           {title}
         </h1>
         {description ? (
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-taupe">
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-ink-soft">
             {description}
           </p>
         ) : null}

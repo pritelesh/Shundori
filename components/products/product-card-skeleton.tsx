@@ -9,12 +9,12 @@ export function ProductCardSkeleton({ className }: ProductCardSkeletonProps) {
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-2xl border border-warm-line/70 bg-warm-white",
+        "surface-card overflow-hidden rounded-2xl",
         className,
       )}
     >
       <Skeleton className="aspect-[4/5] rounded-none" />
-      <div className="space-y-3 p-5">
+      <div className="space-y-3 p-3 sm:p-4">
         <Skeleton className="h-2.5 w-16" />
         <Skeleton className="h-4 w-4/5" />
         <Skeleton className="h-3 w-28" />

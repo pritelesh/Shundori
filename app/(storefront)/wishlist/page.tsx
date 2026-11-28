@@ -23,7 +23,7 @@ export default function WishlistPage() {
       <Container className="py-12 sm:py-16">
         <Suspense
           fallback={
-            <p className="py-20 text-center text-sm text-taupe">
+            <p className="py-20 text-center text-sm text-ink-soft">
               Loading wishlist…
             </p>
           }

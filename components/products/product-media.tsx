@@ -11,6 +11,9 @@ export interface ProductMediaProps {
   tone?: ProductTone;
   size?: "sm" | "md" | "lg";
   className?: string;
+  visualClassName?: string;
+  imageClassName?: string;
+  showPlaceholderBadge?: boolean;
   priority?: boolean;
   sizes?: string;
 }
@@ -18,7 +21,8 @@ export interface ProductMediaProps {
 /**
  * Reuses the existing product artwork fallback while supporting real Supabase
  * imagery. Images are remote-optimised, eager only when requested, and never
- * render without alternate text.
+ * render without alternate text. The optional badge discloses CSS placeholder
+ * artwork so demonstration cards are not mistaken for real photography.
  */
 export function ProductMedia({
   imageUrl,
@@ -27,6 +31,9 @@ export function ProductMedia({
   tone,
   size = "md",
   className,
+  visualClassName,
+  imageClassName = "object-cover",
+  showPlaceholderBadge = false,
   priority = false,
   sizes = "(max-width: 768px) 100vw, 33vw",
 }: ProductMediaProps) {
@@ -34,24 +41,34 @@ export function ProductMedia({
     return (
       <div
         className={cn(
-          "flex items-center justify-center overflow-hidden bg-light-beige",
+          "relative flex items-center justify-center overflow-hidden bg-sage-light",
           className,
         )}
       >
-        <ProductVisual shape={shape} tone={tone} size={size} />
+        {showPlaceholderBadge ? (
+          <span className="absolute left-3 top-3 rounded-full bg-cream/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.08em] text-ink-soft">
+            Placeholder artwork
+          </span>
+        ) : null}
+        <ProductVisual
+          shape={shape}
+          tone={tone}
+          size={size}
+          className={visualClassName}
+        />
       </div>
     );
   }
 
   return (
-    <div className={cn("relative overflow-hidden bg-light-beige", className)}>
+    <div className={cn("relative overflow-hidden bg-sage-light", className)}>
       <Image
         src={imageUrl}
         alt={alt}
         fill
         sizes={sizes}
         priority={priority}
-        className="object-cover"
+        className={imageClassName}
       />
     </div>
   );

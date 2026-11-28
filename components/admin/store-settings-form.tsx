@@ -16,11 +16,11 @@ import { useToast } from "@/components/ui/toast";
 import type { StoreSettings } from "@/types/phase8";
 
 const textareaClass =
-  "w-full rounded-lg border border-warm-line bg-warm-white px-4 py-3 text-sm text-dark-text placeholder:text-taupe/70 transition-colors focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15";
+  "w-full rounded-lg border border-sage-light bg-cream px-4 py-3 text-sm text-ink-soft placeholder:text-ink-soft transition-colors focus:border-leaf focus:outline-none focus:ring-2 focus:ring-leaf/15";
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
-  return <p className="mt-1.5 text-xs text-chocolate">{message}</p>;
+  return <p className="mt-1.5 text-xs text-forest">{message}</p>;
 }
 
 function useMutationToast(action: typeof updateStoreSettingsAction) {
@@ -147,16 +147,16 @@ export function StoreSettingsForm({
               type="checkbox"
               name="whatsappEnabled"
               defaultChecked={settings.whatsappEnabled}
-              className="size-4 rounded border-warm-line accent-olive-deep"
+              className="size-4 rounded border-sage-light accent-leaf"
             />
-            <span className="text-sm text-dark-text">
+            <span className="text-sm text-ink-soft">
               Show the WhatsApp contact button on the storefront
             </span>
           </label>
         </div>
 
         <div>
-          <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-taupe">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.08em] text-ink-soft">
             Social media links
           </h3>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -207,15 +207,15 @@ export function StoreSettingsForm({
         </Button>
       </form>
 
-      <div className="border-t border-warm-line pt-6">
-        <h3 className="font-display text-lg text-dark-text">Store logo</h3>
-        <p className="mt-1 text-sm leading-6 text-taupe">
+      <div className="border-t border-sage-light pt-6">
+        <h3 className="font-display text-lg text-forest">Store logo</h3>
+        <p className="mt-1 text-sm leading-6 text-ink-soft">
           JPG, PNG or WebP up to 5 MB. The logo replaces the text wordmark in the
           header and footer.
         </p>
 
         <div className="mt-4 flex flex-wrap items-center gap-5">
-          <div className="flex h-20 w-40 items-center justify-center overflow-hidden rounded-xl border border-warm-line bg-warm-white">
+          <div className="flex h-20 w-40 items-center justify-center overflow-hidden surface-card rounded-xl">
             {logoUrl ? (
               <Image
                 src={logoUrl}
@@ -225,7 +225,7 @@ export function StoreSettingsForm({
                 className="max-h-full max-w-full object-contain"
               />
             ) : (
-              <span className="font-display text-lg tracking-[0.2em] text-dark-text">
+              <span className="font-display text-lg tracking-[0.08em] text-forest">
                 Shundori
               </span>
             )}

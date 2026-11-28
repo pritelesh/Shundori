@@ -58,20 +58,20 @@ export function Modal({
       aria-labelledby={titleId}
       aria-describedby={description ? descriptionId : undefined}
       className={cn(
-        "m-auto w-[calc(100vw-2rem)] max-w-lg rounded-2xl border border-warm-line bg-warm-white p-0 text-dark-text shadow-soft",
+        "m-auto w-[calc(100vw-2rem)] max-w-lg surface-card rounded-2xl p-0 text-ink-soft shadow-soft",
         className,
       )}
       onClick={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      <div className="flex items-start justify-between gap-6 border-b border-warm-line/70 px-6 py-5">
+      <div className="flex items-start justify-between gap-6 border-b border-sage-light/70 px-6 py-5">
         <div>
           <h2 id={titleId} className="font-display text-xl leading-snug">
             {title}
           </h2>
           {description ? (
-            <p id={descriptionId} className="mt-1 text-sm leading-6 text-taupe">
+            <p id={descriptionId} className="mt-1 text-sm leading-6 text-ink-soft">
               {description}
             </p>
           ) : null}
@@ -80,7 +80,7 @@ export function Modal({
           type="button"
           onClick={onClose}
           aria-label="Close dialog"
-          className="inline-flex size-9 shrink-0 items-center justify-center rounded-full text-taupe transition-colors hover:bg-peach hover:text-dark-text"
+          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-mist hover:text-ink-soft"
         >
           <X className="size-4" aria-hidden="true" />
         </button>

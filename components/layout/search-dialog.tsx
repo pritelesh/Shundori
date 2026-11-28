@@ -87,7 +87,7 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
               type="button"
               onClick={clear}
               aria-label="Clear search"
-              className="absolute right-3 top-1/2 inline-flex size-8 -translate-y-1/2 items-center justify-center rounded-full text-taupe transition-colors hover:bg-warm-white hover:text-dark-text"
+              className="absolute right-2 top-1/2 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-cream hover:text-ink-soft"
             >
               <X className="size-4" aria-hidden="true" />
             </button>
@@ -99,7 +99,7 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
       </form>
 
       <div className="mt-6">
-        <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-taupe">
+        <p className="text-xs font-medium uppercase tracking-[0.08em] text-ink-soft">
           {query ? "Suggestions" : "Popular searches"}
         </p>
 
@@ -113,12 +113,12 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
                     <Link
                       href={item.href}
                       onClick={onClose}
-                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-dark-text transition-colors hover:bg-warm-white"
+                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-leaf transition-colors hover:bg-cream hover:text-forest"
                     >
-                      <Icon className="size-4 shrink-0 text-olive-deep" aria-hidden="true" />
+                      <Icon className="size-4 shrink-0 text-leaf" aria-hidden="true" />
                       <span className="font-medium">{item.label}</span>
                       {item.detail ? (
-                        <span className="ml-auto truncate text-xs text-taupe">
+                        <span className="ml-auto truncate text-xs text-ink-soft">
                           {item.detail}
                         </span>
                       ) : null}
@@ -127,7 +127,7 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
                 );
               })
             ) : (
-              <li className="px-3 py-3 text-sm text-taupe">
+              <li className="px-3 py-3 text-sm text-ink-soft">
                 No instant matches. Press Enter to search the full catalogue.
               </li>
             )}
@@ -139,7 +139,7 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
                 key={term}
                 type="button"
                 onClick={() => setQuery(term)}
-                className="rounded-full border border-warm-line bg-warm-white px-3.5 py-1.5 text-xs text-dark-text transition-colors hover:border-olive-deep/40 hover:bg-olive-soft"
+                className="rounded-full border border-sage-light bg-cream px-3.5 py-1.5 text-xs text-ink-soft transition-colors hover:border-leaf/40 hover:bg-sage-light"
               >
                 {term}
               </button>
@@ -148,12 +148,12 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
         )}
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-warm-line/70 pt-4">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-sage-light/70 pt-4">
         <Link
           href="/shop"
           onClick={onClose}
           className={cn(
-            "inline-flex items-center gap-1.5 text-sm font-medium text-olive-deep underline-offset-4 hover:underline",
+            "inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-leaf underline-offset-4 hover:underline",
           )}
         >
           Browse all products
@@ -165,7 +165,7 @@ export function SearchDialog({ open, onClose, index }: SearchDialogProps) {
             onClose();
             router.push("/search");
           }}
-          className="text-sm text-taupe underline-offset-4 hover:text-dark-text hover:underline"
+          className="inline-flex min-h-11 items-center text-sm text-ink-soft underline-offset-4 hover:text-ink-soft hover:underline"
         >
           Advanced search
         </button>

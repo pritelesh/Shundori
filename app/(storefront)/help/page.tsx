@@ -39,7 +39,7 @@ const sections = [
   {
     id: "faq",
     title: "Frequently asked questions",
-    body: "Questions about product details, delivery and suitability will be answered here. In the meantime, the Shundori promise is simple: clear information and a calm shopping experience.",
+    body: "Questions about product details, delivery and suitability will be answered here. For now, Shundori offers clear product information, islandwide delivery and cash on delivery.",
   },
   {
     id: "contact",
@@ -60,7 +60,7 @@ export default function HelpPage() {
       <Container className="py-14 sm:py-20">
         <div className="grid gap-10 lg:grid-cols-[220px_1fr] lg:gap-16">
           <nav aria-label="Help topics" className="lg:sticky lg:top-28 lg:self-start">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-dark-text">
+            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-ink-soft">
               On this page
             </p>
             <ul className="mt-4 space-y-2.5">
@@ -68,7 +68,7 @@ export default function HelpPage() {
                 <li key={section.id}>
                   <Link
                     href={`#${section.id}`}
-                    className="text-sm text-taupe underline-offset-4 transition-colors hover:text-dark-text hover:underline"
+                    className="inline-flex min-h-11 items-center text-sm text-leaf underline-offset-4 transition-colors hover:text-forest hover:underline"
                   >
                     {section.title}
                   </Link>
@@ -82,22 +82,22 @@ export default function HelpPage() {
               <section
                 key={section.id}
                 id={section.id}
-                className="scroll-mt-28 border-b border-warm-line pb-10 last:border-b-0 last:pb-0"
+                className="scroll-mt-28 border-b border-sage-light pb-10 last:border-b-0 last:pb-0"
               >
-                <h2 className="font-display text-2xl text-dark-text">
+                <h2 className="font-display text-2xl text-forest">
                   {section.title}
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-taupe">
+                <p className="mt-3 text-sm leading-7 text-ink-soft">
                   {section.body}
                 </p>
               </section>
             ))}
 
-            <div className="rounded-2xl border border-olive-deep/20 bg-olive-soft p-6">
-              <p className="font-display text-lg text-dark-text">
+            <div className="rounded-2xl border border-leaf/20 bg-sage-light p-6">
+              <p className="font-display text-lg text-forest">
                 Still have a question?
               </p>
-              <p className="mt-2 text-sm leading-6 text-taupe">
+              <p className="mt-2 text-sm leading-6 text-ink-soft">
                 Contact details will be published at launch. Until then, this
                 page is a design preview of the customer care experience.
               </p>

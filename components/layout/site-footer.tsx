@@ -1,40 +1,52 @@
-import { Mail, MapPin, Phone } from "lucide-react";
+import { ChevronDown, Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { connection } from "next/server";
+import type { ReactNode } from "react";
 
 import { Logo } from "@/components/ui/logo";
-import { safeSocialUrl } from "@/lib/whatsapp";
+import { PAYMENT_METHOD_OPTIONS } from "@/lib/payment-methods";
+import { contactPlaceholders, siteConfig } from "@/lib/site";
+import { safeSocialUrl, whatsappUrl } from "@/lib/whatsapp";
 import {
   getPublicStoreSettings,
   getStoreAssetUrl,
 } from "@/services/business-settings";
+import { listCategories } from "@/services/catalog";
 
 import { Container } from "./container";
+import { LanguageToggle } from "./language-toggle";
+import { Localized } from "./localized";
 import { NewsletterSection } from "./newsletter-section";
 
-const shopLinks = [
-  { label: "All products", href: "/shop" },
-  { label: "Skincare", href: "/category/skincare" },
-  { label: "Face Wash", href: "/category/face-wash" },
-  { label: "Moisturizer", href: "/category/moisturizer" },
-  { label: "Beauty Accessories", href: "/category/beauty-accessories" },
-] as const;
+interface FooterLink {
+  label: string;
+  bn?: string;
+  href: string;
+}
 
-const supportLinks = [
-  { label: "Contact", href: "/contact" },
-  { label: "Help centre", href: "/help" },
-  { label: "Shipping & Delivery", href: "/help#shipping" },
-  { label: "Returns & Exchanges", href: "/help#returns" },
-  { label: "FAQs", href: "/help#faq" },
-] as const;
+const helpLinks: readonly FooterLink[] = [
+  { label: "Contact", bn: "যোগাযোগ", href: "/contact" },
+  { label: "Help & FAQ", bn: "সহায়তা ও প্রশ্নোত্তর", href: "/help#faq" },
+  {
+    label: "Shipping & delivery",
+    bn: "শিপিং ও ডেলিভারি",
+    href: "/help#shipping",
+  },
+  { label: "Terms", bn: "শর্তাবলী", href: "/terms" },
+  { label: "Privacy", bn: "গোপনীয়তা", href: "/privacy-policy" },
+];
 
-const informationLinks = [
-  { label: "How to order", href: "/help#ordering" },
-  { label: "Payment methods", href: "/help#payment" },
-  { label: "Track your order", href: "/track-order" },
-  { label: "About Shundori", href: "/about" },
-  { label: "Our brands", href: "/#brands" },
-] as const;
+const companyLinks: readonly FooterLink[] = [
+  { label: "About", bn: "সম্পর্কে", href: "/about" },
+  { label: "Contact", bn: "যোগাযোগ", href: "/contact" },
+];
+
+const footerTitles: Record<string, string> = {
+  Shop: "শপ",
+  Help: "সহায়তা",
+  Company: "কোম্পানি",
+  Connect: "যোগাযোগ",
+};
 
 const socialMonograms = {
   instagram: "IG",
@@ -43,31 +55,48 @@ const socialMonograms = {
   tiktok: "TT",
 } as const;
 
-function FooterColumn({
-  title,
-  links,
-}: {
-  title: string;
-  links: ReadonlyArray<{ label: string; href: string }>;
-}) {
+/**
+ * Desktop heading and list; the same content becomes a native accordion on
+ * mobile, so no client javascript is needed for the disclosure.
+ */
+function FooterGroup({ title, children }: { title: string; children: ReactNode }) {
+  const heading = <Localized en={title} bn={footerTitles[title] ?? title} />;
+
   return (
-    <div>
-      <h2 className="text-[10px] font-semibold uppercase tracking-[0.2em] text-warm-white">
-        {title}
-      </h2>
-      <ul className="mt-4 space-y-2.5">
-        {links.map((link) => (
-          <li key={link.label}>
-            <Link
-              href={link.href}
-              className="text-sm leading-6 text-warm-white/75 underline-offset-4 transition-colors hover:text-warm-white hover:underline"
-            >
-              {link.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <div className="hidden md:block">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.1em] text-cream">
+          {heading}
+        </h2>
+        <div className="mt-4 space-y-2.5">{children}</div>
+      </div>
+      <details className="group border-b border-cream/15 py-1 md:hidden">
+        <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 text-xs font-semibold uppercase tracking-[0.1em] text-cream marker:hidden">
+          {heading}
+          <ChevronDown
+            className="size-4 shrink-0 text-cream/70 transition-transform group-open:rotate-180"
+            aria-hidden="true"
+          />
+        </summary>
+        <div className="space-y-2.5 pb-4">{children}</div>
+      </details>
+    </>
+  );
+}
+
+function FooterLinkList({ links }: { links: readonly FooterLink[] }) {
+  return (
+    <>
+      {links.map((link) => (
+        <Link
+          key={`${link.href}-${link.label}`}
+          href={link.href}
+          className="inline-flex min-h-11 min-w-11 items-center text-sm leading-6 text-cream/75 underline-offset-4 transition-colors hover:text-cream hover:underline"
+        >
+          <Localized en={link.label} bn={link.bn ?? link.label} />
+        </Link>
+      ))}
+    </>
   );
 }
 
@@ -86,10 +115,15 @@ function SocialLink({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${label} (${monogram})`}
-      title={label}
-      className="inline-flex size-9 items-center justify-center rounded-full border border-warm-white/25 text-[10px] font-semibold uppercase tracking-[0.08em] text-warm-white/80 transition-colors hover:border-peach hover:text-peach"
+      className="inline-flex min-h-11 items-center gap-2 text-sm leading-6 text-cream/75 underline-offset-4 transition-colors hover:text-cream hover:underline"
     >
-      <span aria-hidden="true">{monogram}</span>
+      <span
+        aria-hidden="true"
+        className="inline-flex size-8 shrink-0 items-center justify-center rounded-full border border-cream/25 text-[0.65rem] font-semibold uppercase tracking-[0.08em]"
+      >
+        {monogram}
+      </span>
+      {label}
     </a>
   );
 }
@@ -106,6 +140,30 @@ export async function SiteFooter() {
   await connection();
   const settings = await getPublicStoreSettings();
   const logoUrl = getStoreAssetUrl(settings.storeLogoPath);
+
+  // Categories come from the catalogue service. A transient read failure must
+  // not take down the footer on every page.
+  let categories: Awaited<ReturnType<typeof listCategories>> = [];
+  try {
+    categories = await listCategories();
+  } catch {
+    categories = [];
+  }
+  const shopLinks: FooterLink[] = [
+    { label: "All products", bn: "সব পণ্য", href: "/shop" },
+    ...categories.slice(0, 8).map((category) => ({
+      label: category.name,
+      href: `/category/${category.slug}`,
+    })),
+  ];
+
+  const whatsappHref = settings.whatsappEnabled
+    ? whatsappUrl(
+        settings.whatsappNumber,
+        `Hello ${settings.storeName}, I have a question.`,
+      )
+    : null;
+
   const socialEntries = Object.entries(settings.socialLinks).flatMap(
     ([key, value]) => {
       const url = safeSocialUrl(value);
@@ -123,112 +181,146 @@ export async function SiteFooter() {
     },
   );
 
+  const connectEntries = [
+    whatsappHref
+      ? {
+          key: "whatsapp",
+          url: whatsappHref,
+          label: "WhatsApp",
+          monogram: "WA",
+        }
+      : null,
+    ...socialEntries,
+  ].filter((entry): entry is (typeof socialEntries)[number] => entry !== null);
+
+  // Only methods explicitly enabled in the central payment registry are shown.
+  const enabledPayments = PAYMENT_METHOD_OPTIONS.filter((method) => method.enabled);
+
   return (
-    <footer id="contact" className="scroll-mt-24 bg-chocolate">
+    <footer className="bg-forest-soft text-cream">
       <NewsletterSection />
 
-      <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr] lg:gap-12 lg:py-16">
-        <div>
-          <Logo
-            name={settings.storeName}
-            imageUrl={logoUrl}
-            tagline={settings.storeDescription.slice(0, 42) || undefined}
-            className="[&>span]:text-warm-white [&>span+span]:text-peach"
-          />
-          <p className="mt-5 max-w-xs text-sm leading-7 text-warm-white/75">
-            {settings.storeDescription ||
-              "Premium skincare, makeup and body care — a considered beauty edit for Bangladesh."}
-          </p>
-
-          {socialEntries.length > 0 ? (
-            <div className="mt-6 flex items-center gap-2">
-              {socialEntries.map(({ key, url, label, monogram }) => (
-                <SocialLink
-                  key={key}
-                  href={url}
-                  label={label}
-                  monogram={monogram}
-                />
-              ))}
-            </div>
-          ) : null}
-
-          <div className="mt-6 space-y-2 text-sm text-warm-white/75">
-            <p className="flex items-start gap-2">
-              <MapPin
-                className="mt-0.5 size-4 shrink-0 text-peach"
-                aria-hidden="true"
-              />
-              Dhaka, Bangladesh
+      <Container className="py-10 sm:py-12">
+        <div className="flex flex-col gap-5 border-b border-cream/15 pb-8 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <Logo
+              name={settings.storeName || siteConfig.name}
+              imageUrl={logoUrl}
+              tagline={settings.storeDescription.slice(0, 42) || undefined}
+              className="[&>span]:text-cream [&>span+span]:text-mist"
+            />
+            <p className="mt-3 max-w-sm text-sm leading-6 text-cream/70">
+              {settings.storeDescription || siteConfig.tagline}
             </p>
+          </div>
+          <div className="space-y-1.5 text-sm text-cream/70">
             {settings.contactNumber ? (
-              <p className="flex items-start gap-2 break-words">
-                <Phone
-                  className="mt-0.5 size-4 shrink-0 text-peach"
-                  aria-hidden="true"
-                />
+              <p className="flex items-center gap-2 break-words">
+                <Phone className="size-4 shrink-0 text-mist" aria-hidden="true" />
                 <a
                   href={contactHref("tel", settings.contactNumber)}
-                  className="underline-offset-4 hover:text-warm-white hover:underline"
+                  className="underline-offset-4 hover:text-cream hover:underline"
                 >
                   {settings.contactNumber}
                 </a>
               </p>
             ) : null}
             {settings.contactEmail ? (
-              <p className="flex items-start gap-2 break-words">
-                <Mail
-                  className="mt-0.5 size-4 shrink-0 text-peach"
-                  aria-hidden="true"
-                />
+              <p className="flex items-center gap-2 break-words">
+                <Mail className="size-4 shrink-0 text-mist" aria-hidden="true" />
                 <a
                   href={contactHref("mailto", settings.contactEmail)}
-                  className="underline-offset-4 hover:text-warm-white hover:underline"
+                  className="underline-offset-4 hover:text-cream hover:underline"
                 >
                   {settings.contactEmail}
                 </a>
               </p>
             ) : null}
+            <p className="text-xs text-cream/75">
+              {contactPlaceholders.city}, {siteConfig.country}
+            </p>
           </div>
         </div>
 
-        <FooterColumn title="Shop" links={shopLinks} />
-        <FooterColumn title="Customer support" links={supportLinks} />
-        <FooterColumn title="Shopping information" links={informationLinks} />
+        <div className="grid md:grid-cols-4 md:gap-8">
+          <FooterGroup title="Shop">
+            <FooterLinkList links={shopLinks} />
+          </FooterGroup>
+          <FooterGroup title="Help">
+            <FooterLinkList links={helpLinks} />
+          </FooterGroup>
+          <FooterGroup title="Company">
+            <FooterLinkList links={companyLinks} />
+          </FooterGroup>
+          <FooterGroup title="Connect">
+            {connectEntries.length > 0 ? (
+              connectEntries.map((entry) => (
+                <SocialLink
+                  key={entry.key}
+                  href={entry.url}
+                  label={entry.label}
+                  monogram={entry.monogram}
+                />
+              ))
+            ) : (
+              <Link
+                href="/contact"
+                className="inline-flex min-h-11 min-w-11 items-center text-sm leading-6 text-cream/75 underline-offset-4 transition-colors hover:text-cream hover:underline"
+              >
+                <Localized en="Contact us" bn="যোগাযোগ করুন" />
+              </Link>
+            )}
+          </FooterGroup>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-3 border-t border-cream/15 pt-6 sm:flex-row sm:items-center sm:gap-5">
+          <p className="shrink-0 text-xs font-semibold uppercase tracking-[0.1em] text-cream/70">
+            <Localized en="Payments accepted" bn="গ্রহণযোগ্য পেমেন্ট" />
+          </p>
+          <ul className="flex flex-wrap gap-2" aria-label="Payments accepted">
+            {enabledPayments.map((method) => (
+              <li
+                key={method.id}
+                className="inline-flex items-center gap-2 rounded-full border border-cream/25 px-3 py-1.5 text-xs text-cream/85"
+              >
+                <span
+                  aria-hidden="true"
+                  className="inline-block size-1.5 rounded-full bg-lime"
+                />
+                {method.label}
+              </li>
+            ))}
+          </ul>
+        </div>
       </Container>
 
-      <div className="border-t border-warm-white/15">
-        <Container className="flex flex-col gap-4 py-6 text-xs text-warm-white/70 lg:flex-row lg:items-center lg:justify-between">
-          <p>© {settings.storeName}. All rights reserved.</p>
-
+      <div className="border-t border-cream/15">
+        <Container className="flex flex-col gap-4 py-5 text-xs text-cream/70 sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {new Date().getFullYear()} {settings.storeName || siteConfig.name}.{" "}
+            <Localized en="All rights reserved." bn="সম্পত্তি সংরক্ষিত।" />
+          </p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <Link
               href="/privacy-policy"
-              className="underline-offset-4 transition-colors hover:text-warm-white hover:underline"
+              className="inline-flex min-h-11 min-w-11 items-center underline-offset-4 transition-colors hover:text-cream hover:underline"
             >
-              Privacy Policy
+              <Localized en="Privacy" bn="গোপনীয়তা" />
             </Link>
             <Link
               href="/terms"
-              className="underline-offset-4 transition-colors hover:text-warm-white hover:underline"
+              className="inline-flex min-h-11 min-w-11 items-center underline-offset-4 transition-colors hover:text-cream hover:underline"
             >
-              Terms &amp; Conditions
+              <Localized en="Terms" bn="শর্তাবলী" />
             </Link>
             <Link
               href="/help"
-              className="underline-offset-4 transition-colors hover:text-warm-white hover:underline"
+              className="inline-flex min-h-11 min-w-11 items-center underline-offset-4 transition-colors hover:text-cream hover:underline"
             >
-              Help
+              <Localized en="Help" bn="সহায়তা" />
             </Link>
+            <LanguageToggle tone="dark" />
           </div>
-
-          <p className="flex items-center gap-2">
-            <span
-              aria-hidden="true"
-              className="inline-block size-1.5 rounded-full bg-caramel"
-            />
-            Made for Bangladesh
-          </p>
         </Container>
       </div>
     </footer>

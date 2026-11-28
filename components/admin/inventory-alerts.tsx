@@ -18,8 +18,8 @@ export function InventoryAlerts({ alerts }: { alerts: InventoryAlert[] }) {
 
   if (alerts.length === 0) {
     return (
-      <div className="rounded-2xl border border-warm-line bg-warm-white p-8 text-center">
-        <p className="text-sm text-taupe">
+      <div className="surface-card rounded-2xl p-8 text-center">
+        <p className="text-sm text-ink-soft">
           No open stock alerts. Thresholds are set on each product.
         </p>
       </div>
@@ -54,15 +54,15 @@ export function InventoryAlerts({ alerts }: { alerts: InventoryAlert[] }) {
       {alerts.map((alert) => (
         <article
           key={alert.id}
-          className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-warm-line bg-warm-white p-5"
+          className="flex flex-wrap items-center justify-between gap-4 surface-card rounded-2xl p-5"
         >
           <div className="flex items-start gap-3">
-            <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-soft-cream">
-              <TriangleAlert className="size-4 text-chocolate" aria-hidden="true" />
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-sage-light">
+              <TriangleAlert className="size-4 text-forest" aria-hidden="true" />
             </div>
             <div>
-              <p className="font-medium text-dark-text">{alert.productName}</p>
-              <p className="mt-0.5 text-xs text-taupe">
+              <p className="font-medium text-ink-soft">{alert.productName}</p>
+              <p className="mt-0.5 text-xs text-ink-soft">
                 {alert.alertType === "out_of_stock"
                   ? "Out of stock"
                   : `Low stock · threshold ${alert.thresholdSnapshot}`}
@@ -70,7 +70,7 @@ export function InventoryAlerts({ alerts }: { alerts: InventoryAlert[] }) {
                 {" · "}
                 {formatDateTime(alert.createdAt)}
               </p>
-              <p className="mt-1 text-xs text-taupe">
+              <p className="mt-1 text-xs text-ink-soft">
                 Current stock: {alert.currentStock}
               </p>
             </div>

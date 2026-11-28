@@ -26,7 +26,7 @@ export default async function NewProductPage() {
     <>
       <Link
         href="/admin/products"
-        className="mb-5 inline-flex items-center gap-2 text-sm text-taupe hover:text-olive-deep"
+        className="mb-5 inline-flex items-center gap-2 text-sm text-ink-soft hover:text-leaf"
       >
         <ArrowLeft className="size-4" aria-hidden="true" />
         Back to products

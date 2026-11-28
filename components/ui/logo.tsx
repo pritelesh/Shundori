@@ -15,9 +15,9 @@ export interface LogoProps {
 }
 
 const sizes = {
-  sm: "text-lg tracking-[0.24em]",
-  md: "text-2xl tracking-[0.26em]",
-  lg: "text-3xl tracking-[0.28em]",
+  sm: "text-lg tracking-[0.08em]",
+  md: "text-2xl tracking-[0.08em]",
+  lg: "text-3xl tracking-[0.08em]",
 } as const;
 
 const imageSizes = {
@@ -54,7 +54,7 @@ export function Logo({
       ) : (
         <span
           className={cn(
-            "font-display font-medium text-chocolate",
+            "font-display font-medium text-forest",
             sizes[size],
           )}
         >
@@ -62,7 +62,7 @@ export function Logo({
         </span>
       )}
       {withTagline ? (
-        <span className="mt-1.5 text-[8px] font-medium uppercase tracking-[0.34em] text-olive-deep">
+        <span className="mt-1.5 text-xs font-medium uppercase tracking-[0.08em] text-leaf">
           {tagline}
         </span>
       ) : null}

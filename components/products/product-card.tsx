@@ -1,22 +1,24 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { Badge } from "@/components/ui/badge";
 import type { ProductCardItem } from "@/types/product";
 import { cn } from "@/utils/cn";
+import { discountPercent } from "@/utils/format";
 
 import { AddToCartButton } from "./add-to-cart-button";
 import { DiscountBadge } from "./discount-badge";
 import { PriceDisplay } from "./price-display";
+import { ProductMedia } from "./product-media";
 import { ProductRating } from "./product-rating";
-import { ProductVisual } from "./product-visual";
 import { WishlistButton } from "./wishlist-button";
 
 export interface ProductCardProps {
   product: ProductCardItem;
-  /** Added once product detail routes exist in Phase 3. */
   href?: string;
   className?: string;
   priority?: boolean;
+  /** Catalogue low-stock threshold; falls back to a presentation default. */
+  lowStockThreshold?: number;
 }
 
 export function ProductCard({
@@ -24,54 +26,45 @@ export function ProductCard({
   href,
   className,
   priority = false,
+  lowStockThreshold = 6,
 }: ProductCardProps) {
+  const hasDiscount =
+    discountPercent(product.price, product.compareAtPrice) !== null;
+  // SALE is the only secondary badge with a data source today. NEW and FREE
+  // SHIPPING stay hidden until a real product field or setting supplies them.
+  const secondaryBadges = hasDiscount ? ["SALE"] : [];
+
   const lowStock =
+    product.inStock &&
     typeof product.stockQuantity === "number" &&
     product.stockQuantity > 0 &&
-    product.stockQuantity <= 6;
-
-  const stockLabel = !product.inStock
-    ? "Out of stock"
-    : lowStock
-      ? `Only ${product.stockQuantity} left`
-      : "In stock";
-
-  const stockDot = !product.inStock
-    ? "bg-dark-text/35"
-    : lowStock
-      ? "bg-chocolate"
-      : "bg-olive";
+    product.stockQuantity <= lowStockThreshold;
 
   const media = (
-    <div className="relative flex h-full w-full items-center justify-center p-4 transition-transform duration-500 ease-out group-hover:scale-[1.04] sm:p-6">
-      {product.imageUrl ? (
-        <Image
-          src={product.imageUrl}
-          alt={product.imageAlt ?? product.name}
-          fill
-          priority={priority}
-          sizes="(min-width: 1280px) 22vw, (min-width: 768px) 33vw, 50vw"
-          className="object-cover"
-        />
-      ) : (
-        <ProductVisual
-          shape={product.visual}
-          tone={product.tone}
-          size="md"
-          className="text-[5.25rem] sm:text-[7.5rem]"
-        />
-      )}
+    <div className="product-card-media relative flex h-full w-full items-center justify-center p-3 transition-transform duration-500 ease-out sm:p-5">
+      <ProductMedia
+        imageUrl={product.imageUrl}
+        alt={product.imageAlt ?? product.name}
+        shape={product.visual}
+        tone={product.tone}
+        size="md"
+        className="h-full w-full bg-transparent"
+        visualClassName="text-[4.5rem] sm:text-[7rem]"
+        showPlaceholderBadge
+        priority={priority}
+        sizes="(min-width: 1280px) 22vw, (min-width: 768px) 33vw, 50vw"
+      />
     </div>
   );
 
   return (
     <article
       className={cn(
-        "group flex flex-col overflow-hidden rounded-2xl border border-warm-line/70 bg-warm-white transition-all duration-300 hover:-translate-y-1 hover:border-warm-line-strong hover:shadow-soft",
+        "surface-card product-card-lift group flex flex-col overflow-hidden rounded-2xl transition-[transform,border-color,box-shadow] duration-300",
         className,
       )}
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-soft-cream via-warm-white to-light-beige/50">
+      <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-sage-light via-cream to-sage-light/50">
         {href ? (
           <Link
             href={href}
@@ -85,18 +78,12 @@ export function ProductCard({
           media
         )}
 
-        <div className="pointer-events-none absolute inset-x-3 top-3 z-10 flex items-start justify-between gap-2">
-          <div className="pointer-events-auto flex flex-wrap gap-2">
-            {product.inStock ? (
-              <DiscountBadge
-                price={product.price}
-                compareAtPrice={product.compareAtPrice}
-              />
-            ) : (
-              <span className="rounded-full bg-warm-white/95 px-3 py-1 text-[10px] font-medium uppercase tracking-[0.16em] text-dark-text shadow-sm ring-1 ring-warm-line/70">
-                Sold out
-              </span>
-            )}
+        <div className="pointer-events-none absolute inset-x-2 top-2 z-10 flex items-start justify-between gap-1.5 sm:inset-x-3 sm:top-3">
+          <div className="pointer-events-auto flex flex-wrap gap-1.5">
+            <DiscountBadge
+              price={product.price}
+              compareAtPrice={product.compareAtPrice}
+            />
           </div>
           <WishlistButton
             productId={product.id}
@@ -106,16 +93,23 @@ export function ProductCard({
         </div>
       </div>
 
-      <div className="flex flex-1 flex-col p-4 sm:p-5">
-        <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-olive-deep">
-          {product.brandName ?? "Shundori"}
-        </p>
+      <div className="flex flex-1 flex-col p-3 sm:p-4">
+        {product.brandName ? (
+          <p className="text-xs font-medium uppercase tracking-[0.08em] text-leaf">
+            {product.brandName}
+          </p>
+        ) : null}
 
-        <h3 className="mt-1.5 font-display text-lg leading-snug text-dark-text">
+        <h3
+          className={cn(
+            "line-clamp-2 font-display text-base leading-snug text-forest sm:text-lg",
+            product.brandName && "mt-1",
+          )}
+        >
           {href ? (
             <Link
               href={href}
-              className="underline-offset-4 transition-colors hover:text-olive-deep hover:underline"
+              className="inline-block min-h-11 align-middle underline-offset-4 transition-colors hover:text-leaf hover:underline"
             >
               {product.name}
             </Link>
@@ -123,6 +117,16 @@ export function ProductCard({
             product.name
           )}
         </h3>
+
+        {secondaryBadges.length > 0 ? (
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {secondaryBadges.map((label) => (
+              <Badge key={label} variant="accentSoft">
+                {label}
+              </Badge>
+            ))}
+          </div>
+        ) : null}
 
         {typeof product.rating === "number" ? (
           <ProductRating
@@ -135,19 +139,31 @@ export function ProductCard({
         <PriceDisplay
           price={product.price}
           compareAtPrice={product.compareAtPrice}
+          size="lg"
           className="mt-3"
         />
 
-        <p className="mt-2 flex items-center gap-1.5 text-[11px] text-taupe">
-          <span
-            aria-hidden="true"
-            className={cn("size-1.5 rounded-full", stockDot)}
-          />
-          {stockLabel}
-        </p>
+        {lowStock ? (
+          <p className="mt-2 text-xs font-medium text-forest">
+            Only {product.stockQuantity} left
+          </p>
+        ) : null}
 
         <div className="mt-auto pt-4">
-          <AddToCartButton product={product} className="w-full" />
+          <AddToCartButton
+            product={product}
+            inStockLabel="Add to Bag"
+            outOfStockLabel="Out of Stock"
+            className="w-full"
+          />
+          {!product.inStock && href ? (
+            <Link
+              href={href}
+              className="mt-2 inline-flex min-h-11 w-full items-center justify-center text-xs font-medium text-leaf underline-offset-4 hover:underline"
+            >
+              View details
+            </Link>
+          ) : null}
         </div>
       </div>
     </article>

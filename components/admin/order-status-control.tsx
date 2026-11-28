@@ -45,7 +45,7 @@ export function OrderStatusControl({
           router.refresh();
         });
       }}
-      className="h-9 rounded-lg border border-warm-line bg-warm-white px-2 text-xs capitalize disabled:opacity-50"
+      className="h-11 rounded-lg border border-sage-light bg-cream px-2 text-xs capitalize disabled:opacity-50"
       aria-label="Order status"
     >
       {options.map((option) => (

@@ -123,13 +123,13 @@ export function WishlistClient({
   }
 
   if (!ready || pending) {
-    return <p className="py-20 text-center text-sm text-taupe">Loading wishlist…</p>;
+    return <p className="py-20 text-center text-sm text-ink-soft">Loading wishlist…</p>;
   }
 
   if (!result.ok) {
     return (
-      <div className="mx-auto max-w-xl rounded-3xl border border-warm-line bg-warm-white p-10 text-center">
-        <p className="text-sm text-chocolate">
+      <div className="mx-auto max-w-xl surface-card rounded-3xl p-10 text-center">
+        <p className="text-sm text-forest">
           {result.error ?? "We could not load your wishlist."}
         </p>
       </div>
@@ -140,14 +140,14 @@ export function WishlistClient({
 
   if (products.length === 0) {
     return (
-      <div className="mx-auto max-w-xl rounded-3xl border border-warm-line bg-warm-white p-10 text-center">
-        <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-soft-cream">
-          <Heart className="size-6 text-chocolate" aria-hidden="true" />
+      <div className="mx-auto max-w-xl surface-card rounded-3xl p-10 text-center">
+        <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-sage-light">
+          <Heart className="size-6 text-forest" aria-hidden="true" />
         </div>
-        <h2 className="mt-5 font-display text-2xl font-medium text-dark-text">
+        <h2 className="mt-5 font-display text-2xl font-bold text-forest">
           Nothing saved yet
         </h2>
-        <p className="mt-2 text-sm leading-6 text-taupe">
+        <p className="mt-2 text-sm leading-6 text-ink-soft">
           Tap the heart on any product to keep it here for later.
         </p>
         <Link href="/shop" className={buttonStyles({ className: "mt-6" })}>
@@ -162,7 +162,7 @@ export function WishlistClient({
       {products.map((product) => (
         <article
           key={product.id}
-          className="overflow-hidden rounded-2xl border border-warm-line bg-warm-white"
+          className="overflow-hidden surface-card rounded-2xl"
         >
           <Link href={`/product/${product.slug ?? product.id}`}>
             <ProductMedia
@@ -176,15 +176,15 @@ export function WishlistClient({
             />
           </Link>
           <div className="p-5">
-            <p className="text-xs uppercase tracking-[0.14em] text-taupe">
+            <p className="text-xs uppercase tracking-[0.08em] text-ink-soft">
               {product.brandName ?? "Shundori"}
             </p>
-            <h2 className="mt-1 font-display text-xl text-dark-text">
+            <h2 className="mt-1 font-display text-xl text-forest">
               <Link href={`/product/${product.slug ?? product.id}`}>
                 {product.name}
               </Link>
             </h2>
-            <p className="mt-2 text-sm text-dark-text">
+            <p className="mt-2 text-sm text-ink-soft">
               {formatPrice(product.price)}
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-3">

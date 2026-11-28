@@ -81,7 +81,7 @@ export default async function AdminProductsPage({
       <form
         action="/admin/products"
         method="get"
-        className="grid gap-3 rounded-2xl border border-warm-line bg-warm-white p-4 md:grid-cols-[2fr_1fr_1fr_1fr_1fr_auto]"
+        className="grid gap-3 surface-card rounded-2xl p-4 md:grid-cols-[2fr_1fr_1fr_1fr_1fr_auto]"
       >
         <Input
           name="q"
@@ -92,7 +92,7 @@ export default async function AdminProductsPage({
         <select
           name="brand"
           defaultValue={filters.brandId}
-          className="h-11 rounded-lg border border-warm-line bg-warm-white px-3 text-sm"
+          className="h-11 rounded-lg border border-sage-light bg-cream px-3 text-sm"
           aria-label="Filter by brand"
         >
           <option value="">All brands</option>
@@ -105,7 +105,7 @@ export default async function AdminProductsPage({
         <select
           name="category"
           defaultValue={filters.categoryId}
-          className="h-11 rounded-lg border border-warm-line bg-warm-white px-3 text-sm"
+          className="h-11 rounded-lg border border-sage-light bg-cream px-3 text-sm"
           aria-label="Filter by category"
         >
           <option value="">All categories</option>
@@ -118,7 +118,7 @@ export default async function AdminProductsPage({
         <select
           name="active"
           defaultValue={filters.active}
-          className="h-11 rounded-lg border border-warm-line bg-warm-white px-3 text-sm"
+          className="h-11 rounded-lg border border-sage-light bg-cream px-3 text-sm"
           aria-label="Filter by status"
         >
           <option value="all">Any status</option>
@@ -128,7 +128,7 @@ export default async function AdminProductsPage({
         <select
           name="stock"
           defaultValue={filters.stock}
-          className="h-11 rounded-lg border border-warm-line bg-warm-white px-3 text-sm"
+          className="h-11 rounded-lg border border-sage-light bg-cream px-3 text-sm"
           aria-label="Filter by stock"
         >
           <option value="all">Any stock</option>
@@ -139,13 +139,13 @@ export default async function AdminProductsPage({
         <div className="flex gap-2">
           <button
             type="submit"
-            className="h-11 flex-1 rounded-full bg-chocolate px-5 text-sm font-medium text-warm-white hover:bg-olive/90"
+            className="h-11 flex-1 rounded-full bg-forest px-5 text-sm font-medium text-cream hover:bg-forest-soft hover:text-cream"
           >
             Filter
           </button>
           <Link
             href="/admin/products"
-            className="h-11 rounded-full border border-warm-line px-4 text-sm font-medium hover:bg-peach"
+            className="h-11 rounded-full border border-sage-light px-4 text-sm font-medium hover:bg-mist"
           >
             Reset
           </Link>
@@ -153,7 +153,7 @@ export default async function AdminProductsPage({
         <input type="hidden" name="sort" value={filters.sort} />
       </form>
 
-      <div className="mt-5 flex items-center justify-between text-xs text-taupe">
+      <div className="mt-5 flex items-center justify-between text-xs text-ink-soft">
         <p>{products.length} product(s) found</p>
         <p>Updated {formatDate(new Date().toISOString())}</p>
       </div>
@@ -171,10 +171,10 @@ export default async function AdminProductsPage({
           }
         />
       ) : (
-        <div className="mt-5 overflow-hidden rounded-2xl border border-warm-line bg-warm-white">
+        <div className="mt-5 overflow-hidden surface-card rounded-2xl">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[900px] text-left text-sm">
-              <thead className="bg-warm-white text-[10px] uppercase tracking-[0.16em] text-taupe">
+              <thead className="bg-cream text-xs uppercase tracking-[0.08em] text-ink-soft">
                 <tr>
                   <th className="px-5 py-3 font-medium">Product</th>
                   <th className="px-5 py-3 font-medium">Brand / category</th>
@@ -184,14 +184,14 @@ export default async function AdminProductsPage({
                   <th className="px-5 py-3 text-right font-medium">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-warm-line/70">
+              <tbody className="divide-y divide-sage-light/70">
                 {products.map((product) => {
                   const cover = product.imagePaths[0];
                   return (
-                    <tr key={product.id} className="hover:bg-warm-white/40">
+                    <tr key={product.id} className="hover:bg-cream/40">
                       <td className="px-5 py-3">
                         <div className="flex items-center gap-3">
-                          <span className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-warm-line bg-warm-white">
+                          <span className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-sage-light bg-cream">
                             {cover ? (
                               // eslint-disable-next-line @next/next/no-img-element
                               <img
@@ -200,14 +200,14 @@ export default async function AdminProductsPage({
                                 className="size-full object-contain"
                               />
                             ) : (
-                              <span className="font-display text-lg text-olive-deep">
+                              <span className="font-display text-lg text-leaf">
                                 {product.name.charAt(0)}
                               </span>
                             )}
                           </span>
                           <div className="min-w-0">
                             <p className="truncate font-medium">{product.name}</p>
-                            <p className="mt-0.5 text-xs text-taupe">
+                            <p className="mt-0.5 text-xs text-ink-soft">
                               {product.sku || product.slug}
                             </p>
                           </div>
@@ -215,14 +215,14 @@ export default async function AdminProductsPage({
                       </td>
                       <td className="px-5 py-3">
                         <p>{product.brandName}</p>
-                        <p className="mt-0.5 text-xs text-taupe">
+                        <p className="mt-0.5 text-xs text-ink-soft">
                           {product.categoryName}
                         </p>
                       </td>
                       <td className="px-5 py-3">
                         <p>{formatPrice(product.regularPrice)}</p>
                         {product.salePrice ? (
-                          <p className="mt-0.5 text-xs text-olive-deep">
+                          <p className="mt-0.5 text-xs text-leaf">
                             Sale {formatPrice(product.salePrice)}
                           </p>
                         ) : null}
@@ -231,10 +231,10 @@ export default async function AdminProductsPage({
                         <span
                           className={
                             product.stockQuantity === 0
-                              ? "font-semibold text-chocolate"
+                              ? "rounded-full bg-forest px-2.5 py-1 text-xs font-semibold text-cream"
                               : product.stockQuantity <= 5
-                                ? "font-semibold text-chocolate"
-                                : ""
+                                ? "rounded-full bg-sage-light px-2.5 py-1 text-xs font-semibold text-forest"
+                                : "text-ink-soft"
                           }
                         >
                           {product.stockQuantity}
@@ -244,14 +244,14 @@ export default async function AdminProductsPage({
                         <span
                           className={
                             product.isActive
-                              ? "rounded-full bg-olive-soft px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-olive-deep"
-                              : "rounded-full bg-light-beige px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-taupe"
+                              ? "rounded-full bg-leaf px-3 py-1 text-xs font-semibold uppercase tracking-wide text-cream"
+                              : "rounded-full bg-sage-light px-3 py-1 text-xs font-semibold uppercase tracking-wide text-forest"
                           }
                         >
                           {product.isActive ? "Published" : "Draft"}
                         </span>
                         {product.isFeatured ? (
-                          <span className="ml-2 rounded-full bg-soft-cream px-3 py-1 text-[10px] font-semibold uppercase tracking-wide">
+                          <span className="ml-2 rounded-full bg-lime px-3 py-1 text-xs font-semibold uppercase tracking-wide text-forest">
                             Featured
                           </span>
                         ) : null}

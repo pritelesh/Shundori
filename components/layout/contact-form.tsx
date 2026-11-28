@@ -25,19 +25,19 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="grid gap-4">
       <div>
-        <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-dark-text">
+        <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-ink-soft">
           Your name
         </label>
         <Input id="contact-name" name="name" autoComplete="name" required placeholder="Your name" />
       </div>
       <div>
-        <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-dark-text">
+        <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-ink-soft">
           Email address
         </label>
         <Input id="contact-email" name="email" type="email" autoComplete="email" required placeholder="you@example.com" />
       </div>
       <div>
-        <label htmlFor="contact-message" className="mb-2 block text-sm font-medium text-dark-text">
+        <label htmlFor="contact-message" className="mb-2 block text-sm font-medium text-ink-soft">
           Your message
         </label>
         <textarea
@@ -46,7 +46,7 @@ export function ContactForm() {
           required
           rows={5}
           placeholder="How can we help?"
-          className="w-full rounded-lg border border-warm-line bg-warm-white px-4 py-3 text-sm text-dark-text placeholder:text-taupe/70 focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15"
+          className="w-full rounded-lg border border-sage-light bg-cream px-4 py-3 text-sm text-ink-soft placeholder:text-ink-soft focus:border-leaf focus:outline-none focus:ring-2 focus:ring-leaf/15"
         />
       </div>
       <Button type="submit" size="lg" className="justify-self-start">
@@ -54,7 +54,7 @@ export function ContactForm() {
         Send message
       </Button>
       {sent ? (
-        <p className="text-xs text-taupe" role="status">
+        <p className="text-xs text-ink-soft" role="status">
           Preview submitted locally. No message was stored or delivered.
         </p>
       ) : null}

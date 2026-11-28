@@ -3,30 +3,33 @@ import type { ComponentProps } from "react";
 import { cn } from "@/utils/cn";
 
 const buttonBase =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive-deep/40 focus-visible:ring-offset-2 focus-visible:ring-offset-peach disabled:pointer-events-none disabled:opacity-45";
+  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf/40 focus-visible:ring-offset-2 focus-visible:ring-offset-mist disabled:pointer-events-none disabled:opacity-45";
 
 /**
  * Brand button styles.
  *
- * Deep Chocolate carries the primary action and Warm Caramel the secondary
- * action. Both combinations meet WCAG AA contrast for normal text.
+ * Forest carries the primary action with cream text; forest-soft and leaf carry
+ * secondary emphasis. The destructive action uses a forest-outlined cream pill
+ * and fills on hover. Every combination meets WCAG AA contrast.
  */
 const buttonVariants = {
   primary:
-    "bg-chocolate text-warm-white shadow-primary hover:bg-caramel active:bg-chocolate/90",
+    "bg-forest text-cream shadow-primary hover:bg-forest-soft hover:text-cream active:bg-forest active:text-cream",
   secondary:
-    "bg-caramel text-dark-text shadow-secondary hover:bg-chocolate hover:text-warm-white active:bg-caramel/90",
+    "bg-forest-soft text-cream shadow-secondary hover:bg-leaf hover:text-cream active:bg-forest-soft active:text-cream",
   outline:
-    "border border-dark-text/15 bg-transparent text-dark-text hover:border-chocolate hover:bg-soft-cream",
-  ghost: "text-chocolate hover:bg-soft-cream",
-  link: "h-auto rounded-none px-0 text-chocolate underline decoration-caramel decoration-2 underline-offset-[6px] hover:decoration-chocolate",
+    "border border-ink-soft bg-transparent text-forest hover:border-leaf hover:bg-sage-light",
+  ghost: "text-forest hover:bg-sage-light",
+  destructive:
+    "border border-forest bg-cream text-forest shadow-secondary hover:bg-forest hover:text-cream active:bg-forest-soft active:text-cream",
+  link: "h-auto rounded-none px-0 text-leaf underline decoration-sage decoration-2 underline-offset-[6px] hover:decoration-leaf",
 } as const;
 
 const buttonSizes = {
-  sm: "h-9 px-4 text-xs tracking-[0.04em]",
+  sm: "h-11 px-4 text-xs tracking-[0.04em]",
   md: "h-11 px-6 text-sm",
   lg: "h-12 px-7 text-sm",
-  icon: "size-10 p-0",
+  icon: "size-11 p-0",
 } as const;
 
 export type ButtonVariant = keyof typeof buttonVariants;

@@ -4,6 +4,7 @@ import { CircleCheck } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
 import { Container } from "@/components/layout/container";
+import { useLocale } from "@/components/providers/language-provider";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 import { cn } from "@/utils/cn";
@@ -17,7 +18,7 @@ export interface NewsletterSectionProps {
 }
 
 /**
- * Newsletter design preview. Submitting validates the field and shows the
+ * Compact newsletter preview. Submitting validates the field and shows the
  * confirmation state, but nothing is sent or stored in this phase.
  */
 export function NewsletterSection({
@@ -29,14 +30,45 @@ export function NewsletterSection({
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const { toast } = useToast();
+  const { locale } = useLocale();
+  const copy =
+    locale === "bn"
+      ? {
+          eyebrow: "শুন্দরী তালিকা",
+          title: "সৌন্দর্যের খবর, সরাসরি ইনবক্সে।",
+          emailLabel: "ইমেইল ঠিকানা",
+          emailPlaceholder: "আপনার ইমেইল ঠিকানা",
+          subscribe: "সাবস্ক্রাইব",
+          preview: "শুধু প্রিভিউ — উদ্বোধনের সময় নিউজলেটার শুরু হবে।",
+          thanksTitle: "ধন্যবাদ — আপনি তালিকায় আছেন।",
+          differentEmail: "অন্য ইমেইল ব্যবহার করুন",
+          missingTitle: "আপনার ইমেইল যোগ করুন",
+          missingBody: "প্রিভিউ তালিকায় যোগ দিতে একটি ইমেইল ঠিকানা দিন।",
+          successTitle: "আপনি প্রিভিউ তালিকায় আছেন",
+          successBody: "স্টোরের সাথে নিউজলেটারও চালু হবে।",
+        }
+      : {
+          eyebrow: "The Shundori list",
+          title: "Beauty updates, straight to your inbox.",
+          emailLabel: "Email address",
+          emailPlaceholder: "Your email address",
+          subscribe: "Subscribe",
+          preview: "Preview only — newsletter delivery starts at launch.",
+          thanksTitle: "Thank you — you're on the list.",
+          differentEmail: "Use a different email",
+          missingTitle: "Add your email",
+          missingBody: "Enter an email address to join the preview list.",
+          successTitle: "You're on the preview list",
+          successBody: "Newsletter signup goes live with the store.",
+        };
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!email.trim()) {
       toast({
-        title: "Add your email",
-        description: "Enter an email address to join the preview list.",
+        title: copy.missingTitle,
+        description: copy.missingBody,
         variant: "info",
       });
       return;
@@ -44,8 +76,8 @@ export function NewsletterSection({
 
     setSubmitted(true);
     toast({
-      title: "You're on the preview list",
-      description: "Newsletter signup goes live with the store.",
+      title: copy.successTitle,
+      description: copy.successBody,
       variant: "promo",
     });
   }
@@ -54,72 +86,47 @@ export function NewsletterSection({
     <section
       id={id}
       aria-labelledby={titleId}
-      className={cn(
-        "relative overflow-hidden border-b border-warm-line bg-soft-cream",
-        className,
-      )}
+      className={cn("border-b border-cream/15 bg-forest-soft text-cream", className)}
     >
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-24 -top-28 size-72 rounded-full bg-chocolate/15 blur-3xl"
-      />
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-32 right-0 size-64 rounded-full bg-olive/10 blur-3xl"
-      />
-
-      <Container className="relative grid gap-8 py-14 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
-        <div>
-          <p className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.22em] text-olive-deep">
-            <span
-              aria-hidden="true"
-              className="inline-block size-1.5 rounded-full bg-chocolate"
-            />
-            The Shundori list
+      <Container className="flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+        <div className="min-w-0">
+          <p className="text-xs font-medium uppercase tracking-[0.08em] text-cream/75">
+            {copy.eyebrow}
           </p>
           <h2
             id={titleId}
-            className="mt-3 font-display text-3xl leading-tight text-chocolate sm:text-4xl"
+            className="mt-1 font-display text-xl leading-tight text-cream sm:text-2xl"
           >
-            Beauty notes, first.
+            {copy.title}
           </h2>
-          <p className="mt-3 max-w-md text-sm leading-7 text-taupe">
-            New arrivals, quiet rituals and launch news — a considered letter,
-            never a crowded inbox.
-          </p>
         </div>
 
-        <div>
+        <div className="w-full sm:w-auto sm:min-w-[22rem]">
           {submitted ? (
-            <div className="flex items-start gap-3 rounded-2xl border border-olive-deep/15 bg-warm-white p-5">
+            <div className="flex items-center gap-2 rounded-full border border-leaf/20 bg-cream px-4 py-2.5">
               <CircleCheck
-                className="mt-0.5 size-5 shrink-0 text-olive-deep"
+                className="size-4 shrink-0 text-leaf"
                 aria-hidden="true"
               />
-              <div>
-                <p className="text-sm font-medium text-dark-text">
-                  Thank you — you&apos;re on the list.
-                </p>
-                <p className="mt-1 text-xs leading-5 text-taupe">
-                  We&apos;ll write when the store opens.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSubmitted(false);
-                    setEmail("");
-                  }}
-                  className="mt-3 text-xs font-medium text-olive-deep underline underline-offset-4 hover:text-dark-text"
-                >
-                  Use a different email
-                </button>
-              </div>
+              <p className="min-w-0 flex-1 truncate text-xs font-medium text-ink-soft">
+                {copy.thanksTitle}
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSubmitted(false);
+                  setEmail("");
+                }}
+                className="shrink-0 text-xs font-medium text-leaf underline underline-offset-4 hover:text-ink-soft"
+              >
+                {copy.differentEmail}
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate>
-              <div className="flex flex-col gap-2 sm:flex-row">
+              <div className="flex gap-2">
                 <label htmlFor={emailId} className="sr-only">
-                  Email address
+                  {copy.emailLabel}
                 </label>
                 <input
                   id={emailId}
@@ -128,16 +135,14 @@ export function NewsletterSection({
                   autoComplete="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  placeholder="Your email address"
-                  className="h-12 w-full rounded-full border border-warm-line bg-warm-white px-5 text-sm text-dark-text placeholder:text-taupe/70 transition-colors focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15"
+                  placeholder={copy.emailPlaceholder}
+                  className="h-11 min-w-0 flex-1 rounded-full border border-sage-light bg-cream px-4 text-sm text-ink-soft placeholder:text-ink-soft transition-colors focus:border-leaf focus:outline-none focus:ring-2 focus:ring-leaf/15"
                 />
-                <Button type="submit" size="lg" className="shrink-0">
-                  Subscribe
+                <Button type="submit" size="md" className="shrink-0">
+                  {copy.subscribe}
                 </Button>
               </div>
-              <p className="mt-3 text-[11px] leading-5 text-taupe">
-                Preview only — newsletter delivery starts at launch.
-              </p>
+              <p className="mt-2 text-xs text-cream/70">{copy.preview}</p>
             </form>
           )}
         </div>

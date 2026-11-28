@@ -60,9 +60,9 @@ export function ReviewForm({
   if (items.length === 0) return null;
 
   return (
-    <form action={formAction} className="rounded-2xl border border-warm-line bg-warm-white p-6">
-      <h3 className="font-display text-xl text-dark-text">Write a review</h3>
-      <p className="mt-1 text-xs text-taupe">
+    <form action={formAction} className="surface-card rounded-2xl p-6">
+      <h3 className="font-display text-xl text-forest">Write a review</h3>
+      <p className="mt-1 text-xs text-ink-soft">
         Only verified purchases of this product can post a review. New reviews are moderated before publication.
       </p>
 
@@ -79,7 +79,7 @@ export function ReviewForm({
             required
             value={selectedOrderItemId}
             onChange={(event) => setSelectedOrderItemId(event.target.value)}
-            className="h-11 w-full rounded-lg border border-warm-line bg-warm-white px-4 text-sm"
+            className="h-11 w-full rounded-lg border border-sage-light bg-cream px-4 text-sm"
           >
             <option value="">Choose a delivered order</option>
             {items.map((item) => (
@@ -107,14 +107,14 @@ export function ReviewForm({
                 aria-checked={rating === value}
                 aria-label={`${value} star${value === 1 ? "" : "s"}`}
                 onClick={() => setRating(value)}
-                className="rounded p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive-deep"
+                className="rounded p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf"
               >
                 <Star
                   className={cn(
                     "size-6",
                     value <= rating
-                      ? "fill-chocolate text-chocolate"
-                      : "text-dark-text/25",
+                      ? "fill-forest text-forest"
+                      : "text-forest/60",
                   )}
                   aria-hidden="true"
                 />
@@ -123,7 +123,7 @@ export function ReviewForm({
           </div>
           <input type="hidden" name="rating" value={rating} />
           {state.fieldErrors.rating ? (
-            <p className="mt-1.5 text-xs text-chocolate">{state.fieldErrors.rating}</p>
+            <p className="mt-1.5 text-xs text-forest">{state.fieldErrors.rating}</p>
           ) : null}
         </div>
 
@@ -139,11 +139,11 @@ export function ReviewForm({
             maxLength={2000}
             required
             placeholder="What did you like? How did the product work for you?"
-            className="w-full rounded-lg border border-warm-line bg-warm-white px-4 py-3 text-sm focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15"
+            className="w-full rounded-lg border border-sage-light bg-cream px-4 py-3 text-sm focus:border-leaf focus:outline-none focus:ring-2 focus:ring-leaf/15"
             aria-invalid={Boolean(state.fieldErrors.body)}
           />
           {state.fieldErrors.body ? (
-            <p className="mt-1.5 text-xs text-chocolate">{state.fieldErrors.body}</p>
+            <p className="mt-1.5 text-xs text-forest">{state.fieldErrors.body}</p>
           ) : null}
         </div>
       </div>

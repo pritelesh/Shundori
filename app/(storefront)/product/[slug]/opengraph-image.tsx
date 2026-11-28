@@ -14,6 +14,10 @@ export const alt = "Shundori product";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+const forest = "#14261A";
+const mist = "#EEF0E4";
+const leaf = "#3A7335";
+
 export async function generateStaticParams() {
   return safeStaticParams(() => listProducts());
 }
@@ -31,7 +35,7 @@ export default async function Image({
     slug === STATIC_PARAM_PLACEHOLDER ? undefined : await getProductBySlug(slug);
   const title = product?.name ?? "Shundori";
   const subtitle = product?.brand ?? "Cosmetics & skincare";
-  const price = product ? formatPrice(currentPrice(product)) : "Beauty, considered";
+  const price = product ? formatPrice(currentPrice(product)) : "COD available";
 
   return new ImageResponse(
     (
@@ -42,9 +46,9 @@ export default async function Image({
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#FFD5AF",
+          background: mist,
           padding: 80,
-          color: "#3A2923",
+          color: forest,
         }}
       >
         <div
@@ -53,7 +57,7 @@ export default async function Image({
             justifyContent: "space-between",
             fontSize: 28,
             letterSpacing: 6,
-            color: "#712E1E",
+            color: leaf,
           }}
         >
           <span>Shundori</span>
@@ -73,7 +77,7 @@ export default async function Image({
           style={{
             display: "flex",
             fontSize: 42,
-            color: "#712E1E",
+            color: leaf,
           }}
         >
           {price}

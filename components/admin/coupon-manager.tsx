@@ -17,11 +17,11 @@ import { useToast } from "@/components/ui/toast";
 import type { Coupon, CouponDiscountType } from "@/types/phase8";
 
 const fieldClass =
-  "h-11 w-full rounded-lg border border-warm-line bg-warm-white px-4 text-sm text-dark-text focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15";
+  "h-11 w-full rounded-lg border border-sage-light bg-cream px-4 text-sm text-ink-soft focus:border-leaf focus:outline-none focus:ring-2 focus:ring-leaf/15";
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
-  return <p className="mt-1.5 text-xs text-chocolate">{message}</p>;
+  return <p className="mt-1.5 text-xs text-forest">{message}</p>;
 }
 
 function dateTimeLocal(value: string | null | undefined): string {
@@ -220,7 +220,7 @@ function CouponFields({
           type="checkbox"
           name="isActive"
           defaultChecked={coupon?.isActive ?? true}
-          className="size-4 accent-olive-deep"
+          className="size-4 accent-leaf"
         />
         Active
       </label>
@@ -298,13 +298,13 @@ export function CouponManager({ coupons }: { coupons: Coupon[] }) {
       </div>
 
       {coupons.length === 0 ? (
-        <p className="rounded-xl border border-warm-line bg-peach/40 p-6 text-sm text-taupe">
+        <p className="surface-card rounded-xl p-6 text-sm text-ink-soft">
           No coupons yet. Create one to offer a discount at checkout.
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-warm-line bg-warm-white">
+        <div className="overflow-x-auto surface-card rounded-xl">
           <table className="w-full min-w-[46rem] text-left text-sm">
-            <thead className="bg-peach/50 text-xs uppercase tracking-wide text-taupe">
+            <thead className="bg-mist/50 text-xs uppercase tracking-wide text-ink-soft">
               <tr>
                 <th className="px-4 py-3">Code</th>
                 <th className="px-4 py-3">Discount</th>
@@ -314,7 +314,7 @@ export function CouponManager({ coupons }: { coupons: Coupon[] }) {
                 <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-warm-line">
+            <tbody className="divide-y divide-sage-light">
               {coupons.map((coupon) => (
                 <tr key={coupon.id}>
                   <td className="px-4 py-3 font-medium">{coupon.code}</td>
@@ -329,7 +329,7 @@ export function CouponManager({ coupons }: { coupons: Coupon[] }) {
                   <td className="px-4 py-3">
                     <span
                       className={
-                        coupon.isActive ? "text-olive-deep" : "text-taupe"
+                        coupon.isActive ? "text-leaf" : "text-ink-soft"
                       }
                     >
                       {coupon.isActive ? "Active" : "Inactive"}
@@ -406,7 +406,7 @@ export function CouponManager({ coupons }: { coupons: Coupon[] }) {
           <Button type="button" variant="outline" onClick={() => setDeleting(null)}>
             Cancel
           </Button>
-          <Button type="button" onClick={remove} disabled={pending}>
+          <Button type="button" variant="destructive" onClick={remove} disabled={pending}>
             {pending ? "Deleting…" : "Delete coupon"}
           </Button>
         </div>

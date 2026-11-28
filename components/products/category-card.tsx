@@ -32,7 +32,7 @@ export function CategoryCard({
 }: CategoryCardProps) {
   const content = (
     <>
-      <div className="relative flex h-40 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-soft-cream via-warm-white to-light-beige/60">
+      <div className="relative flex h-40 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-sage-light via-cream to-sage-light/60">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -44,18 +44,18 @@ export function CategoryCard({
         ) : null}
         <span
           aria-hidden="true"
-          className="absolute size-36 rounded-full border border-white/90"
+          className="absolute size-36 rounded-full border border-cream/90"
         />
         <span
           aria-hidden="true"
-          className="absolute size-24 rounded-full border border-white/70"
+          className="absolute size-24 rounded-full border border-cream/70"
         />
         {!imageUrl && visual ? (
           <span className="relative flex size-32 items-center justify-center" aria-hidden="true">
             <ProductVisual shape={visual} tone={tone} size="md" className="text-[4rem]" />
           </span>
         ) : !imageUrl ? (
-          <span className="relative flex size-14 items-center justify-center rounded-full bg-warm-white text-olive-deep shadow-soft">
+          <span className="relative flex size-14 items-center justify-center rounded-full bg-cream text-leaf shadow-soft">
             <Icon className="size-6" aria-hidden="true" />
           </span>
         ) : null}
@@ -63,22 +63,22 @@ export function CategoryCard({
 
       <div className="p-5">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="font-display text-xl text-dark-text">{name}</h3>
+          <h3 className="font-display text-xl text-forest">{name}</h3>
           <ArrowUpRight
-            className="size-4 text-taupe transition-colors group-hover:text-olive-deep"
+            className="size-4 text-ink-soft transition-colors group-hover:text-leaf"
             aria-hidden="true"
           />
         </div>
-        <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-taupe">
+        <p className="mt-1 text-xs uppercase tracking-[0.08em] text-ink-soft">
           {productCount} products
         </p>
-        <p className="mt-3 text-sm leading-6 text-taupe">{description}</p>
+        <p className="mt-3 text-sm leading-6 text-ink-soft">{description}</p>
       </div>
     </>
   );
 
   const cardClass = cn(
-    "group flex flex-col overflow-hidden rounded-2xl border border-warm-line/70 bg-warm-white p-2.5 transition-all duration-300 hover:-translate-y-1 hover:border-warm-line-strong hover:shadow-soft",
+    "surface-card group flex flex-col overflow-hidden rounded-2xl p-2.5 transition-all duration-300 hover:-translate-y-1 hover:border-sage hover:shadow-soft",
     className,
   );
 

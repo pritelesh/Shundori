@@ -87,24 +87,29 @@ export function sortProducts(
   items: readonly CatalogProduct[],
   sort: CatalogFilters["sort"] = "featured",
 ): CatalogProduct[] {
-  const sorted = [...items];
-
-  switch (sort) {
-    case "newest":
-      return sorted.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-    case "price-asc":
-      return sorted.sort((a, b) => currentPrice(a) - currentPrice(b));
-    case "price-desc":
-      return sorted.sort((a, b) => currentPrice(b) - currentPrice(a));
-    case "name-asc":
-      return sorted.sort((a, b) => a.name.localeCompare(b.name));
-    case "featured":
-    default:
-      return sorted.sort((a, b) => {
-        if (a.isFeatured !== b.isFeatured) return a.isFeatured ? -1 : 1;
-        if (a.stockQuantity === 0 && b.stockQuantity > 0) return 1;
-        if (b.stockQuantity === 0 && a.stockQuantity > 0) return -1;
+  const compare = (a: CatalogProduct, b: CatalogProduct): number => {
+    switch (sort) {
+      case "newest":
         return b.createdAt.localeCompare(a.createdAt);
-      });
-  }
+      case "price-asc":
+        return currentPrice(a) - currentPrice(b);
+      case "price-desc":
+        return currentPrice(b) - currentPrice(a);
+      case "name-asc":
+        return a.name.localeCompare(b.name);
+      case "featured":
+      default:
+        if (a.isFeatured !== b.isFeatured) return a.isFeatured ? -1 : 1;
+        return b.createdAt.localeCompare(a.createdAt);
+    }
+  };
+
+  // Availability is an ordering concern, not a filter: sold-out items stay in
+  // the list but always trail the available ones for every sort mode.
+  const inStock = items.filter((product) => product.stockQuantity > 0).sort(compare);
+  const outOfStock = items
+    .filter((product) => product.stockQuantity <= 0)
+    .sort(compare);
+
+  return [...inStock, ...outOfStock];
 }

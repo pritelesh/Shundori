@@ -45,10 +45,10 @@ test("visible badges and social monograms have matching accessible names", () =>
   assert.match(footer, /aria-label=\{`\$\{label\} \(\$\{monogram\}\)`\}/);
 });
 
-test("admin eyebrow text has sufficient contrast on the warm header", () => {
+test("admin eyebrow text has sufficient contrast on the light surface", () => {
   const header = read("components/admin/admin-page-header.tsx");
-  assert.match(header, /tracking-\[0\.22em\] text-dark-text/);
-  assert.doesNotMatch(header, /tracking-\[0\.22em\] text-caramel/);
+  assert.match(header, /tracking-\[0\.22em\] text-ink-soft/);
+  assert.doesNotMatch(header, /tracking-\[0\.22em\] text-forest-soft/);
 });
 
 test("below-the-fold grids do not preload images by default", () => {

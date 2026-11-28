@@ -67,9 +67,9 @@ async function SearchResults({
       <DemoNotice demo={isDemoCatalogue()} className="mb-8" />
 
       {query ? (
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-warm-line bg-warm-white px-4 py-3">
-          <p className="text-sm text-taupe">
-            Results for <span className="font-medium text-dark-text">“{query}”</span>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3 surface-card rounded-xl px-4 py-3">
+          <p className="text-sm text-ink-soft">
+            Results for <span className="font-medium text-ink-soft">“{query}”</span>
           </p>
           <Link href="/search" className={buttonStyles({ variant: "ghost", size: "sm" })}>
             <X className="size-4" aria-hidden="true" />

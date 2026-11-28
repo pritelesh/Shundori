@@ -12,9 +12,9 @@ import type { Enquiry } from "@/types/phase8";
 import { formatDateTime } from "@/utils/format";
 
 const selectClass =
-  "h-11 w-full rounded-lg border border-warm-line bg-warm-white px-4 text-sm text-dark-text transition-colors focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15";
+  "h-11 w-full rounded-lg border border-sage-light bg-cream px-4 text-sm text-ink-soft transition-colors focus:border-leaf focus:outline-none focus:ring-2 focus:ring-leaf/15";
 const textareaClass =
-  "w-full rounded-lg border border-warm-line bg-warm-white px-4 py-3 text-sm text-dark-text placeholder:text-taupe/70 transition-colors focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15";
+  "w-full rounded-lg border border-sage-light bg-cream px-4 py-3 text-sm text-ink-soft placeholder:text-ink-soft transition-colors focus:border-leaf focus:outline-none focus:ring-2 focus:ring-leaf/15";
 
 function EnquiryRow({ enquiry }: { enquiry: Enquiry }) {
   const router = useRouter();
@@ -40,31 +40,31 @@ function EnquiryRow({ enquiry }: { enquiry: Enquiry }) {
   }, [state, router, toast]);
 
   return (
-    <article className="rounded-2xl border border-warm-line bg-warm-white p-6">
+    <article className="surface-card rounded-2xl p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-soft-cream px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-dark-text">
+            <span className="rounded-full bg-sage-light px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-ink-soft">
               {enquiry.source}
             </span>
-            <span className="text-xs text-taupe">
+            <span className="text-xs text-ink-soft">
               {formatDateTime(enquiry.createdAt)}
             </span>
           </div>
-          <h2 className="mt-2 font-medium text-dark-text">
+          <h2 className="mt-2 font-medium text-ink-soft">
             {enquiry.customerName}
           </h2>
-          <p className="mt-0.5 text-sm text-taupe">
+          <p className="mt-0.5 text-sm text-ink-soft">
             {enquiry.customerPhone}
             {enquiry.customerEmail ? ` · ${enquiry.customerEmail}` : ""}
           </p>
         </div>
-        <span className="text-xs font-medium uppercase tracking-[0.14em] text-olive-deep">
+        <span className="text-xs font-medium uppercase tracking-[0.08em] text-leaf">
           {enquiry.status}
         </span>
       </div>
 
-      <p className="mt-4 whitespace-pre-wrap rounded-xl bg-peach/60 p-4 text-sm leading-6 text-dark-text">
+      <p className="mt-4 whitespace-pre-wrap rounded-xl border border-sage-light bg-cream p-4 text-sm leading-6 text-ink-soft shadow-soft">
         {enquiry.message}
       </p>
 
@@ -104,7 +104,7 @@ function EnquiryRow({ enquiry }: { enquiry: Enquiry }) {
             placeholder="Only staff can see this note"
           />
           {state.fieldErrors.status || state.fieldErrors.adminNote ? (
-            <p className="mt-1.5 text-xs text-chocolate">
+            <p className="mt-1.5 text-xs text-forest">
               {state.fieldErrors.status ?? state.fieldErrors.adminNote}
             </p>
           ) : null}
@@ -123,8 +123,8 @@ function EnquiryRow({ enquiry }: { enquiry: Enquiry }) {
 export function EnquiryManager({ enquiries }: { enquiries: Enquiry[] }) {
   if (enquiries.length === 0) {
     return (
-      <div className="rounded-2xl border border-warm-line bg-warm-white p-10 text-center">
-        <p className="text-sm text-taupe">No enquiries yet.</p>
+      <div className="surface-card rounded-2xl p-10 text-center">
+        <p className="text-sm text-ink-soft">No enquiries yet.</p>
       </div>
     );
   }

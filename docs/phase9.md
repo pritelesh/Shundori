@@ -217,7 +217,7 @@ These are dev-mode diagnostics, not production Core Web Vitals.
 | P9-05 | Wrapped `getPublicStoreSettings()` in React `cache` | `verify:phase9` and clean reloads showed no duplicate-fetch regression |
 | P9-06 | Memoised the toast provider context value | `verify:phase9` asserts the memoised provider value |
 | P9-07 | Made stock writes conditional with retry and matching history value | Live stock change `8 → 9` succeeded with reason `qa_conditional_write`; history reason persisted |
-| P9-08 | Fixed badge/social accessible names and changed admin eyebrow to `text-dark-text` | Lighthouse failures cleared; all measured pages scored 1.0 for accessibility |
+| P9-08 | Fixed badge/social accessible names and changed admin eyebrow to `text-ink-soft` | Lighthouse failures cleared; all measured pages scored 1.0 for accessibility |
 | P9-09 | Added `await connection()` before `getAdminAccess()` in the admin login Suspense boundary | `verify:phase9` asserts the boundary; clean browser load showed no console or server error |
 | P9-11 | Rewrote the customer-write denial check to update a real visible product and verify the stored price stayed unchanged | Final `verify:supabase` run: 70/70 checks passed |
 

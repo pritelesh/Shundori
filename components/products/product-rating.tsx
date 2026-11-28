@@ -28,17 +28,17 @@ export function ProductRating({
             className={cn(
               "size-3.5",
               index < rounded
-                ? "fill-chocolate text-chocolate"
-                : "fill-transparent text-warm-line-strong",
+                ? "fill-forest text-forest"
+                : "fill-transparent text-forest/60",
             )}
           />
         ))}
       </span>
-      <span className="text-xs font-medium tabular-nums text-dark-text">
+      <span className="text-xs font-medium tabular-nums text-ink-soft">
         {rating.toFixed(1)}
       </span>
       {typeof reviewCount === "number" ? (
-        <span className="text-xs tabular-nums text-taupe">
+        <span className="text-xs tabular-nums text-ink-soft">
           ({reviewCount})
         </span>
       ) : null}

@@ -1,30 +1,33 @@
-import { ArrowRight, Check, ChevronRight, Clock3, Package } from "lucide-react";
+import { ArrowRight, ChevronRight, Clock3, Package } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
 import { Suspense } from "react";
 
+import { ProductCarousel } from "@/components/catalog/product-carousel";
 import { DemoNotice } from "@/components/catalog/demo-notice";
-import { ProductGrid } from "@/components/catalog/product-grid";
 import { PurchaseControls } from "@/components/catalog/purchase-controls";
+import { toCardItem } from "@/lib/catalog-filter";
 import { Container } from "@/components/layout/container";
-import { DiscountBadge } from "@/components/products/discount-badge";
-import { PriceDisplay } from "@/components/products/price-display";
+import { Badge } from "@/components/ui/badge";
+import { ProductCard } from "@/components/products/product-card";
+import { ProductDetailsTabs } from "@/components/products/product-details-tabs";
 import { ProductEnquiry } from "@/components/products/product-enquiry";
 import { ProductGallery } from "@/components/products/product-gallery";
-import { ProductRating } from "@/components/products/product-rating";
-import { ProductReviewList } from "@/components/products/product-review-list";
+import { ProductInfoChips } from "@/components/products/product-info-chips";
+import { ProductPriceBlock } from "@/components/products/product-price-block";
+import { ProductRatingSummary } from "@/components/products/product-rating-summary";
 import { ProductWhatsappButton } from "@/components/products/product-whatsapp-button";
 import { ReviewForm } from "@/components/products/review-form";
-import { Badge } from "@/components/ui/badge";
-import { currentPrice } from "@/lib/catalog-filter";
-import { effectiveCompareAtPrice } from "@/lib/offer-pricing";
+import { effectiveCompareAtPrice, effectivePrice } from "@/lib/offer-pricing";
 import {
   jsonLdScript,
   productJsonLd,
   productMetadata,
 } from "@/lib/seo";
+import { productEnquiryMessage, whatsappUrl } from "@/lib/whatsapp";
+import { getPublicStoreSettings } from "@/services/business-settings";
 import {
   getProductBySlug,
   getRelatedProducts,
@@ -35,7 +38,7 @@ import {
 } from "@/services/catalog";
 import { getApprovedReviews } from "@/services/reviews";
 import type { CartProduct } from "@/types/cart";
-import { formatDate, formatPrice } from "@/utils/format";
+import { formatDate } from "@/utils/format";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -61,7 +64,13 @@ export async function generateStaticParams() {
 
 export default function ProductPage(props: PageProps) {
   return (
-    <Suspense fallback={<Container className="py-16"><p className="text-sm text-taupe">Loading product…</p></Container>}>
+    <Suspense
+      fallback={
+        <Container className="py-16">
+          <p className="text-sm text-ink-soft">Loading product…</p>
+        </Container>
+      }
+    >
       <ProductContent {...props} />
     </Suspense>
   );
@@ -78,15 +87,27 @@ async function ProductContent({ params }: PageProps) {
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const related = await getRelatedProducts(product, 4);
+  const [related, settings] = await Promise.all([
+    getRelatedProducts(product, 4),
+    getPublicStoreSettings(),
+  ]);
   const demo = isDemoCatalogue();
   const reviews = demo ? [] : await getApprovedReviews(product.id);
+  const price = effectivePrice(product);
+  const compareAtPrice = effectiveCompareAtPrice(product);
+  const whatsappHref = settings.whatsappEnabled
+    ? whatsappUrl(
+        settings.whatsappNumber,
+        productEnquiryMessage(product.name, settings.storeName),
+      )
+    : null;
+
   const cartProduct: CartProduct = {
     id: product.id,
     name: product.name,
     slug: product.slug,
     brandName: product.brand,
-    price: currentPrice(product),
+    price,
     imageUrl: product.images[0]?.url ?? null,
     visual: product.visual,
     tone: product.tone,
@@ -101,7 +122,7 @@ async function ProductContent({ params }: PageProps) {
       : "Out of stock";
 
   return (
-    <div className="py-8 sm:py-12">
+    <div className="pt-8 pb-16 sm:pt-12 md:pb-0">
       {!demo ? (
         <script
           type="application/ld+json"
@@ -109,19 +130,26 @@ async function ProductContent({ params }: PageProps) {
         />
       ) : null}
       <Container>
-        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1 text-xs text-taupe">
-          <Link href="/" className="hover:text-dark-text hover:underline">Home</Link>
+        <nav
+          aria-label="Breadcrumb"
+          className="flex flex-wrap items-center gap-1 text-xs text-ink-soft"
+        >
+          <Link href="/" className="inline-flex min-h-11 min-w-11 items-center text-leaf hover:text-forest hover:underline">
+            Home
+          </Link>
           <ChevronRight className="size-3" aria-hidden="true" />
-          <Link href="/shop" className="hover:text-dark-text hover:underline">Shop</Link>
+          <Link href="/shop" className="inline-flex min-h-11 min-w-11 items-center text-leaf hover:text-forest hover:underline">
+            Shop
+          </Link>
           <ChevronRight className="size-3" aria-hidden="true" />
           <Link
             href={`/category/${product.categorySlug}`}
-            className="hover:text-dark-text hover:underline"
+            className="inline-flex min-h-11 min-w-11 items-center text-leaf hover:text-forest hover:underline"
           >
             {product.category}
           </Link>
           <ChevronRight className="size-3" aria-hidden="true" />
-          <span className="text-dark-text">{product.name}</span>
+          <span className="text-ink-soft">{product.name}</span>
         </nav>
 
         <DemoNotice demo={demo} className="mt-6" />
@@ -133,7 +161,7 @@ async function ProductContent({ params }: PageProps) {
             <div className="flex flex-wrap items-center gap-2">
               <Link
                 href={`/brand/${product.brandSlug}`}
-                className="text-[11px] font-medium uppercase tracking-[0.18em] text-olive-deep underline-offset-4 hover:underline"
+                className="inline-flex min-h-11 items-center text-xs font-medium uppercase tracking-[0.08em] text-leaf underline-offset-4 hover:underline"
               >
                 {product.brand}
               </Link>
@@ -141,171 +169,136 @@ async function ProductContent({ params }: PageProps) {
               {product.isFeatured ? <Badge variant="brandSoft">Featured</Badge> : null}
             </div>
 
-            <h1 className="mt-4 font-display text-3xl leading-tight text-dark-text sm:text-4xl">
+            <h1 className="mt-4 font-display text-3xl leading-tight text-forest sm:text-4xl">
               {product.name}
             </h1>
 
             {product.rating !== null ? (
-              <ProductRating rating={product.rating} reviewCount={product.reviewCount} className="mt-3" />
+              <ProductRatingSummary
+                rating={product.rating}
+                reviewCount={product.reviewCount}
+              />
             ) : null}
 
-            <div className="mt-5 flex flex-wrap items-center gap-3">
-              <PriceDisplay
-                price={currentPrice(product)}
-                compareAtPrice={effectiveCompareAtPrice(product)}
-                size="lg"
-              />
-              <DiscountBadge
-                price={currentPrice(product)}
-                compareAtPrice={effectiveCompareAtPrice(product)}
-              />
+            <div className="mt-5">
+              <ProductPriceBlock product={product} />
             </div>
 
-            <p className="mt-4 flex items-center gap-2 text-sm text-taupe">
+            <p className="mt-4 flex items-center gap-2 text-sm text-ink-soft">
               <span
                 aria-hidden="true"
-                className={`size-2 rounded-full ${product.stockQuantity > 0 ? "bg-olive" : "bg-dark-text/35"}`}
+                className={`size-2 rounded-full ${product.stockQuantity > 0 ? "bg-leaf" : "bg-ink-soft/35"}`}
               />
               {stockLabel}
             </p>
 
-            <p className="mt-5 max-w-xl text-sm leading-7 text-taupe">
-              {product.description}
+            <p className="mt-4 max-w-xl text-sm leading-7 text-ink-soft">
+              {product.shortDescription || product.description}
             </p>
 
-            <PurchaseControls product={cartProduct} />
+            <ProductInfoChips product={product} settings={settings} />
+
+            <PurchaseControls
+              product={cartProduct}
+              price={price}
+              compareAtPrice={compareAtPrice}
+            />
 
             {!demo ? (
-              <div className="mt-3">
-                <Suspense fallback={null}>
-                  <ProductWhatsappButton productName={product.name} />
-                </Suspense>
+              <div className="mt-4 space-y-3">
+                <ProductWhatsappButton href={whatsappHref} />
                 <ProductEnquiry productId={product.id} />
               </div>
             ) : null}
 
-            <div className="mt-8 grid gap-3 border-t border-warm-line pt-6 text-xs text-taupe sm:grid-cols-2">
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 border-t border-sage-light pt-5 text-xs text-ink-soft">
               <p className="flex items-center gap-2">
-                <Package className="size-4 shrink-0 text-olive-deep" aria-hidden="true" />
+                <Package className="size-4 shrink-0 text-leaf" aria-hidden="true" />
                 Bag state lasts for this visit only.
               </p>
               <p className="flex items-center gap-2">
-                <Clock3 className="size-4 shrink-0 text-olive-deep" aria-hidden="true" />
-                Added {formatDate(product.createdAt)}
-                {demo ? " to the demo catalogue" : " to the collection"}.
+                <Clock3 className="size-4 shrink-0 text-leaf" aria-hidden="true" />
+                Listed {formatDate(product.createdAt)}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-16 grid gap-8 border-t border-warm-line pt-12 lg:grid-cols-2">
-          <section aria-labelledby="benefits-title">
-            <h2 id="benefits-title" className="font-display text-2xl text-dark-text">
-              Benefits
-            </h2>
-            <ul className="mt-4 space-y-3">
-              {product.benefits.map((benefit) => (
-                <li key={benefit} className="flex gap-3 text-sm leading-6 text-taupe">
-                  <Check className="mt-1 size-4 shrink-0 text-olive-deep" aria-hidden="true" />
-                  {benefit}
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section aria-labelledby="ingredients-title">
-            <h2 id="ingredients-title" className="font-display text-2xl text-dark-text">
-              Ingredients
-            </h2>
-            <ul className="mt-4 space-y-2">
-              {product.ingredients.map((ingredient) => (
-                <li key={ingredient} className="text-sm leading-6 text-taupe">
-                  {ingredient}
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section aria-labelledby="usage-title">
-            <h2 id="usage-title" className="font-display text-2xl text-dark-text">
-              Usage instructions
-            </h2>
-            <ol className="mt-4 space-y-2">
-              {product.usageInstructions.map((step, index) => (
-                <li key={step} className="flex gap-3 text-sm leading-6 text-taupe">
-                  <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-olive-soft text-[10px] font-semibold text-olive-deep">
-                    {index + 1}
-                  </span>
-                  {step}
-                </li>
-              ))}
-            </ol>
-          </section>
-
-          <section aria-labelledby="details-title">
-            <h2 id="details-title" className="font-display text-2xl text-dark-text">
-              Catalogue details
-            </h2>
-            <dl className="mt-4 divide-y divide-warm-line text-sm">
-              <div className="flex justify-between gap-4 py-2">
-                <dt className="text-taupe">Brand</dt>
-                <dd className="text-dark-text">{product.brand}</dd>
-              </div>
-              <div className="flex justify-between gap-4 py-2">
-                <dt className="text-taupe">Category</dt>
-                <dd className="text-dark-text">{product.category}</dd>
-              </div>
-              <div className="flex justify-between gap-4 py-2">
-                <dt className="text-taupe">Regular price</dt>
-                <dd className="text-dark-text">{formatPrice(product.regularPrice)}</dd>
-              </div>
-              <div className="flex justify-between gap-4 py-2">
-                <dt className="text-taupe">Product ID</dt>
-                <dd className="text-dark-text">{product.id}</dd>
-              </div>
-            </dl>
-          </section>
-        </div>
-
-        <section className="mt-16 border-t border-warm-line pt-12" aria-labelledby="reviews-title">
-          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-olive-deep">
-            Customer feedback
-          </p>
-          <h2 id="reviews-title" className="mt-2 font-display text-3xl text-dark-text">
-            Reviews
-          </h2>
-          {!demo ? (
-            <ReviewForm productId={product.id} productSlug={product.slug} />
-          ) : null}
-          <div className="mt-6">
-            <ProductReviewList reviews={reviews} />
-          </div>
-        </section>
-
-        <section className="mt-16 border-t border-warm-line pt-12" aria-labelledby="related-title">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-olive-deep">
-                You may also like
-              </p>
-              <h2 id="related-title" className="mt-2 font-display text-3xl text-dark-text">
-                Related products
-              </h2>
-            </div>
-            <Link
-              href={`/category/${product.categorySlug}`}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-olive-deep underline-offset-4 hover:underline"
+        <section
+          id="reviews"
+          className="mt-14 scroll-mt-24 border-t border-sage-light pt-10 sm:mt-16 sm:pt-12"
+          aria-labelledby="details-title"
+        >
+          <div className="mb-6">
+            <p className="text-xs font-medium uppercase tracking-[0.08em] text-leaf">
+              Product details
+            </p>
+            <h2
+              id="details-title"
+              className="mt-2 font-display text-3xl text-forest"
             >
-              More in {product.category}
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </Link>
+              Details, ingredients and reviews.
+            </h2>
           </div>
-          <div className="mt-8">
-            <ProductGrid products={related} />
-          </div>
+          <ProductDetailsTabs
+            description={product.description}
+            benefits={product.benefits}
+            ingredients={product.ingredients}
+            usageInstructions={product.usageInstructions}
+            reviews={reviews}
+            reviewForm={
+              demo ? undefined : (
+                <ReviewForm productId={product.id} productSlug={product.slug} />
+              )
+            }
+          />
         </section>
+
+        {related.length > 0 ? (
+          <section
+            className="mt-14 border-t border-sage-light pt-10 sm:mt-16 sm:pt-12"
+            aria-labelledby="related-title"
+          >
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.08em] text-leaf">
+                  You may also like
+                </p>
+                <h2
+                  id="related-title"
+                  className="mt-2 font-display text-3xl text-forest"
+                >
+                  Related products
+                </h2>
+              </div>
+              <Link
+                href={`/category/${product.categorySlug}`}
+                className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-leaf underline-offset-4 hover:underline"
+              >
+                More in {product.category}
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="mt-6">
+              <ProductCarousel label="Related products">
+                {related.map((item) => (
+                  <li
+                    key={item.id}
+                    className="w-[70vw] max-w-[17rem] shrink-0 snap-start sm:w-64"
+                  >
+                    <ProductCard
+                      product={toCardItem(item)}
+                      href={`/product/${item.slug}`}
+                      lowStockThreshold={item.lowStockThreshold}
+                      className="h-full"
+                    />
+                  </li>
+                ))}
+              </ProductCarousel>
+            </div>
+          </section>
+        ) : null}
       </Container>
     </div>
   );
 }
-

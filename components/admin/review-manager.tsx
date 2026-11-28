@@ -55,22 +55,22 @@ export function ReviewManager({ reviews }: { reviews: PendingReview[] }) {
       </div>
 
       {visible.length === 0 ? (
-        <p className="rounded-xl border border-warm-line bg-peach/40 p-6 text-sm text-taupe">
+        <p className="surface-card rounded-xl p-6 text-sm text-ink-soft">
           No {filter} reviews.
         </p>
       ) : (
         <div className="space-y-4">
           {visible.map((review) => (
-            <article key={review.id} className="rounded-2xl border border-warm-line bg-warm-white p-6">
+            <article key={review.id} className="surface-card rounded-2xl p-6">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm font-medium text-dark-text">
+                  <p className="text-sm font-medium text-ink-soft">
                     {review.productName}
-                    <span className="ml-2 text-xs font-normal text-taupe">
+                    <span className="ml-2 text-xs font-normal text-ink-soft">
                       {review.orderNumber ?? "Order unavailable"}
                     </span>
                   </p>
-                  <p className="mt-1 text-xs text-taupe">
+                  <p className="mt-1 text-xs text-ink-soft">
                     {review.customerName} · {formatDate(review.createdAt)} · Verified purchase
                   </p>
                 </div>
@@ -80,14 +80,14 @@ export function ReviewManager({ reviews }: { reviews: PendingReview[] }) {
                       key={value}
                       className={cn(
                         "size-4",
-                        value <= review.rating ? "fill-chocolate text-chocolate" : "text-dark-text/20",
+                        value <= review.rating ? "fill-forest text-forest" : "text-forest/60",
                       )}
                       aria-hidden="true"
                     />
                   ))}
                 </div>
               </div>
-              <p className="mt-4 whitespace-pre-wrap text-sm leading-6 text-dark-text">
+              <p className="mt-4 whitespace-pre-wrap text-sm leading-6 text-ink-soft">
                 {review.body}
               </p>
               <div className="mt-5 flex gap-2">
@@ -97,7 +97,7 @@ export function ReviewManager({ reviews }: { reviews: PendingReview[] }) {
                     Approve
                   </Button>
                 ) : (
-                  <Button type="button" variant="outline" size="sm" onClick={() => moderate(review.id, false)} disabled={pending}>
+                  <Button type="button" variant="destructive" size="sm" onClick={() => moderate(review.id, false)} disabled={pending}>
                     <EyeOff className="size-4" aria-hidden="true" />
                     Hide
                   </Button>

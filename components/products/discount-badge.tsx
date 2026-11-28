@@ -23,10 +23,10 @@ export function DiscountBadge({
   return (
     <Badge
       variant="brand"
-      className={cn("shadow-sm", className)}
+      className={cn("shadow-soft", className)}
       aria-label={`-${percent}% off`}
     >
-      -{percent}%
+      {percent}% OFF
     </Badge>
   );
 }

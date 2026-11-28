@@ -9,6 +9,7 @@ import {
   deleteProductAction,
   toggleProductActiveAction,
 } from "@/app/admin/(panel)/actions";
+import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
 import { useToast } from "@/components/ui/toast";
 
@@ -61,14 +62,14 @@ export function ProductRowActions({
           type="button"
           onClick={toggle}
           disabled={pending}
-          className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-olive-deep transition-colors hover:bg-olive-soft disabled:opacity-50"
+          className="rounded-lg px-2.5 py-1.5 text-xs font-medium text-leaf transition-colors hover:bg-sage-light hover:text-forest disabled:opacity-50"
         >
           {isActive ? "Unpublish" : "Publish"}
         </button>
         <Link
           href={`/admin/products/${id}/edit`}
           aria-label={`Edit ${name}`}
-          className="inline-flex size-8 items-center justify-center rounded-lg text-taupe transition-colors hover:bg-soft-cream hover:text-dark-text"
+          className="inline-flex size-11 items-center justify-center rounded-lg text-ink-soft transition-colors hover:bg-sage-light hover:text-ink-soft"
         >
           <Pencil className="size-4" aria-hidden="true" />
         </Link>
@@ -76,7 +77,7 @@ export function ProductRowActions({
           type="button"
           onClick={() => setConfirming(true)}
           aria-label={`Delete ${name}`}
-          className="inline-flex size-8 items-center justify-center rounded-lg text-taupe transition-colors hover:bg-soft-cream hover:text-dark-text"
+          className="inline-flex size-11 items-center justify-center rounded-lg text-ink-soft transition-colors hover:bg-sage-light hover:text-ink-soft"
         >
           <Trash2 className="size-4" aria-hidden="true" />
         </button>
@@ -88,26 +89,21 @@ export function ProductRowActions({
         title="Delete this product?"
         description="The product and its uploaded images will be permanently removed."
       >
-        <p className="text-sm text-taupe">
-          <span className="font-medium text-dark-text">{name}</span> will no
+        <p className="text-sm text-ink-soft">
+          <span className="font-medium text-ink-soft">{name}</span> will no
           longer appear in the store.
         </p>
         <div className="mt-6 flex justify-end gap-3">
           <button
             type="button"
             onClick={() => setConfirming(false)}
-            className="rounded-full border border-warm-line px-5 py-2.5 text-sm font-medium hover:bg-peach"
+            className="rounded-full border border-sage-light px-5 py-2.5 text-sm font-medium hover:bg-mist"
           >
             Cancel
           </button>
-          <button
-            type="button"
-            onClick={remove}
-            disabled={pending}
-            className="rounded-full bg-chocolate px-5 py-2.5 text-sm font-medium text-warm-white disabled:opacity-50"
-          >
+          <Button type="button" variant="destructive" size="sm" onClick={remove} disabled={pending}>
             {pending ? "Deleting…" : "Delete product"}
-          </button>
+          </Button>
         </div>
       </Modal>
     </>

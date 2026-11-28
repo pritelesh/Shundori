@@ -1,4 +1,5 @@
 import { ProductCard } from "@/components/products/product-card";
+import { ProductCardSkeleton } from "@/components/products/product-card-skeleton";
 import { toCardItem } from "@/lib/catalog-filter";
 import type { CatalogProduct } from "@/types/product";
 import { cn } from "@/utils/cn";
@@ -9,6 +10,8 @@ export interface ProductGridProps {
   columns?: "two" | "three" | "four";
   /** Opt in only when this grid contains the page's above-the-fold LCP image. */
   priority?: boolean;
+  /** Appends loading placeholders while more products are being revealed. */
+  skeletonCount?: number;
 }
 
 export function ProductGrid({
@@ -16,6 +19,7 @@ export function ProductGrid({
   className,
   columns = "four",
   priority = false,
+  skeletonCount = 0,
 }: ProductGridProps) {
   const gridColumns = {
     two: "sm:grid-cols-2 lg:grid-cols-2",
@@ -31,7 +35,11 @@ export function ProductGrid({
           product={toCardItem(product)}
           href={`/product/${product.slug}`}
           priority={priority}
+          lowStockThreshold={product.lowStockThreshold}
         />
+      ))}
+      {Array.from({ length: skeletonCount }, (_, index) => (
+        <ProductCardSkeleton key={`loading-${index}`} />
       ))}
     </div>
   );

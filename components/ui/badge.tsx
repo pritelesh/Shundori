@@ -3,12 +3,12 @@ import type { ComponentProps } from "react";
 import { cn } from "@/utils/cn";
 
 const badgeVariants = {
-  accent: "bg-olive-deep text-warm-white",
-  accentSoft: "bg-olive-soft text-olive-deep",
-  brand: "bg-chocolate text-warm-white",
-  brandSoft: "bg-peach-tint text-dark-text",
-  neutral: "border border-warm-line bg-warm-white text-taupe",
-  outline: "border border-dark-text/15 text-chocolate",
+  accent: "bg-leaf text-cream",
+  accentSoft: "bg-sage-light text-forest",
+  brand: "bg-forest text-cream",
+  brandSoft: "bg-lime text-forest",
+  neutral: "border border-sage bg-cream text-ink-soft",
+  outline: "border border-ink-soft/20 text-forest",
 } as const;
 
 export type BadgeVariant = keyof typeof badgeVariants;
@@ -25,7 +25,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-medium uppercase tracking-[0.16em]",
+        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium uppercase tracking-[0.08em]",
         badgeVariants[variant],
         className,
       )}

@@ -25,34 +25,34 @@ export default function ContactPage() {
       <Container className="py-14 sm:py-20">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
           <section aria-labelledby="contact-details-title">
-            <h2 id="contact-details-title" className="font-display text-2xl text-dark-text">
+            <h2 id="contact-details-title" className="font-display text-2xl text-forest">
               Contact details
             </h2>
-            <p className="mt-2 text-sm leading-7 text-taupe">
-              Replace the empty values in <code className="rounded bg-warm-white px-1.5 py-0.5">lib/site.ts</code> with
+            <p className="mt-2 text-sm leading-7 text-ink-soft">
+              Replace the empty values in <code className="rounded bg-cream px-1.5 py-0.5">lib/site.ts</code> with
               approved business details. No address, phone number or email has been invented.
             </p>
 
             <dl className="mt-8 space-y-5">
               <div className="flex gap-4">
-                <Mail className="mt-0.5 size-5 shrink-0 text-olive-deep" aria-hidden="true" />
+                <Mail className="mt-0.5 size-5 shrink-0 text-leaf" aria-hidden="true" />
                 <div>
-                  <dt className="text-xs font-medium uppercase tracking-[0.14em] text-taupe">Email</dt>
-                  <dd className="mt-1 text-sm text-dark-text">{contactPlaceholders.email || pending}</dd>
+                  <dt className="text-xs font-medium uppercase tracking-[0.08em] text-ink-soft">Email</dt>
+                  <dd className="mt-1 text-sm text-ink-soft">{contactPlaceholders.email || pending}</dd>
                 </div>
               </div>
               <div className="flex gap-4">
-                <Phone className="mt-0.5 size-5 shrink-0 text-olive-deep" aria-hidden="true" />
+                <Phone className="mt-0.5 size-5 shrink-0 text-leaf" aria-hidden="true" />
                 <div>
-                  <dt className="text-xs font-medium uppercase tracking-[0.14em] text-taupe">Phone</dt>
-                  <dd className="mt-1 text-sm text-dark-text">{contactPlaceholders.phone || pending}</dd>
+                  <dt className="text-xs font-medium uppercase tracking-[0.08em] text-ink-soft">Phone</dt>
+                  <dd className="mt-1 text-sm text-ink-soft">{contactPlaceholders.phone || pending}</dd>
                 </div>
               </div>
               <div className="flex gap-4">
-                <MapPin className="mt-0.5 size-5 shrink-0 text-olive-deep" aria-hidden="true" />
+                <MapPin className="mt-0.5 size-5 shrink-0 text-leaf" aria-hidden="true" />
                 <div>
-                  <dt className="text-xs font-medium uppercase tracking-[0.14em] text-taupe">Address</dt>
-                  <dd className="mt-1 text-sm text-dark-text">
+                  <dt className="text-xs font-medium uppercase tracking-[0.08em] text-ink-soft">Address</dt>
+                  <dd className="mt-1 text-sm text-ink-soft">
                     {[contactPlaceholders.addressLine1, contactPlaceholders.addressLine2, contactPlaceholders.city, contactPlaceholders.country]
                       .filter(Boolean)
                       .join(", ") || pending}
@@ -60,20 +60,20 @@ export default function ContactPage() {
                 </div>
               </div>
               <div className="flex gap-4">
-                <MessageCircle className="mt-0.5 size-5 shrink-0 text-olive-deep" aria-hidden="true" />
+                <MessageCircle className="mt-0.5 size-5 shrink-0 text-leaf" aria-hidden="true" />
                 <div>
-                  <dt className="text-xs font-medium uppercase tracking-[0.14em] text-taupe">Support hours</dt>
-                  <dd className="mt-1 text-sm text-dark-text">{contactPlaceholders.businessHours || pending}</dd>
+                  <dt className="text-xs font-medium uppercase tracking-[0.08em] text-ink-soft">Support hours</dt>
+                  <dd className="mt-1 text-sm text-ink-soft">{contactPlaceholders.businessHours || pending}</dd>
                 </div>
               </div>
             </dl>
           </section>
 
-          <section aria-labelledby="contact-form-title" className="rounded-2xl border border-warm-line bg-warm-white p-6 sm:p-8">
-            <h2 id="contact-form-title" className="font-display text-2xl text-dark-text">
+          <section aria-labelledby="contact-form-title" className="surface-card rounded-2xl p-6 sm:p-8">
+            <h2 id="contact-form-title" className="font-display text-2xl text-forest">
               Send a message
             </h2>
-            <p className="mt-2 text-sm text-taupe">This form is a UI preview only.</p>
+            <p className="mt-2 text-sm text-ink-soft">This form is a UI preview only.</p>
             <div className="mt-6">
               <ContactForm />
             </div>

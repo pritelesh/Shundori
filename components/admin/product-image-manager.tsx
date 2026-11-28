@@ -246,17 +246,17 @@ export function ProductImageManager({
   }
 
   return (
-    <section className="rounded-2xl border border-warm-line bg-warm-white p-6">
+    <section className="surface-card rounded-2xl p-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="font-display text-xl">Product images</h2>
-          <p className="mt-1 text-xs text-taupe">
+          <p className="mt-1 text-xs text-ink-soft">
             JPEG, PNG or WebP up to 5 MB each. Maximum {MAX_IMAGES} images.
           </p>
         </div>
         <label
           className={cn(
-            "inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full border border-olive-deep/30 px-5 text-sm font-medium text-olive-deep transition-colors hover:bg-olive-soft",
+            "inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full border border-leaf/30 px-5 text-sm font-medium text-leaf transition-colors hover:bg-sage-light hover:text-forest",
             (busy || images.length >= MAX_IMAGES) && "pointer-events-none opacity-50",
           )}
         >
@@ -275,13 +275,13 @@ export function ProductImageManager({
 
       {upload ? (
         <div className="mt-5" role="status" aria-live="polite">
-          <p className="flex items-center gap-2 text-xs text-taupe">
+          <p className="flex items-center gap-2 text-xs text-ink-soft">
             <LoaderCircle className="size-3.5 animate-spin" aria-hidden="true" />
             {upload.label} — {upload.progress}%
           </p>
-          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-light-beige">
+          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-sage-light">
             <div
-              className="h-full rounded-full bg-olive transition-all"
+              className="h-full rounded-full bg-leaf transition-all"
               style={{ width: `${upload.progress}%` }}
             />
           </div>
@@ -289,7 +289,7 @@ export function ProductImageManager({
       ) : null}
 
       {images.length === 0 ? (
-        <p className="mt-6 rounded-xl border border-dashed border-warm-line-strong bg-warm-white/60 px-5 py-10 text-center text-sm text-taupe">
+        <p className="mt-6 rounded-xl border border-dashed border-sage bg-cream px-5 py-10 text-center text-sm text-ink-soft shadow-soft">
           No images yet. Uploaded images appear on the storefront immediately.
         </p>
       ) : (
@@ -297,15 +297,15 @@ export function ProductImageManager({
           {images.map((image, index) => (
             <li
               key={image.path}
-              className="overflow-hidden rounded-xl border border-warm-line bg-warm-white"
+              className="overflow-hidden surface-card rounded-xl"
             >
-              <div className="relative aspect-square bg-warm-white">
+              <div className="relative aspect-square bg-cream">
                 <img
                   src={image.url}
                   alt={`Product image ${index + 1}`}
                   className="size-full object-contain"
                 />
-                <span className="absolute left-2 top-2 rounded-full bg-dark-text/70 px-2 py-0.5 text-[10px] text-white">
+                <span className="absolute left-2 top-2 rounded-full bg-ink-soft/70 px-2 py-0.5 text-xs text-cream">
                   {index === 0 ? "Cover" : index + 1}
                 </span>
               </div>
@@ -326,7 +326,7 @@ export function ProductImageManager({
                     type="button"
                     onClick={() => handleSetCover(image.path)}
                     disabled={busy}
-                    className="inline-flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium text-olive-deep hover:bg-olive-soft disabled:opacity-50"
+                    className="inline-flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium text-leaf hover:bg-sage-light hover:text-forest disabled:opacity-50"
                   >
                     <Star className="size-3.5" aria-hidden="true" />
                     Set cover
@@ -336,7 +336,7 @@ export function ProductImageManager({
                   type="button"
                   onClick={() => replaceInputs.current.get(image.path)?.click()}
                   disabled={busy}
-                  className="rounded-lg px-2 py-1.5 text-xs font-medium text-olive-deep hover:bg-olive-soft disabled:opacity-50"
+                  className="rounded-lg px-2 py-1.5 text-xs font-medium text-leaf hover:bg-sage-light hover:text-forest disabled:opacity-50"
                 >
                   Replace
                 </button>
@@ -344,7 +344,7 @@ export function ProductImageManager({
                   type="button"
                   onClick={() => handleRemove(image.path)}
                   disabled={busy}
-                  className="inline-flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium text-taupe hover:bg-soft-cream hover:text-dark-text disabled:opacity-50"
+                  className="inline-flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium text-ink-soft hover:bg-sage-light hover:text-ink-soft disabled:opacity-50"
                 >
                   <Trash2 className="size-3.5" aria-hidden="true" />
                   Remove

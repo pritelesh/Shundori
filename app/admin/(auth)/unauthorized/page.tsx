@@ -11,15 +11,15 @@ export const metadata: Metadata = {
 
 export default function AdminUnauthorizedPage() {
   return (
-    <main className="flex min-h-dvh items-center justify-center bg-peach px-5 py-16">
-      <div className="w-full max-w-lg rounded-3xl border border-warm-line bg-warm-white p-9 text-center shadow-soft">
-        <span className="mx-auto flex size-14 items-center justify-center rounded-full bg-soft-cream text-dark-text">
+    <main className="flex min-h-dvh items-center justify-center bg-mist px-5 py-16">
+      <div className="w-full max-w-lg surface-card rounded-3xl p-9 text-center shadow-soft">
+        <span className="mx-auto flex size-14 items-center justify-center rounded-full bg-sage-light text-ink-soft">
           <LockKeyhole className="size-6" aria-hidden="true" />
         </span>
-        <h1 className="mt-6 font-display text-3xl text-dark-text">
+        <h1 className="mt-6 font-display text-3xl text-forest">
           Admin access required
         </h1>
-        <p className="mt-3 text-sm leading-7 text-taupe">
+        <p className="mt-3 text-sm leading-7 text-ink-soft">
           This account does not have the admin or staff role. If you believe
           this is a mistake, ask an administrator to update your profile in
           Supabase.

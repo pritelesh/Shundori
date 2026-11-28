@@ -48,10 +48,10 @@ export default async function AdminOrdersPage() {
           description="Customer orders will appear here as soon as they are placed."
         />
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-warm-line bg-warm-white">
+        <div className="overflow-hidden surface-card rounded-2xl">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[1080px] text-left text-sm">
-              <thead className="bg-warm-white text-[10px] uppercase tracking-[0.16em] text-taupe">
+              <thead className="bg-cream text-xs uppercase tracking-[0.08em] text-ink-soft">
                 <tr>
                   <th className="px-5 py-3 font-medium">Order</th>
                   <th className="px-5 py-3 font-medium">Customer</th>
@@ -65,28 +65,28 @@ export default async function AdminOrdersPage() {
                   <th className="px-5 py-3 font-medium">Order date</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-warm-line/70">
+              <tbody className="divide-y divide-sage-light/70">
                 {orders.map((order) => (
-                  <tr key={order.id} className="hover:bg-peach/40">
+                  <tr key={order.id} className="hover:bg-mist/40">
                     <td className="px-5 py-3 font-medium">
                       <Link
                         href={`/admin/orders/${order.id}`}
-                        className="underline decoration-chocolate decoration-2 underline-offset-4 hover:text-olive-deep"
+                        className="underline decoration-forest decoration-2 underline-offset-4 hover:text-leaf"
                       >
                         {order.orderNumber}
                       </Link>
                     </td>
                     <td className="px-5 py-3">{order.shippingAddress.fullName}</td>
-                    <td className="px-5 py-3 text-taupe">
+                    <td className="px-5 py-3 text-ink-soft">
                       {order.shippingAddress.phone || "—"}
                     </td>
-                    <td className="px-5 py-3 text-taupe">{order.items.length}</td>
+                    <td className="px-5 py-3 text-ink-soft">{order.items.length}</td>
                     <td className="px-5 py-3">{formatPrice(order.total)}</td>
-                    <td className="px-5 py-3 text-taupe">
+                    <td className="px-5 py-3 text-ink-soft">
                       {paymentLabel(order.paymentMethod)}
                     </td>
                     <td className="px-5 py-3">
-                      <span className="capitalize text-taupe">
+                      <span className="capitalize text-ink-soft">
                         {order.paymentStatus}
                       </span>
                     </td>
@@ -103,7 +103,7 @@ export default async function AdminOrdersPage() {
                     <td className="px-5 py-3">
                       <CancellationStatusBadge status={order.cancellationStatus} />
                     </td>
-                    <td className="px-5 py-3 text-taupe">
+                    <td className="px-5 py-3 text-ink-soft">
                       {formatDate(order.createdAt)}
                     </td>
                   </tr>

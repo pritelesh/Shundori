@@ -14,11 +14,11 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/toast";
 
 const textareaClass =
-  "w-full rounded-lg border border-warm-line bg-warm-white px-4 py-3 text-sm text-dark-text placeholder:text-taupe/70 transition-colors focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15";
+  "w-full rounded-lg border border-sage-light bg-cream px-4 py-3 text-sm text-ink-soft placeholder:text-ink-soft transition-colors focus:border-leaf focus:outline-none focus:ring-2 focus:ring-leaf/15";
 
 function FieldError({ message }: { message?: string }) {
   if (!message) return null;
-  return <p className="mt-1.5 text-xs text-chocolate">{message}</p>;
+  return <p className="mt-1.5 text-xs text-forest">{message}</p>;
 }
 
 export function OrderEnquiryForm({
@@ -48,10 +48,10 @@ export function OrderEnquiryForm({
   }, [state, toast]);
 
   return (
-    <details className="group mt-6 rounded-2xl border border-warm-line bg-peach/50 p-5">
-      <summary className="cursor-pointer list-none text-sm font-medium text-dark-text marker:hidden">
+    <details className="group mt-6 rounded-2xl border border-sage-light bg-mist/50 p-5">
+      <summary className="cursor-pointer list-none text-sm font-medium text-ink-soft marker:hidden">
         Ask about this order
-        <span className="ml-2 text-xs font-normal text-taupe">
+        <span className="ml-2 text-xs font-normal text-ink-soft">
           (opens a short form)
         </span>
       </summary>
@@ -112,7 +112,7 @@ export function OrderEnquiryForm({
           <Send className="size-4" aria-hidden="true" />
           {pending ? "Sending…" : "Send enquiry"}
         </Button>
-        <p className="text-xs leading-5 text-taupe">
+        <p className="text-xs leading-5 text-ink-soft">
           We verify the order number and phone together. Nothing from another
           customer&apos;s order is shown or returned.
         </p>

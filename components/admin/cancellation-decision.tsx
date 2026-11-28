@@ -44,10 +44,10 @@ export function CancellationDecision({ orderId, approve }: Props) {
   const fieldId = `cancel-note-${approve ? "approve" : "reject"}`;
 
   return (
-    <form action={action} className="rounded-xl border border-warm-line bg-peach/30 p-4">
+    <form action={action} className="surface-card rounded-xl p-4">
       <label
         htmlFor={fieldId}
-        className="mb-2 block text-xs font-medium uppercase tracking-[0.14em] text-taupe"
+        className="mb-2 block text-xs font-medium uppercase tracking-[0.08em] text-ink-soft"
       >
         Decision note (optional)
       </label>
@@ -56,13 +56,13 @@ export function CancellationDecision({ orderId, approve }: Props) {
         name="note"
         rows={2}
         maxLength={500}
-        className="w-full rounded-lg border border-warm-line bg-warm-white px-3 py-2 text-sm text-dark-text placeholder:text-taupe/70 focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15"
+        className="w-full rounded-lg border border-sage-light bg-cream px-3 py-2 text-sm text-ink-soft placeholder:text-ink-soft focus:border-leaf focus:outline-none focus:ring-2 focus:ring-leaf/15"
         placeholder="Add a short note for the audit trail"
       />
       <div className="mt-3">
         <Button
           type="submit"
-          variant={approve ? "primary" : "outline"}
+          variant={approve ? "primary" : "destructive"}
           size="sm"
           disabled={pending}
         >

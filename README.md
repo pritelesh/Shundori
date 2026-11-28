@@ -222,15 +222,18 @@ types and never return raw database records to components.
 
 ### Styling and branding
 
-Official palette in `app/globals.css`: Peach Cream `#FFD5AF` for backgrounds,
-Warm Caramel `#E59A59` for secondary actions, Muted Olive `#888870` for accents
-and badges, and Deep Chocolate `#712E1E` for headings and primary actions.
-Neutral tokens are Warm White `#FFFAF5`, Soft Cream `#FFF1E5`, Light Beige
-`#F3E6D8` and Dark Text `#3A2923`. Derived tones stay in the token file so
-components never hardcode colors. Accent text uses the accessible olive-deep
-token instead of the lighter brand olive.
+Official green/sage palette in `app/globals.css`: Forest `#14261A` for
+headings, primary text and primary actions; Forest Soft `#2D4A33` for primary
+hover and secondary actions; Leaf `#3A7335` for links and accents; Sage
+`#A8AC92` and Sage Light `#D6D8C4` for borders and soft surfaces; Mist
+`#EEF0E4` for page backgrounds; Cream `#F8F7F0` for cards and content surfaces;
+Lime `#B6E04B` for the cart badge; and Ink Soft `#4A5A4C` for body copy.
+Elevation shadows are tinted with forest green. Components consume the tokens
+rather than hardcoding brand colors.
 
-Playfair Display is used for headings and Inter for body and UI text. The
+Plus Jakarta Sans 700–800 is used for headings, Inter for body and UI text,
+Kaushan Script only through `.font-script` for Latin accent text, and Noto Sans
+Bengali for Bengali interface labels selected with the EN/BN toggle. The
 Shundori wordmark is a text placeholder until final logo artwork is approved.
 
 The demonstration catalogue lives only in `lib/mock/catalog.ts` and is used by
@@ -339,7 +342,7 @@ The service role key must be a server-only Vercel variable and must never use a
   `inventory_changes` history
 - `/admin/orders` read-only list with controlled status transitions; payment
   fields are never editable
-- Responsive Peach Cream / Warm Caramel / Deep Chocolate admin shell with
+- Responsive Forest / Sage / Cream admin shell with
   sidebar, top navigation, tables, forms, modals and toasts
 - Admin mutations call `revalidatePath("/", "layout")` so published catalogue
   changes appear on the storefront without a redeploy

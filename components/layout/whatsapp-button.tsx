@@ -26,7 +26,7 @@ export async function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Chat with ${settings.storeName} on WhatsApp`}
-      className="fixed bottom-5 right-5 z-50 inline-flex size-12 items-center justify-center rounded-full bg-chocolate text-warm-white shadow-secondary transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-olive-deep/40 focus-visible:ring-offset-2"
+      className="fixed bottom-5 right-5 z-50 hidden size-12 items-center justify-center rounded-full bg-forest text-cream shadow-secondary transition-all hover:bg-forest-soft hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-leaf/40 focus-visible:ring-offset-2 md:inline-flex"
     >
       <MessageCircle className="size-5" aria-hidden="true" />
     </a>

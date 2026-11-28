@@ -18,16 +18,16 @@ export function BrandCard({
   return (
     <article
       className={cn(
-        "group flex flex-col items-center rounded-2xl border border-warm-line/70 bg-warm-white px-5 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-olive-deep/30 hover:shadow-soft",
+        "surface-card group flex flex-col items-center rounded-2xl px-5 py-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-leaf/30 hover:shadow-soft",
         className,
       )}
     >
-      <span className="flex size-16 items-center justify-center rounded-full border border-warm-line bg-warm-white font-display text-2xl text-olive-deep transition-colors group-hover:border-olive-deep/30 group-hover:bg-olive-soft">
+      <span className="flex size-16 items-center justify-center rounded-full border border-sage-light bg-cream font-display text-2xl text-leaf transition-colors group-hover:border-leaf/30 group-hover:bg-sage-light">
         {monogram}
       </span>
-      <h3 className="mt-4 font-display text-xl text-dark-text">{name}</h3>
-      <p className="mt-1 text-xs leading-5 text-taupe">{tagline}</p>
-      <span className="mt-4 text-[10px] uppercase tracking-[0.18em] text-olive-deep">
+      <h3 className="mt-4 font-display text-xl text-forest">{name}</h3>
+      <p className="mt-1 text-xs leading-5 text-ink-soft">{tagline}</p>
+      <span className="mt-4 text-xs uppercase tracking-[0.08em] text-leaf">
         {productCount} products
       </span>
     </article>

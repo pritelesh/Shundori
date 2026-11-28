@@ -4,15 +4,30 @@ import {
   ArrowRight,
   Droplets,
   Flower2,
+  LockKeyhole,
+  PackageOpen,
   Palette,
   Search,
+  ShieldCheck,
+  ShoppingBag,
   Sparkles,
+  Trash2,
 } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import type { ReactNode } from "react";
 
+import {
+  CancellationStatusBadge,
+  OrderStatusBadge,
+} from "@/components/admin/order-status-badge";
+import { CatalogBrowser } from "@/components/catalog/catalog-browser";
+import { DemoNotice } from "@/components/catalog/demo-notice";
+import { ProductGrid } from "@/components/catalog/product-grid";
+import { PurchaseControls } from "@/components/catalog/purchase-controls";
 import { Container } from "@/components/layout/container";
 import { NavigationMenu } from "@/components/layout/navigation-menu";
+import { NewsletterSection } from "@/components/layout/newsletter-section";
 import { PageHeader } from "@/components/layout/page-header";
 import { BrandCard } from "@/components/products/brand-card";
 import { CategoryCard } from "@/components/products/category-card";
@@ -20,17 +35,30 @@ import { DiscountBadge } from "@/components/products/discount-badge";
 import { PriceDisplay } from "@/components/products/price-display";
 import { ProductCard } from "@/components/products/product-card";
 import { ProductCardSkeleton } from "@/components/products/product-card-skeleton";
+import { ProductDetailsTabs } from "@/components/products/product-details-tabs";
+import { ProductGallery } from "@/components/products/product-gallery";
+import { ProductPriceBlock } from "@/components/products/product-price-block";
 import { ProductRating } from "@/components/products/product-rating";
+import { ProductRatingSummary } from "@/components/products/product-rating-summary";
+import { ProductVisual } from "@/components/products/product-visual";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonStyles } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import { SearchInput } from "@/components/ui/search-input";
 import { useToast } from "@/components/ui/toast";
+import { PAYMENT_METHOD_OPTIONS } from "@/lib/payment-methods";
 import { mockBrands } from "@/lib/mock/brands";
+import {
+  mockBrands as mockCatalogBrands,
+  mockCategories as mockCatalogCategories,
+  mockCatalogProducts,
+} from "@/lib/mock/catalog";
 import { mockCategories } from "@/lib/mock/categories";
 import { mockProducts } from "@/lib/mock/products";
+import type { CartProduct } from "@/types/cart";
+import { formatPrice } from "@/utils/format";
 
 const categoryIcons = {
   droplets: Droplets,
@@ -41,59 +69,66 @@ const categoryIcons = {
 
 const swatches = [
   {
-    name: "Peach Cream",
-    hex: "#FFD5AF",
-    usage: "Primary background",
-    className: "bg-peach",
+    name: "Forest",
+    hex: "#14261A",
+    usage: "Headings, primary text and primary actions",
+    className: "bg-forest",
+    bordered: false,
+  },
+  {
+    name: "Forest Soft",
+    hex: "#2D4A33",
+    usage: "Primary hover and secondary actions",
+    className: "bg-forest-soft",
+    bordered: false,
+  },
+  {
+    name: "Leaf",
+    hex: "#3A7335",
+    usage: "Links and accents",
+    className: "bg-leaf",
+    bordered: false,
+  },
+  {
+    name: "Sage",
+    hex: "#A8AC92",
+    usage: "Borders on dark surfaces",
+    className: "bg-sage",
+    bordered: false,
+  },
+  {
+    name: "Sage Light",
+    hex: "#D6D8C4",
+    usage: "Soft surfaces and light borders",
+    className: "bg-sage-light",
     bordered: true,
   },
   {
-    name: "Warm Caramel",
-    hex: "#E59A59",
-    usage: "Secondary actions",
-    className: "bg-caramel",
-    bordered: false,
+    name: "Mist",
+    hex: "#EEF0E4",
+    usage: "Page background",
+    className: "bg-mist",
+    bordered: true,
   },
   {
-    name: "Muted Olive",
-    hex: "#888870",
-    usage: "Accent and badges",
-    className: "bg-olive",
-    bordered: false,
-  },
-  {
-    name: "Deep Chocolate",
-    hex: "#712E1E",
-    usage: "Headings and primary actions",
-    className: "bg-chocolate",
-    bordered: false,
-  },
-  {
-    name: "Warm White",
-    hex: "#FFFAF5",
+    name: "Cream",
+    hex: "#F8F7F0",
     usage: "Cards and content surfaces",
-    className: "bg-warm-white",
+    className: "bg-cream",
     bordered: true,
   },
   {
-    name: "Soft Cream",
-    hex: "#FFF1E5",
-    usage: "Soft surfaces and hovers",
-    className: "bg-soft-cream",
+    name: "Lime",
+    hex: "#B6E04B",
+    usage: "Cart badge",
+    className: "bg-lime",
     bordered: true,
   },
   {
-    name: "Light Beige",
-    hex: "#F3E6D8",
-    usage: "Warm borders and placeholders",
-    className: "bg-light-beige",
-    bordered: true,
-  },
-  {
-    name: "Dark Text",
-    hex: "#3A2923",
+    name: "Ink Soft",
+    hex: "#4A5A4C",
     usage: "Body copy",
-    className: "bg-dark-text",
+    className: "bg-ink-soft",
     bordered: false,
   },
 ] as const;
@@ -108,11 +143,11 @@ function PreviewSection({
   children: ReactNode;
 }) {
   return (
-    <section className="border-t border-warm-line py-12 first:border-t-0 first:pt-0">
+    <section className="border-t border-sage-light py-12 first:border-t-0 first:pt-0">
       <div className="grid gap-6 lg:grid-cols-[240px_1fr] lg:gap-12">
         <div>
-          <h2 className="font-display text-2xl text-dark-text">{title}</h2>
-          <p className="mt-2 text-sm leading-6 text-taupe">{description}</p>
+          <h2 className="font-display text-2xl text-forest">{title}</h2>
+          <p className="mt-2 text-sm leading-6 text-ink-soft">{description}</p>
         </div>
         <div>{children}</div>
       </div>
@@ -123,6 +158,21 @@ function PreviewSection({
 export default function DesignPreviewPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const { toast } = useToast();
+  const previewProduct = mockCatalogProducts[0]!;
+  const soldOutProduct = mockCatalogProducts[3]!;
+  const baseCard = mockProducts[0]!;
+  const secondCard = mockProducts[1]!;
+  const previewCartProduct: CartProduct = {
+    id: previewProduct.id,
+    name: previewProduct.name,
+    slug: previewProduct.slug,
+    brandName: previewProduct.brand,
+    price: previewProduct.salePrice ?? previewProduct.regularPrice,
+    imageUrl: null,
+    visual: previewProduct.visual,
+    tone: previewProduct.tone,
+    stockQuantity: previewProduct.stockQuantity,
+  };
 
   return (
     <div>
@@ -140,68 +190,88 @@ export default function DesignPreviewPage() {
       <Container className="py-12 sm:py-16">
         <PreviewSection
           title="Colour"
-          description="The eight official Shundori colours. Derived tokens provide accessible accents, warm borders and subtle surfaces without inline color values."
+          description="The nine official Shundori colours. Green-tinted elevation tokens keep surfaces consistent without inline brand values."
         >
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {swatches.map((swatch) => (
               <div
                 key={swatch.name}
-                className="overflow-hidden rounded-2xl border border-warm-line/70 bg-warm-white"
+                className="overflow-hidden surface-card rounded-2xl"
               >
                 <div
                   className={`h-24 ${swatch.className} ${
-                    swatch.bordered ? "border-b border-warm-line" : ""
+                    swatch.bordered ? "border-b border-sage-light" : ""
                   }`}
                 />
                 <div className="p-4">
                   <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                    <p className="font-display text-lg text-dark-text">
+                    <p className="font-display text-lg text-forest">
                       {swatch.name}
                     </p>
-                    <span className="font-mono text-[10px] uppercase text-taupe">
+                    <span className="font-mono text-xs uppercase text-ink-soft">
                       {swatch.hex}
                     </span>
                   </div>
-                  <p className="mt-1 text-xs leading-5 text-taupe">
+                  <p className="mt-1 text-xs leading-5 text-ink-soft">
                     {swatch.usage}
                   </p>
                 </div>
               </div>
             ))}
           </div>
+          <div className="mt-6 flex flex-wrap gap-4">
+            <div className="rounded-xl border border-sage-light bg-cream px-4 py-3 text-xs text-forest shadow-soft">
+              shadow-soft
+            </div>
+            <div className="rounded-xl border border-sage-light bg-cream px-4 py-3 text-xs text-forest shadow-card">
+              shadow-card
+            </div>
+            <div className="rounded-xl border border-sage-light bg-cream px-4 py-3 text-xs text-forest shadow-panel">
+              shadow-panel
+            </div>
+          </div>
         </PreviewSection>
 
         <PreviewSection
           title="Typography"
-          description="Playfair Display for editorial headings, Inter for body copy and interface elements."
+          description="Plus Jakarta Sans 700–800 for headings, Inter for body and UI text, Kaushan Script for Latin accents, and Noto Sans Bengali for Bengali labels."
         >
           <div className="space-y-8">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-taupe">
-                Display — Playfair Display
+              <p className="text-xs uppercase tracking-[0.08em] text-ink-soft">
+                Display — Plus Jakarta Sans
               </p>
-              <p className="mt-2 font-display text-4xl leading-[1.05] text-dark-text sm:text-5xl">
-                Beauty, thoughtfully curated.
+              <p className="mt-2 font-display text-4xl font-extrabold leading-[1.05] text-forest sm:text-5xl">
+                Authentic beauty, delivered.
               </p>
-              <p className="mt-2 font-display text-2xl italic text-olive-deep">
-                The Shundori edit
+              <p className="mt-2 font-display text-2xl font-bold text-leaf">
+                Everyday essentials
+              </p>
+              <p className="mt-2 font-script text-3xl text-leaf">
+                Cash on delivery
               </p>
             </div>
 
             <div className="max-w-xl">
-              <p className="text-[10px] uppercase tracking-[0.2em] text-taupe">
+              <p className="text-xs uppercase tracking-[0.08em] text-ink-soft">
                 Body — Inter
               </p>
-              <p className="mt-2 text-base leading-7 text-dark-text">
-                Skincare, makeup and fragrance — a considered edit for
-                Bangladesh, chosen for quality and made for everyday rituals.
+              <p className="mt-2 text-base leading-7 text-ink-soft">
+                Skincare, makeup and fragrance with clear prices, islandwide
+                delivery and cash on delivery across Bangladesh.
               </p>
-              <p className="mt-2 text-sm leading-7 text-taupe">
-                Secondary copy uses a warm grey for calm hierarchy. Labels use
-                uppercase Inter with generous letter spacing.
+              <p className="mt-2 text-sm leading-7 text-ink-soft">
+                Secondary copy uses a muted green-grey for clear hierarchy.
+                Labels use compact uppercase Inter with readable letter spacing.
               </p>
-              <p className="mt-4 text-[10px] font-medium uppercase tracking-[0.2em] text-olive-deep">
+              <p className="mt-4 text-xs font-medium uppercase tracking-[0.08em] text-leaf">
                 Eyebrow label style
+              </p>
+              <p className="mt-4 font-display text-2xl font-bold text-forest">
+                দৈনন্দিক সৌন্দর্য, সহজভাবে
+              </p>
+              <p className="mt-1 text-sm text-ink-soft">
+                Bengali — Noto Sans Bengali, forest-soft accents on mist.
               </p>
             </div>
           </div>
@@ -209,7 +279,7 @@ export default function DesignPreviewPage() {
 
         <PreviewSection
           title="Buttons"
-          description="Deep Chocolate primary, Warm Caramel secondary, plus outline, ghost and link styles. All meet AA contrast."
+          description="Forest primary with cream text, forest-soft secondary, plus outline, ghost, destructive and link styles. Enabled states meet AA contrast."
         >
           <div className="flex flex-wrap items-center gap-3">
             <Button>
@@ -219,6 +289,7 @@ export default function DesignPreviewPage() {
             <Button variant="secondary">Secondary</Button>
             <Button variant="outline">Outline</Button>
             <Button variant="ghost">Ghost</Button>
+            <Button variant="destructive">Destructive</Button>
             <Button variant="link">Link style</Button>
             <Button disabled>Disabled</Button>
           </div>
@@ -226,6 +297,10 @@ export default function DesignPreviewPage() {
             <Button size="sm">Small</Button>
             <Button size="md">Medium</Button>
             <Button size="lg">Large</Button>
+            <Button size="icon" aria-label="Preview icon button">
+              <Search className="size-4" aria-hidden="true" />
+            </Button>
+            <Button disabled>Working…</Button>
           </div>
         </PreviewSection>
 
@@ -246,13 +321,13 @@ export default function DesignPreviewPage() {
 
         <PreviewSection
           title="Form fields"
-          description="Inputs use warm white surfaces, subtle beige borders and an olive focus ring."
+          description="Inputs use cream surfaces, sage-light borders and a leaf focus ring."
         >
           <div className="grid max-w-2xl gap-4 sm:grid-cols-2">
             <div>
               <label
                 htmlFor="preview-email"
-                className="text-xs font-medium text-dark-text"
+                className="text-xs font-medium text-ink-soft"
               >
                 Email address
               </label>
@@ -266,7 +341,7 @@ export default function DesignPreviewPage() {
             <div>
               <label
                 htmlFor="preview-phone"
-                className="text-xs font-medium text-dark-text"
+                className="text-xs font-medium text-ink-soft"
               >
                 Phone number
               </label>
@@ -287,9 +362,9 @@ export default function DesignPreviewPage() {
           title="Price & rating"
           description="Prices are stored in poisha and formatted as BDT. Ratings combine decorative stars with accessible numeric values."
         >
-          <div className="space-y-6 rounded-2xl border border-warm-line/70 bg-warm-white p-6">
+          <div className="space-y-6 surface-card rounded-2xl p-6">
             <div>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-taupe">
+              <p className="text-xs uppercase tracking-[0.08em] text-ink-soft">
                 Price display
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-6">
@@ -304,7 +379,7 @@ export default function DesignPreviewPage() {
             </div>
 
             <div>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-taupe">
+              <p className="text-xs uppercase tracking-[0.08em] text-ink-soft">
                 Discount badge
               </p>
               <div className="mt-3 flex items-center gap-3">
@@ -314,7 +389,7 @@ export default function DesignPreviewPage() {
             </div>
 
             <div>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-taupe">
+              <p className="text-xs uppercase tracking-[0.08em] text-ink-soft">
                 Product rating
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-6">
@@ -334,6 +409,26 @@ export default function DesignPreviewPage() {
             {mockProducts.slice(0, 6).map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
+          </div>
+          <div className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-3">
+            <ProductCard
+              product={{
+                ...baseCard,
+                brandName: null,
+                rating: null,
+                reviewCount: 0,
+              }}
+              href={`/product/${baseCard.slug}`}
+            />
+            <ProductCard
+              product={{ ...baseCard, stockQuantity: 0, inStock: false }}
+              href={`/product/${baseCard.slug}`}
+            />
+            <ProductCard
+              product={{ ...secondCard, stockQuantity: 4, inStock: true }}
+              href={`/product/${secondCard.slug}`}
+              lowStockThreshold={6}
+            />
           </div>
         </PreviewSection>
 
@@ -378,11 +473,11 @@ export default function DesignPreviewPage() {
         </PreviewSection>
 
         <PreviewSection
-          title="Navigation menu"
-          description="Desktop primary navigation. On mobile it becomes a slide-in panel."
+          title="Floating navigation pill"
+          description="Desktop primary navigation. The same links become a slide-in panel on mobile."
         >
-          <div className="rounded-2xl border border-warm-line/70 bg-warm-white p-6">
-            <NavigationMenu className="flex flex-wrap gap-x-7 gap-y-2" />
+          <div className="surface-card rounded-2xl p-6">
+            <NavigationMenu className="flex flex-wrap gap-1" />
           </div>
         </PreviewSection>
 
@@ -458,10 +553,10 @@ export default function DesignPreviewPage() {
           <Modal
             open={modalOpen}
             onClose={() => setModalOpen(false)}
-            title="A considered modal"
+            title="A clear modal"
             description="Built on the native dialog element, with a soft backdrop and a single clear action."
           >
-            <p className="text-sm leading-7 text-taupe">
+            <p className="text-sm leading-7 text-ink-soft">
               Modals are reserved for focused tasks — size guides, delivery
               details or a confirmation. They close on Escape, on backdrop
               click, and return focus to the trigger.
@@ -487,10 +582,307 @@ export default function DesignPreviewPage() {
           </Modal>
         </PreviewSection>
 
-        <p className="mt-4 rounded-2xl border border-warm-line bg-warm-white p-5 text-xs leading-6 text-taupe">
-          The footer and newsletter section appear on every storefront page.
-          Mock products live in <code>lib/mock/</code> and are never imported by
-          services or database code.
+        <PreviewSection
+          title="Product grid"
+          description="Shared grid with two, three and four column layouts, linked cards and loading-more skeletons."
+        >
+          <div className="space-y-8">
+            <div>
+              <p className="mb-3 text-xs font-medium uppercase tracking-[0.08em] text-ink-soft">
+                Two columns
+              </p>
+              <ProductGrid products={mockCatalogProducts.slice(0, 2)} columns="two" />
+            </div>
+            <div>
+              <p className="mb-3 text-xs font-medium uppercase tracking-[0.08em] text-ink-soft">
+                Three columns
+              </p>
+              <ProductGrid products={mockCatalogProducts.slice(0, 3)} columns="three" />
+            </div>
+            <div>
+              <p className="mb-3 text-xs font-medium uppercase tracking-[0.08em] text-ink-soft">
+                Four columns + loading state
+              </p>
+              <ProductGrid
+                products={mockCatalogProducts.slice(0, 4)}
+                columns="four"
+                skeletonCount={2}
+              />
+            </div>
+          </div>
+        </PreviewSection>
+
+        <PreviewSection
+          title="Shop filter"
+          description="Interactive desktop sidebar, mobile sheet, active chips, sort, in-stock toggle, price inputs and empty result state."
+        >
+          <CatalogBrowser
+            products={mockCatalogProducts}
+            categories={mockCatalogCategories}
+            brands={mockCatalogBrands}
+            pageSize={4}
+          />
+        </PreviewSection>
+
+        <PreviewSection
+          title="Product detail"
+          description="Gallery, rating, price block, purchase controls, factual chips, tabs and the sold-out state."
+        >
+          <DemoNotice />
+          <div className="mt-6 grid gap-8 lg:grid-cols-2">
+            <ProductGallery images={previewProduct.images} name={previewProduct.name} />
+            <div>
+              <p className="text-xs font-medium uppercase tracking-[0.08em] text-leaf">
+                {previewProduct.brand}
+              </p>
+              <h3 className="mt-2 font-display text-3xl text-forest">
+                {previewProduct.name}
+              </h3>
+              <ProductRatingSummary
+                rating={previewProduct.rating ?? 0}
+                reviewCount={previewProduct.reviewCount}
+                href="#preview-product-detail"
+              />
+              <div className="mt-5">
+                <ProductPriceBlock product={previewProduct} />
+              </div>
+              <p className="mt-4 text-sm leading-6 text-ink-soft">
+                {previewProduct.shortDescription}
+              </p>
+              <div id="preview-product-detail" className="mt-6">
+                <PurchaseControls
+                  product={previewCartProduct}
+                  price={previewCartProduct.price}
+                  compareAtPrice={previewProduct.salePrice}
+                />
+              </div>
+              <div className="mt-6 rounded-full border border-sage-light bg-cream px-4 py-3 text-sm text-forest">
+                {soldOutProduct.name} — out of stock
+              </div>
+            </div>
+          </div>
+          <div className="mt-8">
+            <ProductDetailsTabs
+              description={previewProduct.description}
+              benefits={previewProduct.benefits}
+              ingredients={previewProduct.ingredients}
+              usageInstructions={previewProduct.usageInstructions}
+              reviews={[]}
+            />
+          </div>
+        </PreviewSection>
+
+        <PreviewSection
+          title="Bag"
+          description="Filled bag row, quantity control, remove action, order summary and empty state."
+        >
+          <div className="surface-card rounded-2xl p-6">
+            <div className="flex items-center justify-between gap-4 border-b border-sage-light pb-4">
+              <h3 className="font-display text-xl text-forest">Your bag (1)</h3>
+              <button
+                type="button"
+                className={buttonStyles({ variant: "destructive", size: "sm" })}
+              >
+                Clear bag
+              </button>
+            </div>
+            <div className="flex gap-4 py-5">
+              <div className="flex size-24 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-sage-light bg-gradient-to-br from-sage-light to-cream">
+                <ProductVisual
+                  shape={previewCartProduct.visual ?? "tube"}
+                  tone={previewCartProduct.tone ?? "emerald"}
+                  size="sm"
+                  className="text-[3rem]"
+                />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-medium uppercase tracking-[0.08em] text-leaf">
+                  {previewCartProduct.brandName}
+                </p>
+                <p className="mt-1 font-display text-lg text-forest">
+                  {previewCartProduct.name}
+                </p>
+                <p className="mt-1 text-sm text-ink-soft">
+                  {formatPrice(previewCartProduct.price)}
+                </p>
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="inline-flex items-center rounded-full border border-sage-light bg-cream px-3 py-1.5 text-sm text-forest">
+                    1
+                  </span>
+                  <button
+                    type="button"
+                    aria-label="Preview remove item"
+                    className="inline-flex size-11 items-center justify-center rounded-full text-forest hover:bg-sage-light"
+                  >
+                    <Trash2 className="size-4" aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-2 border-t border-sage-light pt-4 text-sm">
+              <div className="flex justify-between text-ink-soft">
+                <span>Subtotal</span>
+                <span className="tabular-nums">{formatPrice(previewCartProduct.price)}</span>
+              </div>
+              <div className="flex justify-between font-medium text-forest">
+                <span>Total</span>
+                <span className="tabular-nums">{formatPrice(previewCartProduct.price)}</span>
+              </div>
+            </div>
+          </div>
+          <div className="mt-4">
+            <EmptyState icon={ShoppingBag} title="Your bag is empty" description="Add a product to see the filled state above." />
+          </div>
+        </PreviewSection>
+
+        <PreviewSection
+          title="Checkout"
+          description="Delivery fields, enabled payment methods, order summary and submit states."
+        >
+          <div className="grid gap-6 lg:grid-cols-[1fr_18rem]">
+            <div className="surface-card rounded-2xl p-6">
+              <h3 className="font-display text-xl text-forest">Delivery details</h3>
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                <Input aria-label="Preview recipient" placeholder="Recipient name" />
+                <Input aria-label="Preview phone" placeholder="Phone number" />
+                <Input aria-label="Preview address" placeholder="Full address" className="sm:col-span-2" />
+              </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {PAYMENT_METHOD_OPTIONS.filter((method) => method.enabled).map((method) => (
+                  <Badge key={method.id} variant={method.id === "cash_on_delivery" ? "accent" : "neutral"}>
+                    {method.label}
+                  </Badge>
+                ))}
+              </div>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Button>Place order</Button>
+                <Button disabled>Submitting…</Button>
+              </div>
+            </div>
+            <div className="surface-card rounded-2xl p-6">
+              <h3 className="font-display text-lg text-forest">Order summary</h3>
+              <dl className="mt-4 space-y-3 text-sm">
+                <div className="flex justify-between gap-3 text-ink-soft">
+                  <dt>Items</dt>
+                  <dd className="tabular-nums">1</dd>
+                </div>
+                <div className="flex justify-between gap-3 text-ink-soft">
+                  <dt>Subtotal</dt>
+                  <dd className="tabular-nums">{formatPrice(previewCartProduct.price)}</dd>
+                </div>
+                <div className="flex justify-between gap-3 font-medium text-forest">
+                  <dt>Total</dt>
+                  <dd className="tabular-nums">{formatPrice(previewCartProduct.price)}</dd>
+                </div>
+              </dl>
+              <p className="mt-4 flex items-start gap-2 text-xs leading-5 text-ink-soft">
+                <LockKeyhole className="mt-0.5 size-4 shrink-0 text-leaf" aria-hidden="true" />
+                Preview only — no order is created from this page.
+              </p>
+            </div>
+          </div>
+        </PreviewSection>
+
+        <PreviewSection
+          title="Footer & newsletter"
+          description="Forest-soft footer surface, cream text, link and divider states, plus the newsletter default and confirmation states."
+        >
+          <div className="overflow-hidden rounded-2xl bg-forest-soft text-cream">
+            <NewsletterSection
+              id="preview-newsletter"
+              titleId="preview-newsletter-title"
+              emailId="preview-newsletter-email"
+            />
+            <div className="p-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.1em] text-cream">
+                Shop
+              </p>
+              <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+                <span className="text-cream">All products</span>
+                <span className="text-cream/75">Skincare</span>
+                <span className="text-cream/75">Makeup</span>
+              </div>
+              <div className="mt-5 border-t border-cream/15 pt-4 text-xs text-cream/70">
+                © 2026 Shundori. All rights reserved.
+              </div>
+            </div>
+          </div>
+        </PreviewSection>
+
+        <PreviewSection
+          title="Auth & admin states"
+          description="Sign-in form, unauthorized notice, admin header, status badges and destructive confirmation."
+        >
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div className="rounded-2xl bg-forest-soft p-6 text-cream">
+              <LockKeyhole className="size-6 text-lime" aria-hidden="true" />
+              <h3 className="mt-3 font-display text-xl text-cream">Admin sign in</h3>
+              <div className="mt-4 space-y-3">
+                <Input aria-label="Preview admin email" placeholder="Email address" />
+                <Input aria-label="Preview admin password" type="password" placeholder="Password" />
+                <Button className="w-full">Sign in</Button>
+              </div>
+            </div>
+            <div className="surface-card rounded-2xl p-6">
+              <ShieldCheck className="size-6 text-leaf" aria-hidden="true" />
+              <h3 className="mt-3 font-display text-xl text-forest">Unauthorized</h3>
+              <p className="mt-2 text-sm leading-6 text-ink-soft">
+                The session is valid but this account cannot open the admin panel.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {(["pending", "confirmed", "shipped", "delivered", "cancelled"] as const).map((status) => (
+                  <OrderStatusBadge key={status} status={status} />
+                ))}
+                {(["none", "requested", "approved", "rejected"] as const).map((status) => (
+                  <CancellationStatusBadge key={status} status={status} />
+                ))}
+              </div>
+              <div className="mt-5 flex gap-3">
+                <Button variant="outline" size="sm">Cancel</Button>
+                <Button variant="destructive" size="sm">Delete</Button>
+              </div>
+            </div>
+          </div>
+        </PreviewSection>
+
+        <PreviewSection
+          title="404 & route error"
+          description="Not-found composition and the shared error panel used by route error boundaries."
+        >
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div className="surface-card rounded-2xl p-8 text-center">
+              <p className="font-script text-5xl text-leaf">404</p>
+              <h3 className="mt-3 font-display text-2xl text-forest">This page took a different route.</h3>
+              <p className="mt-2 text-sm leading-6 text-ink-soft">
+                The link may have changed, or the product is no longer listed.
+              </p>
+              <div className="mt-5 flex flex-wrap justify-center gap-3">
+                <Link href="/" className={buttonStyles({ variant: "primary", size: "sm" })}>
+                  Back to home
+                </Link>
+                <Link href="/shop" className={buttonStyles({ variant: "secondary", size: "sm" })}>
+                  Browse products
+                </Link>
+              </div>
+            </div>
+            <div className="surface-card rounded-2xl p-8">
+              <PackageOpen className="size-8 text-leaf" aria-hidden="true" />
+              <h3 className="mt-3 font-display text-xl text-forest">Something went wrong.</h3>
+              <p className="mt-2 text-sm leading-6 text-ink-soft">
+                Retry the request. If it keeps happening, contact support with the
+                page address.
+              </p>
+              <Button className="mt-5" onClick={() => toast({ title: "Retry preview", description: "No request was sent." })}>
+                Retry
+              </Button>
+            </div>
+          </div>
+        </PreviewSection>
+
+        <p className="mt-4 surface-card rounded-2xl p-5 text-xs leading-6 text-ink-soft">
+          The live footer and newsletter section also appear on every storefront
+          page. Mock products live in <code>lib/mock/</code> and are never imported
+          by services or database code.
         </p>
       </Container>
     </div>

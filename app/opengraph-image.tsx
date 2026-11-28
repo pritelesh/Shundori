@@ -4,6 +4,10 @@ export const alt = "Shundori cosmetics and skincare";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+const forest = "#14261A";
+const mist = "#EEF0E4";
+const leaf = "#3A7335";
+
 export default function OpengraphImage() {
   return new ImageResponse(
     (
@@ -14,9 +18,9 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#FFD5AF",
+          background: mist,
           padding: 80,
-          color: "#3A2923",
+          color: forest,
         }}
       >
         <div style={{ display: "flex", fontSize: 30, letterSpacing: 8 }}>
@@ -31,14 +35,14 @@ export default function OpengraphImage() {
             maxWidth: 900,
           }}
         >
-          Beauty, thoughtfully curated.
+          Authentic beauty, delivered.
         </div>
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             fontSize: 26,
-            color: "#712E1E",
+            color: leaf,
           }}
         >
           <span>Cosmetics &amp; skincare</span>

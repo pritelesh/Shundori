@@ -1,7 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import {
+  Inter,
+  Kaushan_Script,
+  Noto_Sans_Bengali,
+  Plus_Jakarta_Sans,
+} from "next/font/google";
 import type { ReactNode } from "react";
 
+import { LanguageProvider } from "@/components/providers/language-provider";
 import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
@@ -12,11 +18,23 @@ const inter = Inter({
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-jakarta",
   display: "swap",
-  style: ["normal", "italic"],
+});
+
+const script = Kaushan_Script({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-kaushan",
+  display: "swap",
+});
+
+const bengali = Noto_Sans_Bengali({
+  subsets: ["bengali", "latin"],
+  variable: "--font-noto-bengali",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -57,7 +75,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#FFD5AF",
+  themeColor: "#EEF0E4",
 };
 
 export default function RootLayout({
@@ -67,10 +85,10 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${playfair.variable}`}
+      className={`${inter.variable} ${jakarta.variable} ${script.variable} ${bengali.variable}`}
     >
-      <body className="flex min-h-dvh flex-col bg-peach font-sans text-dark-text antialiased">
-        {children}
+      <body className="flex min-h-dvh flex-col bg-mist font-sans text-ink-soft antialiased">
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

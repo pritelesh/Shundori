@@ -47,10 +47,11 @@ admin operations use the service role key and must never be exposed publicly.
 - **Publication:** mutations call `revalidatePath("/", "layout")`, so a newly
   published active product, brand or category appears on the storefront without
   a redeploy.
-- **Design:** responsive admin shell using the official Shundori tokens —
-  Peach Cream `#FFD5AF`, Warm Caramel `#E59A59`, Muted Olive `#888870` and Deep
-  Chocolate `#712E1E` — with sidebar, top navigation, summary cards, tables,
-  search, forms, modals and toast notifications.
+- **Design:** responsive admin shell using the official Shundori green/sage
+  tokens — Forest `#14261A`, Forest Soft `#2D4A33`, Leaf `#3A7335`, Sage
+  `#A8AC92`, Sage Light `#D6D8C4`, Mist `#EEF0E4`, Cream `#F8F7F0`, Lime
+  `#B6E04B` and Ink Soft `#4A5A4C` — with sidebar, top navigation, summary
+  cards, tables, search, forms, modals and toast notifications.
 
 ## One-time setup
 

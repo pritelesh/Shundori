@@ -86,7 +86,7 @@ export function WishlistButton({
       }
       onClick={onClick}
       className={cn(
-        "inline-flex size-9 items-center justify-center rounded-full bg-warm-white/95 text-dark-text shadow-soft ring-1 ring-warm-line/70 transition-all hover:bg-warm-white hover:text-chocolate",
+        "inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-cream/95 text-ink-soft shadow-soft ring-1 ring-sage-light/70 transition-all hover:bg-cream hover:text-forest",
         pending && "opacity-60",
         className,
       )}
@@ -94,7 +94,7 @@ export function WishlistButton({
       <Heart
         className={cn(
           "size-4 transition-colors",
-          active ? "fill-chocolate text-chocolate" : "fill-transparent",
+          active ? "fill-forest text-forest" : "fill-transparent",
         )}
         aria-hidden="true"
       />

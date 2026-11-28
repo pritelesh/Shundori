@@ -16,7 +16,7 @@ const priceSizes = {
 } as const;
 
 const compareSizes = {
-  sm: "text-[11px]",
+  sm: "text-xs",
   md: "text-xs",
   lg: "text-sm",
 } as const;
@@ -36,7 +36,7 @@ export function PriceDisplay({
     <p className={cn("flex flex-wrap items-baseline gap-x-2 gap-y-1", className)}>
       <span
         className={cn(
-          "font-medium tabular-nums text-dark-text",
+          "font-medium tabular-nums text-ink-soft",
           priceSizes[size],
         )}
       >
@@ -47,7 +47,7 @@ export function PriceDisplay({
           <span className="sr-only">Original price</span>
           <span
             className={cn(
-              "tabular-nums text-taupe line-through decoration-taupe/50",
+              "tabular-nums text-ink-soft line-through decoration-ink-soft/50",
               compareSizes[size],
             )}
           >

@@ -37,12 +37,12 @@ export default async function AdminSettingsPage() {
         description="Manage the storefront identity, contact channels and the delivery charge used at checkout."
       />
 
-      <section className="rounded-2xl border border-warm-line bg-warm-white p-6 sm:p-8">
-        <h2 className="flex items-center gap-2 font-display text-xl text-dark-text">
-          <Settings2 className="size-5 text-olive-deep" aria-hidden="true" />
+      <section className="surface-card rounded-2xl p-6 sm:p-8">
+        <h2 className="flex items-center gap-2 font-display text-xl text-forest">
+          <Settings2 className="size-5 text-leaf" aria-hidden="true" />
           Store details
         </h2>
-        <p className="mt-2 text-sm leading-6 text-taupe">
+        <p className="mt-2 text-sm leading-6 text-ink-soft">
           These values flow into the public header, footer, SEO metadata and
           WhatsApp enquiry links.
         </p>
@@ -55,12 +55,12 @@ export default async function AdminSettingsPage() {
       </section>
 
       <div className="mt-6 grid gap-6 xl:grid-cols-[1fr_20rem]">
-        <section className="rounded-2xl border border-warm-line bg-warm-white p-6 sm:p-8">
-          <h2 className="flex items-center gap-2 font-display text-xl text-dark-text">
-            <Settings2 className="size-5 text-olive-deep" aria-hidden="true" />
+        <section className="surface-card rounded-2xl p-6 sm:p-8">
+          <h2 className="flex items-center gap-2 font-display text-xl text-forest">
+            <Settings2 className="size-5 text-leaf" aria-hidden="true" />
             Delivery charge
           </h2>
-          <p className="mt-2 text-sm leading-6 text-taupe">
+          <p className="mt-2 text-sm leading-6 text-ink-soft">
             This amount is read from Supabase at checkout. Browser-supplied
             totals can never change it.
           </p>
@@ -69,14 +69,14 @@ export default async function AdminSettingsPage() {
           </div>
         </section>
 
-        <aside className="rounded-2xl border border-warm-line bg-warm-white p-6">
-          <p className="text-[10px] font-medium uppercase tracking-[0.18em] text-taupe">
+        <aside className="surface-card rounded-2xl p-6">
+          <p className="text-xs font-medium uppercase tracking-[0.08em] text-ink-soft">
             Current delivery charge
           </p>
-          <p className="mt-2 font-display text-3xl text-dark-text">
+          <p className="mt-2 font-display text-3xl text-forest">
             {formatPrice(deliveryCharge)}
           </p>
-          <p className="mt-4 text-xs leading-5 text-taupe">
+          <p className="mt-4 text-xs leading-5 text-ink-soft">
             Existing orders keep the delivery charge that was calculated when
             they were placed.
           </p>

@@ -16,14 +16,14 @@ export function AdminShell({
     identity.profile.full_name || identity.user.email?.split("@")[0] || "Admin";
 
   return (
-    <div className="min-h-screen bg-peach">
+    <div className="min-h-screen bg-mist">
       <div className="flex min-h-screen">
-        <aside className="hidden w-64 shrink-0 flex-col border-r border-warm-line bg-warm-white px-4 py-6 lg:flex">
+        <aside className="hidden w-64 shrink-0 flex-col border-r border-sage-light bg-cream px-4 py-6 lg:flex">
           <Link href="/admin/dashboard" className="px-3">
-            <span className="font-display text-2xl tracking-[0.18em] text-olive-deep">
+            <span className="font-display text-2xl tracking-[0.08em] text-leaf">
               Shundori
             </span>
-            <span className="mt-1 block text-[10px] font-medium uppercase tracking-[0.24em] text-taupe">
+            <span className="mt-1 block text-xs font-medium uppercase tracking-[0.08em] text-ink-soft">
               Admin console
             </span>
           </Link>
@@ -33,18 +33,18 @@ export function AdminShell({
           </div>
 
           <div className="mt-auto space-y-3 px-3">
-            <div className="rounded-xl border border-warm-line bg-warm-white p-3">
-              <p className="flex items-center gap-2 text-xs font-medium text-olive-deep">
+            <div className="surface-card rounded-xl p-3">
+              <p className="flex items-center gap-2 text-xs font-medium text-leaf">
                 <ShieldCheck className="size-3.5" aria-hidden="true" />
                 Verified session
               </p>
-              <p className="mt-1 truncate text-xs text-taupe">
+              <p className="mt-1 truncate text-xs text-ink-soft">
                 {identity.profile.role}
               </p>
             </div>
             <Link
               href="/"
-              className="flex items-center gap-2 px-1 text-xs font-medium text-taupe transition-colors hover:text-olive-deep"
+              className="flex items-center gap-2 px-1 text-xs font-medium text-leaf transition-colors hover:text-forest"
             >
               View storefront
               <ArrowUpRight className="size-3.5" aria-hidden="true" />
@@ -53,25 +53,25 @@ export function AdminShell({
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <header className="sticky top-0 z-30 border-b border-warm-line bg-warm-white/95 backdrop-blur">
+          <header className="sticky top-0 z-30 border-b border-sage-light bg-cream/95 backdrop-blur">
             <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-3 px-5 py-3 lg:px-8">
               <div>
                 <Link
                   href="/admin/dashboard"
-                  className="font-display text-xl tracking-[0.16em] text-olive-deep lg:hidden"
+                  className="font-display text-xl tracking-[0.08em] text-leaf lg:hidden"
                 >
                   Shundori
                 </Link>
-                <p className="hidden text-sm text-taupe lg:block">
+                <p className="hidden text-sm text-ink-soft lg:block">
                   Signed in as{" "}
-                  <span className="font-medium text-dark-text">{displayName}</span>
+                  <span className="font-medium text-ink-soft">{displayName}</span>
                 </p>
               </div>
 
               <div className="flex items-center gap-2">
                 <Link
                   href="/"
-                  className="hidden items-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium text-taupe transition-colors hover:bg-soft-cream hover:text-dark-text sm:inline-flex"
+                  className="hidden items-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium text-leaf transition-colors hover:bg-sage-light hover:text-forest sm:inline-flex"
                 >
                   Storefront
                   <ArrowUpRight className="size-3.5" aria-hidden="true" />
@@ -84,7 +84,7 @@ export function AdminShell({
                 </form>
               </div>
             </div>
-            <div className="border-t border-warm-line/70 px-5 py-2 lg:hidden">
+            <div className="border-t border-sage-light/70 px-5 py-2 lg:hidden">
               <div className="mx-auto max-w-[1400px]">
                 <AdminNav mobile />
               </div>

@@ -1,13 +1,19 @@
 "use client";
 
-import { RotateCcw, Search, SlidersHorizontal, X } from "lucide-react";
-import { useId, useMemo, useState } from "react";
+import { RotateCcw, SlidersHorizontal, X } from "lucide-react";
+import {
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
+import { CatalogFilterControls, sortLabels, StockToggle } from "@/components/catalog/catalog-filters";
 import { ProductGrid } from "@/components/catalog/product-grid";
 import { EmptyState } from "@/components/ui/empty-state";
-import { Input } from "@/components/ui/input";
 import { buttonStyles } from "@/components/ui/button";
-import { filterProducts, sortProducts } from "@/lib/catalog-filter";
+import { currentPrice, filterProducts, sortProducts } from "@/lib/catalog-filter";
 import type {
   CatalogBrand,
   CatalogCategory,
@@ -15,6 +21,7 @@ import type {
   CatalogProduct,
   CatalogSort,
 } from "@/types/product";
+import { cn } from "@/utils/cn";
 import { formatPrice } from "@/utils/format";
 
 export interface CatalogBrowserProps {
@@ -28,13 +35,11 @@ export interface CatalogBrowserProps {
   showSearch?: boolean;
 }
 
-const sortLabels: Record<CatalogSort, string> = {
-  featured: "Featured",
-  newest: "Newest",
-  "price-asc": "Price: Low to High",
-  "price-desc": "Price: High to Low",
-  "name-asc": "Name: A to Z",
-};
+interface ActiveChip {
+  key: string;
+  label: string;
+  onRemove: () => void;
+}
 
 /**
  * Interactive catalogue browser shared by /shop, /category/[slug],
@@ -57,10 +62,53 @@ export function CatalogBrowser({
   const [brand, setBrand] = useState(initialFilters.brand ?? "");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  const [inStockOnly, setInStockOnly] = useState(false);
+  // Availability is opt-out: sold-out products are hidden until the shopper
+  // deliberately includes them, and sortProducts always trails them anyway.
+  const [inStockOnly, setInStockOnly] = useState(
+    initialFilters.availability !== "all",
+  );
   const [sort, setSort] = useState<CatalogSort>(initialFilters.sort ?? "featured");
   const [visible, setVisible] = useState(pageSize);
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const sheetRef = useRef<HTMLDialogElement>(null);
+  const loadTimer = useRef<number | null>(null);
+
+  useEffect(() => {
+    const dialog = sheetRef.current;
+    if (!dialog) return;
+
+    if (sheetOpen && !dialog.open) {
+      dialog.showModal();
+    } else if (!sheetOpen && dialog.open) {
+      dialog.close();
+    }
+  }, [sheetOpen]);
+
+  useEffect(() => {
+    const dialog = sheetRef.current;
+    if (!dialog) return;
+
+    const handleClose = () => setSheetOpen(false);
+    dialog.addEventListener("close", handleClose);
+    return () => dialog.removeEventListener("close", handleClose);
+  }, []);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setSheetOpen(false);
+    };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
+
+  useEffect(
+    () => () => {
+      if (loadTimer.current !== null) window.clearTimeout(loadTimer.current);
+    },
+    [],
+  );
 
   const results = useMemo(() => {
     const parsedMin = Number(minPrice);
@@ -133,214 +181,241 @@ export function CatalogBrowser({
     setBrand("");
     setMinPrice("");
     setMaxPrice("");
-    setInStockOnly(false);
+    setInStockOnly(true);
     setSort(initialFilters.sort ?? "featured");
     resetVisible();
   };
 
-  const hasFilters =
-    Boolean(query) ||
-    Boolean(category) ||
-    Boolean(brand) ||
-    Boolean(minPrice) ||
-    Boolean(maxPrice) ||
-    inStockOnly;
+  const categoryName = categories.find((item) => item.slug === category)?.name;
+  const brandName = brands.find((item) => item.slug === brand)?.name;
 
-  const fieldId = (name: string) => `${idPrefix}-${name}`;
+  const activeChips: ActiveChip[] = [];
+  if (query.trim()) {
+    activeChips.push({
+      key: "query",
+      label: `“${query.trim()}”`,
+      onRemove: () => updateQuery(""),
+    });
+  }
+  if (category && !lockedCategory) {
+    activeChips.push({
+      key: "category",
+      label: categoryName ?? category,
+      onRemove: () => updateCategory(""),
+    });
+  }
+  if (brand && !lockedBrand) {
+    activeChips.push({
+      key: "brand",
+      label: brandName ?? brand,
+      onRemove: () => updateBrand(""),
+    });
+  }
+  if (minPrice) {
+    activeChips.push({
+      key: "min",
+      label: `Min ৳${minPrice}`,
+      onRemove: () => updateMinPrice(""),
+    });
+  }
+  if (maxPrice) {
+    activeChips.push({
+      key: "max",
+      label: `Max ৳${maxPrice}`,
+      onRemove: () => updateMaxPrice(""),
+    });
+  }
+  if (inStockOnly) {
+    activeChips.push({
+      key: "stock",
+      label: "In stock only",
+      onRemove: () => updateAvailability(false),
+    });
+  }
+
+  const countLabel = `${results.length} ${results.length === 1 ? "product" : "products"}`;
+
+  const sortSelect = (
+    <>
+      <label htmlFor={`${idPrefix}-sort`} className="sr-only">
+        Sort products
+      </label>
+      <select
+        id={`${idPrefix}-sort`}
+        value={sort}
+        onChange={(event) => updateSort(event.target.value as CatalogSort)}
+        className="h-11 rounded-lg border border-sage-light bg-cream px-4 text-sm text-ink-soft focus:border-leaf focus:outline-none focus:ring-2 focus:ring-leaf/15"
+      >
+        {Object.entries(sortLabels).map(([value, label]) => (
+          <option key={value} value={value}>
+            {label}
+          </option>
+        ))}
+      </select>
+    </>
+  );
+
+  const filterProps = {
+    idPrefix,
+    categories,
+    brands,
+    query,
+    category,
+    brand,
+    minPrice,
+    maxPrice,
+    inStockOnly,
+    sort,
+    lockedCategory,
+    lockedBrand,
+    showSearch,
+    canClear: activeChips.length > 0,
+    onQueryChange: updateQuery,
+    onCategoryChange: updateCategory,
+    onBrandChange: updateBrand,
+    onMinPriceChange: updateMinPrice,
+    onMaxPriceChange: updateMaxPrice,
+    onAvailabilityChange: updateAvailability,
+    onSortChange: updateSort,
+    onClear: clearAll,
+  };
+
+  const loadMore = () => {
+    if (loadingMore) return;
+    setLoadingMore(true);
+    loadTimer.current = window.setTimeout(() => {
+      setVisible((count) => count + pageSize);
+      setLoadingMore(false);
+      loadTimer.current = null;
+    }, 320);
+  };
 
   return (
     <div>
-      <div className="flex flex-col gap-3 border-b border-warm-line pb-5 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-taupe" aria-live="polite">
-          <span className="font-semibold text-dark-text">{results.length}</span>{" "}
+      {/* Mobile: compact sticky bar opens the full filter sheet. */}
+      <div className="sticky top-16 z-20 mb-4 flex min-h-14 items-center justify-between gap-3 rounded-xl border border-sage-light bg-mist px-3 py-2 shadow-soft lg:hidden">
+        <p className="text-sm text-ink-soft" aria-live="polite">
+          <span className="font-semibold text-ink-soft">{results.length}</span>{" "}
           {results.length === 1 ? "product" : "products"}
-          {query ? ` for “${query}”` : ""}
         </p>
-
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setFiltersOpen((open) => !open)}
-            aria-expanded={filtersOpen}
-            aria-controls={`${idPrefix}-filters`}
-            className="inline-flex h-11 items-center gap-2 rounded-lg border border-warm-line bg-warm-white px-4 text-sm font-medium text-dark-text transition-colors hover:border-warm-line-strong lg:hidden"
-          >
-            <SlidersHorizontal className="size-4" aria-hidden="true" />
-            Filters
-          </button>
-
-          <label htmlFor={fieldId("sort")} className="sr-only">
-            Sort products
-          </label>
-          <select
-            id={fieldId("sort")}
-            value={sort}
-            onChange={(event) => updateSort(event.target.value as CatalogSort)}
-            className="h-11 rounded-lg border border-warm-line bg-warm-white px-4 text-sm text-dark-text focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15"
-          >
-            {Object.entries(sortLabels).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </div>
+        <button
+          type="button"
+          onClick={() => setSheetOpen(true)}
+          aria-expanded={sheetOpen}
+          className={buttonStyles({ variant: "outline", size: "md" })}
+        >
+          <SlidersHorizontal className="size-4" aria-hidden="true" />
+          Filter &amp; Sort
+          {activeChips.length > 0 ? (
+            <span className="flex min-w-5 items-center justify-center rounded-full bg-sage-light px-1 text-xs font-semibold leading-5 text-forest">
+              {activeChips.length}
+            </span>
+          ) : null}
+        </button>
       </div>
 
-      <div
-        id={`${idPrefix}-filters`}
-        className={`${filtersOpen ? "block" : "hidden"} lg:block`}
-      >
-        <div className="grid gap-4 py-6 sm:grid-cols-2 lg:grid-cols-5">
-          {showSearch ? (
-            <div className="sm:col-span-2 lg:col-span-1">
-              <label
-                htmlFor={fieldId("search")}
-                className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-taupe"
-              >
-                Search
-              </label>
-              <div className="relative">
-                <Search
-                  className="pointer-events-none absolute left-3 top-3.5 size-4 text-taupe"
-                  aria-hidden="true"
-                />
-                <Input
-                  id={fieldId("search")}
-                  type="search"
-                  value={query}
-                  onChange={(event) => updateQuery(event.target.value)}
-                  placeholder="Name, brand or category"
-                  className="pl-9"
-                />
-              </div>
-            </div>
-          ) : null}
+      {/* Desktop: left sidebar plus a result/sort toolbar. */}
+      <div className="hidden grid-cols-[15rem_minmax(0,1fr)] gap-8 lg:grid">
+        <aside
+          aria-label="Product filters"
+          className="lg:sticky lg:top-32 lg:self-start lg:border-r lg:border-sage-light lg:pr-6"
+        >
+          <h2 className="font-display text-xl text-forest">Filters</h2>
+          <div className="mt-4">
+            <CatalogFilterControls {...filterProps} scope="sidebar" />
+          </div>
+        </aside>
 
-          <div>
-            <label
-              htmlFor={fieldId("category")}
-              className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-taupe"
-            >
-              Category
-            </label>
-            <select
-              id={fieldId("category")}
-              value={lockedCategory ?? category}
-              onChange={(event) => updateCategory(event.target.value)}
-              disabled={Boolean(lockedCategory)}
-              className="h-11 w-full rounded-lg border border-warm-line bg-warm-white px-3 text-sm text-dark-text focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15 disabled:opacity-60"
-            >
-              <option value="">All categories</option>
-              {categories.map((item) => (
-                <option key={item.slug} value={item.slug}>
-                  {item.name}
-                </option>
+        <div>
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-sage-light pb-5">
+            <p className="text-sm text-ink-soft" aria-live="polite">
+              <span className="font-semibold text-ink-soft">{results.length}</span>{" "}
+              {results.length === 1 ? "product" : "products"}
+              {query.trim() ? ` for “${query.trim()}”` : ""}
+            </p>
+            <div className="flex items-center gap-4">
+              <StockToggle checked={inStockOnly} onChange={updateAvailability} />
+              {sortSelect}
+            </div>
+          </div>
+
+          {activeChips.length > 0 ? (
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              {activeChips.map((chip) => (
+                <button
+                  key={chip.key}
+                  type="button"
+                  onClick={chip.onRemove}
+                  aria-label={`Remove filter: ${chip.label}`}
+                  className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-sage-light bg-cream px-3 text-sm text-ink-soft transition-colors hover:border-sage"
+                >
+                  {chip.label}
+                  <X className="size-3.5 text-ink-soft" aria-hidden="true" />
+                </button>
               ))}
-            </select>
-          </div>
-
-          <div>
-            <label
-              htmlFor={fieldId("brand")}
-              className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-taupe"
-            >
-              Brand
-            </label>
-            <select
-              id={fieldId("brand")}
-              value={lockedBrand ?? brand}
-              onChange={(event) => updateBrand(event.target.value)}
-              disabled={Boolean(lockedBrand)}
-              className="h-11 w-full rounded-lg border border-warm-line bg-warm-white px-3 text-sm text-dark-text focus:border-olive-deep focus:outline-none focus:ring-2 focus:ring-olive-deep/15 disabled:opacity-60"
-            >
-              <option value="">All brands</option>
-              {brands.map((item) => (
-                <option key={item.slug} value={item.slug}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            <div>
-              <label
-                htmlFor={fieldId("min")}
-                className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-taupe"
-              >
-                Min ৳
-              </label>
-              <Input
-                id={fieldId("min")}
-                type="number"
-                min={0}
-                inputMode="numeric"
-                value={minPrice}
-                onChange={(event) => updateMinPrice(event.target.value)}
-                placeholder="0"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor={fieldId("max")}
-                className="mb-2 block text-[11px] font-medium uppercase tracking-[0.14em] text-taupe"
-              >
-                Max ৳
-              </label>
-              <Input
-                id={fieldId("max")}
-                type="number"
-                min={0}
-                inputMode="numeric"
-                value={maxPrice}
-                onChange={(event) => updateMaxPrice(event.target.value)}
-                placeholder="Any"
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-end gap-3">
-            <label className="inline-flex cursor-pointer items-center gap-2 text-sm text-dark-text">
-              <input
-                type="checkbox"
-                checked={inStockOnly}
-                onChange={(event) => updateAvailability(event.target.checked)}
-                className="size-4 accent-olive-deep"
-              />
-              In stock only
-            </label>
-            {hasFilters ? (
               <button
                 type="button"
                 onClick={clearAll}
-                className="inline-flex items-center gap-1.5 self-start text-xs font-medium text-olive-deep underline-offset-4 hover:underline"
+                className={cn(
+                  buttonStyles({ variant: "ghost", size: "md" }),
+                  "gap-1.5 text-leaf",
+                )}
               >
                 <RotateCcw className="size-3.5" aria-hidden="true" />
-                Clear all filters
+                Clear all
               </button>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
         </div>
       </div>
+
+      {/* Mobile: chips stay visible above the grid after the sheet closes. */}
+      {activeChips.length > 0 ? (
+        <div className="mb-4 flex flex-wrap items-center gap-2 lg:hidden">
+          {activeChips.map((chip) => (
+            <button
+              key={chip.key}
+              type="button"
+              onClick={chip.onRemove}
+              aria-label={`Remove filter: ${chip.label}`}
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-sage-light bg-cream px-3 text-sm text-ink-soft"
+            >
+              {chip.label}
+              <X className="size-3.5 text-ink-soft" aria-hidden="true" />
+            </button>
+          ))}
+          <button
+            type="button"
+            onClick={clearAll}
+            className="inline-flex min-h-11 items-center gap-1.5 px-2 text-sm font-medium text-leaf underline-offset-4 hover:underline"
+          >
+            <RotateCcw className="size-3.5" aria-hidden="true" />
+            Clear all
+          </button>
+        </div>
+      ) : null}
 
       <h2 className="sr-only">Products</h2>
 
       {results.length > 0 ? (
         <>
-          <ProductGrid products={results.slice(0, visible)} />
+          <ProductGrid
+            products={results.slice(0, visible)}
+            skeletonCount={loadingMore ? Math.min(pageSize, results.length - visible) : 0}
+          />
           {visible < results.length ? (
             <div className="mt-10 flex justify-center">
               <button
                 type="button"
-                onClick={() => setVisible((count) => count + pageSize)}
+                onClick={loadMore}
+                disabled={loadingMore}
                 className={buttonStyles({ variant: "secondary", size: "md" })}
               >
-                Load more products
+                {loadingMore ? "Loading…" : "Load more products"}
               </button>
             </div>
           ) : (
-            <p className="mt-10 text-center text-xs text-taupe">
+            <p className="mt-10 text-center text-xs text-ink-soft">
               Showing all {results.length} products
             </p>
           )}
@@ -363,13 +438,61 @@ export function CatalogBrowser({
       )}
 
       {results.length > 0 ? (
-        <p className="mt-6 text-center text-[11px] text-taupe">
+        <p className="mt-6 text-center text-xs text-ink-soft">
           Prices shown in Bangladeshi Taka. Lowest displayed price:{" "}
-          {formatPrice(
-            Math.min(...results.map((product) => product.salePrice ?? product.regularPrice)),
-          )}
+          {formatPrice(Math.min(...results.map((product) => currentPrice(product))))}
         </p>
       ) : null}
+
+      {/* Mobile bottom sheet. Native <dialog> supplies focus trap, Escape and
+          scroll locking; only the slide-up presentation is custom. */}
+      <dialog
+        ref={sheetRef}
+        aria-labelledby={`${idPrefix}-sheet-title`}
+        data-sheet="true"
+        className="fixed inset-x-0 bottom-0 top-auto m-0 max-h-[88dvh] w-full max-w-none overflow-hidden rounded-t-2xl border-0 bg-cream p-0 text-ink-soft shadow-soft lg:hidden"
+        onClick={(event) => {
+          if (event.target === event.currentTarget) setSheetOpen(false);
+        }}
+      >
+        <div className="flex h-full max-h-[88dvh] flex-col">
+          <div className="flex items-center justify-between gap-4 border-b border-sage-light px-5 py-4">
+            <div>
+              <h2 id={`${idPrefix}-sheet-title`} className="font-display text-2xl">
+                Filter &amp; Sort
+              </h2>
+              <p className="mt-0.5 text-sm text-ink-soft">{countLabel}</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setSheetOpen(false)}
+              aria-label="Close filters"
+              className="inline-flex size-11 shrink-0 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-mist hover:text-ink-soft"
+            >
+              <X className="size-5" aria-hidden="true" />
+            </button>
+          </div>
+
+          <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-5">
+            <CatalogFilterControls
+              {...filterProps}
+              scope="sheet"
+              showSort
+              showSearch={showSearch}
+            />
+          </div>
+
+          <div className="border-t border-sage-light px-5 py-4 pb-[calc(env(safe-area-inset-bottom)+1rem)]">
+            <button
+              type="button"
+              onClick={() => setSheetOpen(false)}
+              className={buttonStyles({ variant: "primary", size: "lg", className: "w-full" })}
+            >
+              Show {countLabel}
+            </button>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 }
